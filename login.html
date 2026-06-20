@@ -465,6 +465,12 @@
      * Supports registration with email verification and classic design
      */
 
+    // Check if auth object is loaded
+    if (typeof auth === 'undefined') {
+        console.error('CRITICAL ERROR: auth object not loaded! Make sure auth-enhanced.js is loaded.');
+        alert('Authentication system failed to load. Please refresh the page.');
+    }
+
     // Check if already logged in
     if (auth && auth.isLoggedIn()) {
         window.location.href = 'dashboard.html';
@@ -509,19 +515,36 @@
         const btn = document.getElementById('loginBtn');
         const originalText = btn.innerHTML;
 
+        // Validate auth object exists
+        if (!auth || typeof auth.login !== 'function') {
+            console.error('ERROR: auth object or login method not available!');
+            showMessage('loginMessage', '✗ System error: Auth system not loaded. Please refresh the page.', 'error');
+            return;
+        }
+
         btn.classList.add('loading');
         btn.innerHTML = 'Signing In<div class="loader"></div>';
 
         setTimeout(() => {
-            const result = auth.login(email, password);
+            try {
+                console.log('Calling login with:', email);
+                const result = auth.login(email, password);
+                console.log('login result:', result);
 
-            if (result.success) {
-                showMessage('loginMessage', '✓ Login successful! Redirecting...', 'success');
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 800);
-            } else {
-                showMessage('loginMessage', result.error, 'error');
+                if (result.success) {
+                    showMessage('loginMessage', '✓ Login successful! Redirecting...', 'success');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 800);
+                } else {
+                    showMessage('loginMessage', result.error, 'error');
+                    btn.classList.remove('loading');
+                    btn.innerHTML = originalText;
+                    console.log('Login error:', result.error);
+                }
+            } catch (e) {
+                console.error('Exception in handleLoginSubmit:', e);
+                showMessage('loginMessage', `✗ Error: ${e.message}`, 'error');
                 btn.classList.remove('loading');
                 btn.innerHTML = originalText;
             }
@@ -545,22 +568,40 @@
             return;
         }
 
+        // Validate auth object exists
+        if (!auth || typeof auth.initiateRegistration !== 'function') {
+            console.error('ERROR: auth object or initiateRegistration method not available!');
+            showMessage('registerMessage', '✗ System error: Auth system not loaded. Please refresh the page.', 'error');
+            return;
+        }
+
         const originalText = btn.innerHTML;
         btn.classList.add('loading');
         btn.innerHTML = 'Creating Account<div class="loader"></div>';
 
         setTimeout(() => {
-            const result = auth.initiateRegistration(email, name, password);
+            try {
+                console.log('Calling initiateRegistration with:', { email, name });
+                const result = auth.initiateRegistration(email, name, password);
+                console.log('initiateRegistration result:', result);
 
-            if (result.success) {
-                currentRegistrationEmail = email;
-                showOTPScreen(email);
-                initializeOTPTimer();
-                setupOTPInputs();
-                btn.classList.remove('loading');
-                btn.innerHTML = originalText;
-            } else {
-                showMessage('registerMessage', `✗ ${result.error}`, 'error');
+                if (result.success) {
+                    currentRegistrationEmail = email;
+                    showOTPScreen(email);
+                    initializeOTPTimer();
+                    setupOTPInputs();
+                    btn.classList.remove('loading');
+                    btn.innerHTML = originalText;
+                    console.log('Registration successful, OTP screen shown');
+                } else {
+                    showMessage('registerMessage', `✗ ${result.error}`, 'error');
+                    btn.classList.remove('loading');
+                    btn.innerHTML = originalText;
+                    console.log('Registration error:', result.error);
+                }
+            } catch (e) {
+                console.error('Exception in handleRegisterSubmit:', e);
+                showMessage('registerMessage', `✗ Error: ${e.message}`, 'error');
                 btn.classList.remove('loading');
                 btn.innerHTML = originalText;
             }
@@ -634,22 +675,39 @@
             return;
         }
 
+        // Validate auth object exists
+        if (!auth || typeof auth.verifyOTP !== 'function') {
+            console.error('ERROR: auth object or verifyOTP method not available!');
+            showMessage('otpMessage', '✗ System error: Auth system not loaded. Please refresh the page.', 'error');
+            return;
+        }
+
         const btn = document.getElementById('verifyBtn');
         const originalText = btn.innerHTML;
         btn.classList.add('loading');
         btn.innerHTML = 'Verifying<div class="loader"></div>';
 
         setTimeout(() => {
-            const result = auth.verifyOTP(currentRegistrationEmail, otp);
+            try {
+                console.log('Calling verifyOTP with:', { email: currentRegistrationEmail, otp });
+                const result = auth.verifyOTP(currentRegistrationEmail, otp);
+                console.log('verifyOTP result:', result);
 
-            if (result.success) {
-                showMessage('otpMessage', '✓ Email verified! Redirecting to dashboard...', 'success');
-                clearInterval(otpTimer);
-                setTimeout(() => {
-                    window.location.href = 'dashboard.html';
-                }, 1000);
-            } else {
-                showMessage('otpMessage', `✗ ${result.error}`, 'error');
+                if (result.success) {
+                    showMessage('otpMessage', '✓ Email verified! Redirecting to dashboard...', 'success');
+                    clearInterval(otpTimer);
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    showMessage('otpMessage', `✗ ${result.error}`, 'error');
+                    btn.classList.remove('loading');
+                    btn.innerHTML = originalText;
+                    console.log('OTP error:', result.error);
+                }
+            } catch (e) {
+                console.error('Exception in handleOTPSubmit:', e);
+                showMessage('otpMessage', `✗ Error: ${e.message}`, 'error');
                 btn.classList.remove('loading');
                 btn.innerHTML = originalText;
             }
@@ -661,19 +719,35 @@
         const originalText = btn.textContent;
         btn.disabled = true;
 
-        setTimeout(() => {
-            const result = auth.resendOTP(currentRegistrationEmail);
+        // Validate auth object exists
+        if (!auth || typeof auth.resendOTP !== 'function') {
+            console.error('ERROR: auth object or resendOTP method not available!');
+            showMessage('otpMessage', '✗ System error: Auth system not loaded. Please refresh the page.', 'error');
+            btn.disabled = false;
+            return;
+        }
 
-            if (result.success) {
-                showMessage('otpMessage', result.message, 'success');
-                initializeOTPTimer();
-                document.getElementById('timer').classList.remove('expired');
-                document.getElementById('verifyBtn').disabled = false;
-                const inputs = document.querySelectorAll('.otp-input');
-                inputs.forEach(input => input.value = '');
-                inputs[0].focus();
-            } else {
-                showMessage('otpMessage', result.error, 'error');
+        setTimeout(() => {
+            try {
+                console.log('Calling resendOTP for:', currentRegistrationEmail);
+                const result = auth.resendOTP(currentRegistrationEmail);
+                console.log('resendOTP result:', result);
+
+                if (result.success) {
+                    showMessage('otpMessage', result.message, 'success');
+                    initializeOTPTimer();
+                    document.getElementById('timer').classList.remove('expired');
+                    document.getElementById('verifyBtn').disabled = false;
+                    const inputs = document.querySelectorAll('.otp-input');
+                    inputs.forEach(input => input.value = '');
+                    inputs[0].focus();
+                } else {
+                    showMessage('otpMessage', result.error, 'error');
+                    btn.disabled = false;
+                }
+            } catch (e) {
+                console.error('Exception in handleResendOTP:', e);
+                showMessage('otpMessage', `✗ Error: ${e.message}`, 'error');
                 btn.disabled = false;
             }
         }, 600);
