@@ -3,10 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>CryptoTab Admin - Global Control Command</title>
+    <title>CrowdMine Investment - Admin Control Panel</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
     <style>
         :root {
             --bg-color: #030308;
@@ -118,13 +119,15 @@
 
     <div class="admin-wrapper">
         <aside class="sidebar">
-            <div class="sidebar-brand">ADMIN CONTROL</div>
+            <div class="sidebar-brand">CROWDMINE<br>ADMIN</div>
             <nav style="display: flex; flex-direction: column; gap: 5px;">
                 <div onclick="showTab('dashboard')" class="nav-item active" id="nav-dashboard">Overview</div>
                 <div onclick="showTab('users')" class="nav-item" id="nav-users">User Registry</div>
                 <div onclick="showTab('kyc')" class="nav-item" id="nav-kyc">KYC Requests</div>
                 <div onclick="showTab('support')" class="nav-item" id="nav-support">Support Tickets</div>
                 <div onclick="showTab('logs')" class="nav-item" id="nav-logs">System Logs</div>
+                <hr style="border: none; border-top: 1px solid var(--glass-border); margin: 20px 0;">
+                <div onclick="adminLogout()" class="nav-item" style="color: var(--accent-red);">LOGOUT</div>
             </nav>
         </aside>
 
@@ -255,6 +258,25 @@
     </div>
 
     <script>
+    
+    // Admin Authentication Check
+    (function() {
+        // Check if user is logged in as admin
+        const adminPassword = 'admin@crowdmine2026';
+        const adminSession = localStorage.getItem('cm_admin_session');
+        
+        if (!adminSession) {
+            const password = prompt('🔐 ADMIN ACCESS REQUIRED\n\nEnter admin password:');
+            if (password === adminPassword) {
+                localStorage.setItem('cm_admin_session', 'true');
+            } else {
+                alert('❌ Access Denied: Invalid admin password');
+                window.location.href = 'index.html';
+                return;
+            }
+        }
+    })();
+    
     function showTab(tabId) {
         document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
         document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -474,6 +496,13 @@
         document.getElementById('modalImg').src = src;
         document.getElementById('modalCap').innerText = 'KYC Document: ' + caption;
         document.getElementById('imageModal').style.display = 'flex';
+    }
+    
+    function adminLogout() {
+        if (confirm('Are you sure you want to logout?')) {
+            localStorage.removeItem('cm_admin_session');
+            window.location.href = 'index.html';
+        }
     }
 
     setInterval(() => {
