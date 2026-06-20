@@ -2,288 +2,206 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     <title>CrowdMine Investment | Login & Signup</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../dashboard-theme.css">
-    
-    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../dashboard-theme.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="auth.js"></script>
     
-    <!-- EmailJS SDK -->
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-    <!-- 
-    ========================================================================
-    HOW TO SET UP EMAILJS (FREE):
-    1. Go to https://www.emailjs.com/ and create a free account
-    2. Add an Email Service (e.g. Gmail) and get your SERVICE_ID
-    3. Create an Email Template. 
-       - Subject: "Your Login Code"
-       - Content: "Your 6-digit login code is: {{otp}}" 
-       - Get your TEMPLATE_ID
-    4. Go to Account -> API Keys to get your PUBLIC_KEY
-    5. Paste them below in the script tag where it says "REPLACE WITH YOUR..."
-    ========================================================================
-    -->
-
     <style>
-        :root {
-            --bg-color: var(--bg);
-            --card-bg: var(--surface);
-            --primary: var(--orange);
-            --primary-hover: #e07f0f;
-            --text-light: var(--text);
-            --text-muted: var(--muted);
-            --border: var(--border2);
-            --error: var(--red);
-            --success: var(--green);
-            --input-bg: rgba(255,255,255,0.03);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: var(--font, 'Inter', sans-serif);
-        }
-
         body {
-            background-color: var(--bg-color);
-            color: var(--text-light);
+            background: var(--bg);
+            color: var(--text);
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            overflow: hidden;
-            /* Using the global noise via body::before from dashboard-theme.css */
+            padding: 20px;
         }
 
         .container {
             width: 100%;
             max-width: 420px;
-            perspective: 1000px;
-            padding: 20px;
         }
 
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: var(--surface);
+            border: 1px solid var(--border2);
             border-radius: 16px;
-            padding: 40px 30px;
+            padding: 20px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             position: relative;
             overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            transform-style: preserve-3d;
         }
 
-        .screen {
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            padding: 40px 30px;
-            display: flex;
-            flex-direction: column;
-            opacity: 0;
-            pointer-events: none;
-            transform: translateX(50px);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .screen.active {
-            position: relative;
-            opacity: 1;
-            pointer-events: auto;
-            transform: translateX(0);
-        }
-
-        .screen.exit-left {
-            transform: translateX(-50px);
+        @media (min-width: 640px) {
+            .card {
+                padding: 40px 30px;
+            }
         }
 
         .logo {
             text-align: center;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--orange);
             margin-bottom: 8px;
+        }
+
+        @media (min-width: 640px) {
+            .logo {
+                font-size: 28px;
+            }
         }
 
         h2 {
             text-align: center;
-            font-size: 24px;
+            font-size: 20px;
             margin-bottom: 10px;
+            color: var(--text);
         }
 
-        p.subtitle {
+        @media (min-width: 640px) {
+            h2 {
+                font-size: 24px;
+            }
+        }
+
+        .subtitle {
             text-align: center;
-            color: var(--text-muted);
-            font-size: 14px;
+            color: var(--muted);
+            font-size: 13px;
             margin-bottom: 30px;
-            line-height: 1.5;
         }
 
         .form-group {
-            margin-bottom: 24px;
+            margin-bottom: 16px;
         }
 
-        input[type="email"] {
+        label {
+            display: block;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        input[type="text"] {
             width: 100%;
-            padding: 14px 16px;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
+            padding: 12px 14px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border2);
             border-radius: 8px;
             color: white;
-            font-size: 16px;
+            font-size: 14px;
             outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
+            font-family: var(--font);
         }
 
-        input[type="email"]:focus {
-            border-color: var(--primary);
+        input:focus {
+            border-color: var(--orange);
+            background: rgba(255,255,255,0.08);
             box-shadow: 0 0 0 3px rgba(247,147,26,0.1);
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
-            background: var(--primary);
+            padding: 12px;
+            background: linear-gradient(135deg, var(--orange), #e07f0f);
             color: #000;
             border: none;
             border-radius: 8px;
-            font-size: 16px;
             font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
-            transition: background 0.2s, transform 0.2s;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .btn:hover {
-            background: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(247,147,26,0.3);
         }
 
         .btn:active {
-            transform: scale(0.98);
+            transform: translateY(0);
         }
 
         .btn:disabled {
-            background: var(--text-muted);
+            opacity: 0.5;
             cursor: not-allowed;
-            transform: none;
         }
 
-        /* OTP Input Styles */
-        .otp-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 8px;
-            margin-bottom: 24px;
-        }
-
-        .otp-input {
-            width: 45px;
-            height: 55px;
-            background: var(--input-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+        .form-footer {
             text-align: center;
-            font-size: 24px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        .form-footer a {
+            color: var(--orange);
+            text-decoration: none;
+            cursor: pointer;
             font-weight: 600;
-            color: white;
-            outline: none;
-            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        .otp-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(247,147,26,0.1);
+        .form-footer a:hover {
+            text-decoration: underline;
         }
 
-        /* Loader */
-        .loader {
+        .message {
+            margin-top: 12px;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            text-align: center;
+            min-height: 20px;
+        }
+
+        .message.error {
+            background: rgba(255,77,77,0.1);
+            color: var(--red);
+            border: 1px solid rgba(255,77,77,0.2);
+        }
+
+        .message.success {
+            background: rgba(0,255,163,0.1);
+            color: var(--green);
+            border: 1px solid rgba(0,255,163,0.2);
+        }
+
+        .hidden {
             display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(0,0,0,0.2);
+        }
+
+        /* Loading state */
+        .btn.loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        .loader {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(0,0,0,0.3);
             border-top-color: #000;
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
+            vertical-align: middle;
+            margin-left: 8px;
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
-        }
-
-        /* Animations */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
-        }
-
-        .shake {
-            animation: shake 0.4s ease-in-out;
-            border-color: var(--error) !important;
-        }
-
-        .success-pulse {
-            border-color: var(--success) !important;
-            box-shadow: 0 0 15px rgba(0,232,122,0.3) !important;
-        }
-
-        /* Timer and Error */
-        .status-text {
-            text-align: center;
-            font-size: 14px;
-            margin-top: 20px;
-            color: var(--text-muted);
-            min-height: 20px;
-        }
-
-        .error-text {
-            color: var(--error);
-        }
-
-        .resend-btn {
-            background: none;
-            border: none;
-            color: var(--primary);
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-            display: none;
-            margin: 10px auto 0;
-        }
-        
-        .resend-btn:hover {
-            text-decoration: underline;
-        }
-
-        /* Success Screen */
-        .success-icon {
-            width: 80px;
-            height: 80px;
-            background: rgba(0,232,122,0.1);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            color: var(--success);
-            font-size: 40px;
-            border: 2px solid var(--success);
-        }
-
-        /* Responsive */
-        @media (max-width: 480px) {
-            .otp-input {
-                width: 40px;
-                height: 50px;
-                font-size: 20px;
-            }
         }
     </style>
 </head>
@@ -292,341 +210,163 @@
 <div class="container">
     <div class="card">
         
-        <!-- Screen 1: Email Input -->
-        <div class="screen active" id="screen-email">
-            <div class="logo">â‚¿ CrowdMine</div>
-            <h2>Login / Create Account</h2>
+        <!-- Login Form -->
+        <div id="loginScreen">
+            <div class="logo">₿ CrowdMine</div>
+            <h2>Login</h2>
+            <p class="subtitle">Access your account</p>
             
-            
-            <form id="emailForm">
+            <form id="loginForm">
                 <div class="form-group">
-                    <input type="email" id="emailInput" placeholder="Enter your email address" required autocomplete="email">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="your@email.com" required autocomplete="email">
                 </div>
-                <button type="submit" class="btn" id="sendBtn">
-                    <span>Send OTP</span>
-                    <div class="loader" id="sendLoader"></div>
-                </button>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••" required autocomplete="current-password">
+                </div>
+                <button type="submit" class="btn" id="loginBtn">Sign In</button>
+                <div id="loginMessage" class="message hidden"></div>
             </form>
-            <div id="emailError" class="status-text error-text"></div>
-        </div>
 
-        <!-- Screen 2: OTP Input -->
-        <div class="screen" id="screen-otp">
-            <div class="logo">â‚¿ CrowdMine</div>
-            <h2>Verify Email</h2>
-            <p class="subtitle">We sent a 6-digit code to <br><strong id="displayEmail"></strong></p>
-            
-            <div class="otp-container" id="otpContainer">
-                <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off">
-                <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off">
-                <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off">
-                <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off">
-                <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off">
-                <input type="text" class="otp-input" maxlength="1" pattern="[0-9]" inputmode="numeric" autocomplete="off">
+            <div class="form-footer">
+                Don't have an account? <a onclick="toggleForms()">Create One</a>
             </div>
-
-            <button class="btn" id="verifyBtn" disabled>
-                <span>Verify Code</span>
-                <div class="loader" id="verifyLoader"></div>
-            </button>
-            
-            <div class="status-text" id="timerText">Code expires in 10:00</div>
-            <button class="resend-btn" id="resendBtn">Resend OTP</button>
         </div>
 
-        <!-- Screen 3: Success -->
-        <div class="screen" id="screen-success">
-            <div class="success-icon">âœ“</div>
-            <h2>Authentication Successful</h2>
-            <p class="subtitle">Securely redirecting to your mining dashboard...</p>
-            <div class="loader" style="display: block; margin: 0 auto; border-top-color: var(--success)"></div>
+        <!-- Register Form -->
+        <div id="registerScreen" class="hidden">
+            <div class="logo">₿ CrowdMine</div>
+            <h2>Create Account</h2>
+            <p class="subtitle">Join thousands of miners</p>
+            
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="registerName" placeholder="John Doe" required autocomplete="name">
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="registerEmail" placeholder="your@email.com" required autocomplete="email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="registerPassword" placeholder="••••••••" required autocomplete="new-password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="registerConfirm" placeholder="••••••••" required autocomplete="new-password">
+                </div>
+                <button type="submit" class="btn" id="registerBtn">Create Account</button>
+                <div id="registerMessage" class="message hidden"></div>
+            </form>
+
+            <div class="form-footer">
+                Already have an account? <a onclick="toggleForms()">Login</a>
+            </div>
         </div>
 
     </div>
 </div>
 
 <script>
-    /* ========================================================================
-       EMAILJS CONFIGURATION
-       ======================================================================== */
-    const EMAILJS_PUBLIC_KEY = 'boJo-RgyxV-awJb4F';
-    const EMAILJS_SERVICE_ID = 'service_ct2r3y9';
-    const EMAILJS_TEMPLATE_ID = 'template_cf5cmny';
+    /**
+     * CrowdMine Authentication System
+     */
 
-    // Initialize EmailJS
-    emailjs.init(EMAILJS_PUBLIC_KEY);
-
-    /* ========================================================================
-       STATE & VARIABLES
-       ======================================================================== */
-    let currentEmail = '';
-    let generatedOTP = '';
-    let expiryTime = null;
-    let timerInterval = null;
-    let attempts = 0;
-    const MAX_ATTEMPTS = 3;
-
-    // DOM Elements
-    const screenEmail = document.getElementById('screen-email');
-    const screenOtp = document.getElementById('screen-otp');
-    const screenSuccess = document.getElementById('screen-success');
-    
-    const emailForm = document.getElementById('emailForm');
-    const emailInput = document.getElementById('emailInput');
-    const sendBtn = document.getElementById('sendBtn');
-    const sendBtnText = sendBtn.querySelector('span');
-    const sendLoader = document.getElementById('sendLoader');
-    const emailError = document.getElementById('emailError');
-    
-    const otpInputs = document.querySelectorAll('.otp-input');
-    const verifyBtn = document.getElementById('verifyBtn');
-    const verifyLoader = document.getElementById('verifyLoader');
-    const timerText = document.getElementById('timerText');
-    const resendBtn = document.getElementById('resendBtn');
-    const displayEmail = document.getElementById('displayEmail');
-
-    /* ========================================================================
-       LOGIC: Generate & Send OTP
-       ======================================================================== */
-    function generateSecureOTP() {
-        const array = new Uint32Array(1);
-        window.crypto.getRandomValues(array);
-        // Ensure 6 digits
-        return (array[0] % 900000 + 100000).toString();
+    // Toggle between login and register forms
+    function toggleForms() {
+        const loginScreen = document.getElementById('loginScreen');
+        const registerScreen = document.getElementById('registerScreen');
+        loginScreen.classList.toggle('hidden');
+        registerScreen.classList.toggle('hidden');
+        
+        // Clear messages
+        document.getElementById('loginMessage').classList.add('hidden');
+        document.getElementById('registerMessage').classList.add('hidden');
     }
 
-    emailForm.addEventListener('submit', async (e) => {
+    // Show message
+    function showMessage(elementId, message, isError = false) {
+        const messageEl = document.getElementById(elementId);
+        messageEl.textContent = message;
+        messageEl.className = 'message ' + (isError ? 'error' : 'success');
+        messageEl.classList.remove('hidden');
+    }
+
+    // Login Form Handler
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
         e.preventDefault();
-        const email = emailInput.value.trim();
-        if (!email) return;
-
-        // Reset state
-        currentEmail = email;
-        emailError.textContent = '';
-        attempts = 0;
         
-        // UI Loading
-        sendBtn.disabled = true;
-        sendBtnText.textContent = 'Sending...';
-        sendLoader.style.display = 'block';
-
-        generatedOTP = generateSecureOTP();
-        console.log("DEV ONLY - OTP is: ", generatedOTP); // For testing purposes
-
-        // 10 minutes expiry
-        expiryTime = new Date(new Date().getTime() + 10 * 60000); 
-
-        try {
-            // Attempt to send email
-            // Make sure you have entered your PUBLIC_KEY, SERVICE_ID, and TEMPLATE_ID above!
-            await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-                email: currentEmail,
-                name: "Valued Miner",
-                otp: generatedOTP
-            });
+        const email = document.getElementById('loginEmail').value.trim();
+        const password = document.getElementById('loginPassword').value;
+        const btn = document.getElementById('loginBtn');
+        
+        btn.classList.add('loading');
+        btn.innerHTML = 'Signing In... <div class="loader"></div>';
+        
+        setTimeout(() => {
+            const result = auth.login(email, password);
             
-            showOtpScreen();
-        } catch (error) {
-            console.error("EmailJS Error:", error);
-            const errDetail = error.text || error.message || "Unknown error";
-            emailError.textContent = 'Error: ' + errDetail + ' (Check console for more info)';
-        } finally {
-            sendBtn.disabled = false;
-            sendBtnText.textContent = 'Send OTP';
-            sendLoader.style.display = 'none';
-        }
+            if (result.success) {
+                showMessage('loginMessage', 'Login successful! Redirecting...', false);
+                setTimeout(() => {
+                    const redirect = new URLSearchParams(window.location.search).get('redirect');
+                    window.location.href = redirect || 'dashboard.html';
+                }, 800);
+            } else {
+                showMessage('loginMessage', result.error, true);
+                btn.classList.remove('loading');
+                btn.innerHTML = 'Sign In';
+            }
+        }, 600);
     });
 
-    /* ========================================================================
-       LOGIC: OTP Input Handling
-       ======================================================================== */
-    otpInputs.forEach((input, index) => {
-        input.addEventListener('input', (e) => {
-            // Allow only numbers
-            input.value = input.value.replace(/[^0-9]/g, '');
-            
-            if (input.value !== '') {
-                // Move to next input
-                if (index < otpInputs.length - 1) {
-                    otpInputs[index + 1].focus();
-                }
-            }
-            checkOtpComplete();
-        });
-
-        input.addEventListener('keydown', (e) => {
-            if (e.key === 'Backspace' && input.value === '') {
-                // Move to prev input on backspace
-                if (index > 0) {
-                    otpInputs[index - 1].focus();
-                }
-            }
-        });
+    // Register Form Handler
+    document.getElementById('registerForm').addEventListener('submit', function(e) {
+        e.preventDefault();
         
-        // Paste handling
-        input.addEventListener('paste', (e) => {
-            e.preventDefault();
-            const pastedData = e.clipboardData.getData('text').replace(/[^0-9]/g, '').slice(0, 6);
-            if (pastedData.length > 0) {
-                for (let i = 0; i < pastedData.length; i++) {
-                    if (i < otpInputs.length) {
-                        otpInputs[i].value = pastedData[i];
-                    }
-                }
-                const focusIndex = Math.min(pastedData.length, 5);
-                otpInputs[focusIndex].focus();
-                checkOtpComplete();
-            }
-        });
-    });
-
-    function checkOtpComplete() {
-        const isComplete = Array.from(otpInputs).every(input => input.value !== '');
-        verifyBtn.disabled = !isComplete;
-    }
-
-    function getOtpValue() {
-        return Array.from(otpInputs).map(input => input.value).join('');
-    }
-
-    function clearOtpInputs() {
-        otpInputs.forEach(input => input.value = '');
-        verifyBtn.disabled = true;
-        otpInputs[0].focus();
-    }
-
-    /* ========================================================================
-       LOGIC: Verification
-       ======================================================================== */
-    verifyBtn.addEventListener('click', () => {
-        const enteredOtp = getOtpValue();
+        const name = document.getElementById('registerName').value.trim();
+        const email = document.getElementById('registerEmail').value.trim();
+        const password = document.getElementById('registerPassword').value;
+        const confirm = document.getElementById('registerConfirm').value;
+        const btn = document.getElementById('registerBtn');
         
-        if (new Date() > expiryTime) {
-            timerText.textContent = "OTP Expired. Please resend.";
-            timerText.className = "status-text error-text";
+        // Validate
+        if (password !== confirm) {
+            showMessage('registerMessage', 'Passwords do not match', true);
             return;
         }
-
-        verifyBtn.disabled = true;
-        verifyLoader.style.display = 'block';
-        const verifyBtnText = verifyBtn.querySelector('span');
-        verifyBtnText.textContent = 'Verifying...';
-
+        
+        btn.classList.add('loading');
+        btn.innerHTML = 'Creating Account... <div class="loader"></div>';
+        
         setTimeout(() => {
-            verifyLoader.style.display = 'none';
-            verifyBtnText.textContent = 'Verify Code';
+            const result = auth.register(email, password, name);
             
-            if (enteredOtp === generatedOTP) {
-                // Success
-                otpInputs.forEach(input => input.classList.add('success-pulse'));
-                setTimeout(showSuccessScreen, 500);
+            if (result.success) {
+                showMessage('registerMessage', result.message, false);
+                setTimeout(() => {
+                    // Auto-login after registration
+                    const loginResult = auth.login(email, password);
+                    if (loginResult.success) {
+                        const redirect = new URLSearchParams(window.location.search).get('redirect');
+                        window.location.href = redirect || 'dashboard.html';
+                    }
+                }, 1200);
             } else {
-                // Fail
-                attempts++;
-                otpInputs.forEach(input => {
-                    input.classList.remove('shake');
-                    // force reflow
-                    void input.offsetWidth;
-                    input.classList.add('shake');
-                    input.value = '';
-                });
-                otpInputs[0].focus();
-                
-                if (attempts >= MAX_ATTEMPTS) {
-                    timerText.textContent = "Maximum attempts reached. Please resend OTP.";
-                    timerText.className = "status-text error-text";
-                    otpInputs.forEach(input => input.disabled = true);
-                    verifyBtn.disabled = true;
-                } else {
-                    timerText.textContent = `Incorrect code. ${MAX_ATTEMPTS - attempts} attempts left.`;
-                    timerText.className = "status-text error-text";
-                    checkOtpComplete();
-                }
+                showMessage('registerMessage', result.error, true);
+                btn.classList.remove('loading');
+                btn.innerHTML = 'Create Account';
             }
-        }, 800); // Simulate verification delay
+        }, 600);
     });
 
-    /* ========================================================================
-       LOGIC: Timers & UI Transitions
-       ======================================================================== */
-    function showOtpScreen() {
-        displayEmail.textContent = currentEmail;
-        screenEmail.classList.add('exit-left');
-        screenEmail.classList.remove('active');
-        
-        screenOtp.classList.add('active');
-        clearOtpInputs();
-        
-        // Reset and start timers
-        attempts = 0;
-        otpInputs.forEach(input => input.disabled = false);
-        timerText.className = "status-text";
-        resendBtn.style.display = 'none';
-        
-        startExpiryTimer();
-        startResendTimer();
+    // If already logged in, redirect to dashboard
+    if (auth && auth.isLoggedIn()) {
+        window.location.href = 'dashboard.html';
     }
-
-    function showSuccessScreen() {
-        // Clear memory
-        generatedOTP = null;
-        clearInterval(timerInterval);
-
-        screenOtp.classList.add('exit-left');
-        screenOtp.classList.remove('active');
-        
-        screenSuccess.classList.add('active');
-
-        // Redirect after success
-        setTimeout(() => {
-            window.location.href = 'dashboard.html';
-        }, 2000);
-    }
-
-    function startExpiryTimer() {
-        clearInterval(timerInterval);
-        
-        function updateTimer() {
-            const now = new Date();
-            const diff = expiryTime - now;
-            
-            if (diff <= 0) {
-                clearInterval(timerInterval);
-                timerText.textContent = "Code expired";
-                timerText.className = "status-text error-text";
-                otpInputs.forEach(input => input.disabled = true);
-                verifyBtn.disabled = true;
-                return;
-            }
-            
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            timerText.textContent = `Code expires in ${minutes}:${seconds.toString().padStart(2, '0')}`;
-        }
-        
-        updateTimer();
-        timerInterval = setInterval(updateTimer, 1000);
-    }
-
-    function startResendTimer() {
-        let resendDelay = 60; // 60 seconds before resend allowed
-        const initialText = timerText.textContent;
-        
-        const resendInt = setInterval(() => {
-            resendDelay--;
-            if (resendDelay <= 0) {
-                clearInterval(resendInt);
-                resendBtn.style.display = 'block';
-            }
-        }, 1000);
-    }
-
-    resendBtn.addEventListener('click', () => {
-        // Trigger the form submit again to resend
-        emailForm.dispatchEvent(new Event('submit'));
-    });
-
 </script>
+
 </body>
 </html>
-
