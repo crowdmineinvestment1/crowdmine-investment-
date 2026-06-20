@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <title>CryptoTab Farm Miner - Install your first miner and start earning</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+        body { background-color: #fff; color: #333; overflow-x: hidden; line-height: 1.6; }
+
+        /* Sticky Nav */
+        .sticky-nav { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
+            background: #fff; 
+            height: 60px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); 
+            z-index: 1000;
+            padding: 0 20px;
+        }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { text-decoration: none; color: #3b82f6; font-weight: 700; font-size: 14px; text-transform: uppercase; transition: 0.2s; border-bottom: 2px solid transparent; padding: 5px 0; }
+        .nav-links a:hover, .nav-links a.active { color: #333; border-bottom-color: #f7931a; }
+
+        /* Hero */
+        .miner-hero { 
+            background: radial-gradient(circle at 80% 20%, #1a1a1a 0%, #000 60%); 
+            padding: 120px 20px 80px; 
+            color: #fff; 
+            text-align: center;
+            position: relative;
+        }
+        .miner-hero h1 { font-size: 48px; font-weight: 900; margin-bottom: 20px; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .miner-hero p { color: #9ca3af; max-width: 700px; margin: 0 auto 40px; font-size: 16px; }
+        .download-btns { display: flex; justify-content: center; gap: 20px; }
+        .btn-dl { background: #3b82f6; color: #fff; padding: 15px 35px; border-radius: 8px; text-decoration: none; font-weight: 800; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-dl:hover { background: #2563eb; transform: translateY(-2px); }
+        .btn-dl.mac { background: #111; border: 1px solid #333; }
+
+        /* Content Sections */
+        .section { padding: 80px 20px; max-width: 1100px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header img { width: 64px; margin-bottom: 20px; }
+        .section-header h2 { font-size: 32px; font-weight: 800; margin-bottom: 15px; }
+
+        .feature-row { display: flex; align-items: center; gap: 60px; margin-bottom: 100px; }
+        .feature-row:nth-child(even) { flex-direction: row-reverse; }
+        .feature-text { flex: 1; }
+        .feature-img { flex: 1; text-align: center; }
+        .feature-img img { width: 100%; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+        .feature-text h3 { font-size: 28px; font-weight: 800; margin-bottom: 20px; }
+        .feature-text p { color: #6b7280; font-size: 16px; margin-bottom: 30px; }
+
+        /* Step Grid */
+        .step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; margin-top: 60px; }
+        .step-item { padding: 30px; background: #fff; border: 1px solid #eee; border-radius: 12px; }
+        .step-icon { font-size: 32px; color: #f7931a; margin-bottom: 20px; }
+        .step-item h4 { font-size: 14px; font-weight: 800; margin-bottom: 10px; }
+
+        /* Video Section */
+        .video-box { background: #000; color: #fff; border-radius: 20px; padding: 60px; text-align: center; margin-top: 40px; position: relative; overflow: hidden; }
+        .video-content { position: relative; z-index: 2; }
+        .play-btn { width: 80px; height: 80px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; cursor: pointer; color: #000; font-size: 24px; }
+
+        /* Footer */
+        footer { background: #000; color: #fff; padding: 80px 20px 40px; }
+        .footer-container { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+        .f-col h4 { color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 20px; }
+        .f-col ul { list-style: none; }
+        .f-col ul li { margin-bottom: 12px; }
+        .f-col ul a { color: #fff; text-decoration: none; font-size: 14px; transition: 0.2s; }
+        .f-col ul a:hover { color: #f7931a; }
+
+        .f-bottom { border-top: 1px solid #222; margin-top: 60px; padding-top: 40px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: #4b5563; }
+        
+        @media (max-width: 768px) {
+            .feature-row { flex-direction: column !important; text-align: center; }
+            .miner-hero h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sticky-nav">
+        <div class="nav-links">
+            <a href="../index.html">FARM</a>
+            <a href="index.html" class="active">MINER</a>
+            <a href="../../subscriptions.html">POOL MINERS</a>
+            <a href="../faq/index.html">FAQ</a>
+            <a href="../feedback/index.html">SUPPORT</a>
+            <a href="../../app.cryptotab.farm/index.html" style="background:#3b82f6; color:#fff; padding:8px 20px; border-radius:4px;">WEB VERSION</a>
+        </div>
+    </nav>
+
+    <header class="miner-hero">
+        <h1>Install your first miner and start earning</h1>
+        <p>Make your computer generate long-term income. Easily install and set up mining tools on your computer for free, get profit and continue with CryptoTab Farm – a powerful service to build and remote control a personal mining farm at any scale.</p>
+        <div class="download-btns">
+            <a href="#" class="btn-dl">FOR WINDOWS</a>
+            <a href="#" class="btn-dl mac">FOR MAC</a>
+        </div>
+    </header>
+
+    <div class="section">
+        <div class="section-header">
+            <div style="font-size: 40px; color: #3b82f6; margin-bottom: 20px;">⚙️</div>
+            <h2>Handy solution for the most efficient mining results</h2>
+            <p>Learn how CryptoTab Farm works and make your computer a source of passive income.</p>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>Two-click installation, the instant start of mining</h3>
+                <p>Install free mining software on your Windows and macOS PC or laptop. Start mining without investments and get a constant profit from your device!</p>
+            </div>
+            <div class="feature-img">
+                <img src="https://cryptotab.farm/static/ctfarm_landing/images/miner/screen-1.png" alt="Installation">
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>Mining schedule and speed setup</h3>
+                <p>Create a mining schedule and adapt it to your needs. Adjust your mining speed to have maximum revenue! Your PC will automatically mine according to the specified schedule and bring you income!</p>
+            </div>
+            <div class="feature-img">
+                <img src="https://cryptotab.farm/static/ctfarm_landing/images/miner/screen-2.png" alt="Schedule">
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>Detailed and up-to-date statistics</h3>
+                <p>Find out what is happening with your mining through the activity log. Everything you need to know is right at your fingertips – balance, CPU threads used, overheating protection.</p>
+            </div>
+            <div class="feature-img">
+                <img src="https://cryptotab.farm/static/ctfarm_landing/images/miner/screen-3.png" alt="Stats">
+            </div>
+        </div>
+
+        <div class="feature-row">
+            <div class="feature-text">
+                <h3>Connect the miner to the farm using a QR code</h3>
+                <p>Expand your farm in a matter of seconds — just scan the QR code with your phone and connect your PC to the farm! Easy, fast, and very convenient!</p>
+                <a href="../../app.cryptotab.farm/index.html" class="btn-dl" style="display:inline-block;">TRY NOW</a>
+            </div>
+            <div class="feature-img">
+                <img src="https://cryptotab.farm/static/ctfarm_landing/images/miner/screen-4.png" alt="QR Code">
+            </div>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f9fafb; border-radius: 30px;">
+        <div class="section-header">
+            <h2>How to start mining on your computer</h2>
+            <p>You can quickly start mining with your computer for free and connect it to your farm later at any time.</p>
+        </div>
+        <div class="step-grid">
+            <div class="step-item">
+                <div class="step-icon">📥</div>
+                <h4>Download and install free miner tool</h4>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">⚡</div>
+                <h4>Adjust mining speed and schedule</h4>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">🔗</div>
+                <h4>Connect to your farm dashboard</h4>
+            </div>
+            <div class="step-item">
+                <div class="step-icon">💰</div>
+                <h4>Withdraw earnings and enjoy</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="video-box">
+            <div class="video-content">
+                <div class="play-btn">▶</div>
+                <h2 style="color:#fff;">What is CryptoTab Farm?</h2>
+                <p style="color:#9ca3af;">Check quick video overview! A quick guide on how to set up a farm and start mining.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-container">
+            <div class="f-col">
+                <h4>General</h4>
+                <ul>
+                    <li><a href="../index.html">Overview Farm</a></li>
+                    <li><a href="index.html">Overview Miner</a></li>
+                    <li><a href="../faq/index.html">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>Additional</h4>
+                <ul>
+                    <li><a href="#">Terms of Use</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Useful Tips</a></li>
+                </ul>
+            </div>
+            <div class="f-col">
+                <h4>Stay Connected</h4>
+                <ul>
+                    <li><a href="#">Telegram</a></li>
+                    <li><a href="#">Discord</a></li>
+                    <li><a href="../feedback/index.html">Support</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="f-bottom">
+            <div>© 2026 CryptoTab Farm. All rights reserved.</div>
+            <div>Estonia, Tartu 50104</div>
+        </div>
+    </footer>
+
+</body>
+</html>

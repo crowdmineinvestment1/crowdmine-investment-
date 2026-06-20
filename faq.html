@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>CryptoTab Farm - FAQ & Knowledge Base</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0f;
+            --accent-cyan: #00d4ff;
+            --accent-orange: #f7931a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #blockchainCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.3;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 24px; color: var(--accent-cyan); text-decoration: none; }
+        .logo span { color: var(--accent-orange); }
+
+        nav { display: flex; gap: 30px; }
+        nav a { color: var(--text-dim); text-decoration: none; font-weight: 600; font-size: 14px; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        .faq-hero { padding: 150px 0 60px; text-align: center; }
+        .faq-hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .faq-section { margin-bottom: 40px; }
+        .faq-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .faq-card:hover { border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
+        .faq-card h3 { font-family: 'Orbitron', sans-serif; font-size: 20px; color: var(--accent-cyan); margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; }
+        .faq-card p { color: var(--text-dim); font-size: 16px; }
+
+        .search-box {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 15px 30px;
+            border-radius: 50px;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 60px;
+            display: flex;
+            align-items: center;
+        }
+        .search-box input {
+            background: transparent;
+            border: none;
+            color: white;
+            flex: 1;
+            font-size: 18px;
+            outline: none;
+            padding-left: 15px;
+        }
+
+        footer { padding: 60px 0; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-dim); }
+    </style>
+    <link rel="stylesheet" href="../shared-enhancements.css">
+</head>
+<body>
+
+    <canvas id="blockchainCanvas"></canvas>
+
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">CRYPTOTAB <span>FARM</span></a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="miner.html">Miner</a>
+                <a href="faq.html" class="active">FAQ</a>
+                <a href="dashboard.html">Dashboard</a>
+            </nav>
+            <a href="login.html" style="background: var(--accent-cyan); color: #000; padding: 8px 20px; border-radius: 6px; font-weight: 800; text-decoration: none;">LOGIN</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="faq-hero">
+            <h1>Frequently Asked Questions</h1>
+            <p style="color: var(--text-dim); margin-bottom: 40px;">Find answers to all your questions about mining, hardware, and profit.</p>
+            <div class="search-box">
+                <span>ðŸ”</span>
+                <input type="text" placeholder="Search for answers...">
+            </div>
+        </section>
+
+        <div class="faq-section">
+            <div class="faq-card">
+                <h3>What is CryptoTab Farm? <span>+</span></h3>
+                <p>CryptoTab Farm is a powerful tool that allows you to turn your idle computer power into Bitcoin profit. It manages your mining hardware and provides a unified dashboard for all your devices.</p>
+            </div>
+            <div class="faq-card">
+                <h3>How do I start mining? <span>+</span></h3>
+                <p>Simply download the miner software for your OS (Windows/Mac), install it, and connect it to your account using the QR code in your dashboard.</p>
+            </div>
+            <div class="faq-card">
+                <h3>What are Pool Miners? <span>+</span></h3>
+                <p>Pool Miners are cloud-based virtual mining machines that allow you to earn BTC without owning any physical hardware. They are perfect for users without a PC.</p>
+            </div>
+            <div class="faq-card">
+                <h3>Is there a minimum withdrawal? <span>+</span></h3>
+                <p>Yes, the minimum withdrawal is 0.00001 BTC. Withdrawals are processed instantly to your wallet with zero network fees.</p>
+            </div>
+            <div class="faq-card">
+                <h3>How much can I earn? <span>+</span></h3>
+                <p>Your earnings depend on your hardware power (hashrate) and the time your devices spend mining. You can increase profit by adding more miners or inviting friends.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CryptoTab Farm. All rights reserved. Knowledge Base.</p>
+    </footer>
+
+    <script>
+        // Blockchain Animation
+        const canvas = document.getElementById('blockchainCanvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<40; i++) points.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
+        }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#f7931a';
+            ctx.strokeStyle = 'rgba(247,147,26,0.1)';
+            points.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
+                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+                points.forEach(p2 => {
+                    const d = Math.hypot(p.x-p2.x, p.y-p2.y);
+                    if(d<150) { ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); }
+                });
+            });
+            requestAnimationFrame(draw);
+        }
+        window.addEventListener('resize', init);
+        init(); draw();
+
+        // FAQ Accordion Toggle
+        document.querySelectorAll('.faq-card').forEach(card => {
+            const answer = card.querySelector('p');
+            const toggle = card.querySelector('h3 span');
+            // Initially collapse answers
+            answer.style.maxHeight = '0';
+            answer.style.overflow = 'hidden';
+            answer.style.transition = 'max-height 0.4s ease, padding 0.4s ease, opacity 0.4s ease';
+            answer.style.opacity = '0';
+            answer.style.paddingTop = '0';
+            
+            card.addEventListener('click', () => {
+                const isOpen = card.classList.contains('faq-open');
+                // Close all
+                document.querySelectorAll('.faq-card').forEach(c => {
+                    c.classList.remove('faq-open');
+                    const p = c.querySelector('p');
+                    const t = c.querySelector('h3 span');
+                    p.style.maxHeight = '0';
+                    p.style.opacity = '0';
+                    p.style.paddingTop = '0';
+                    if (t) t.textContent = '+';
+                });
+                // Toggle current
+                if (!isOpen) {
+                    card.classList.add('faq-open');
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    answer.style.opacity = '1';
+                    answer.style.paddingTop = '15px';
+                    if (toggle) toggle.textContent = 'âˆ’';
+                }
+            });
+        });
+    </script>
+    <script src="../shared-enhancements.js" defer></script>
+</body>
+</html>
+

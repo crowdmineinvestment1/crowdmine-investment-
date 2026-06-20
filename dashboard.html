@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CryptoTab Farm — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#07080d;
+  --surface:#0d0f1a;
+  --surface2:#131626;
+  --border:rgba(255,255,255,0.07);
+  --border2:rgba(255,255,255,0.12);
+  --orange:#f7931a;
+  --cyan:#00e5ff;
+  --green:#00ffa3;
+  --red:#ff4d4d;
+  --text:#e8eaf0;
+  --muted:#6b7590;
+  --font:'Space Grotesk',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+}
+body{background:var(--bg);color:var(--text);font-family:var(--font);min-height:100vh;overflow-x:hidden}
+
+/* 3D Canvas */
+#three-canvas{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.55}
+
+/* Noise overlay */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");opacity:0.4;z-index:1;pointer-events:none}
+
+.app{position:relative;z-index:2}
+
+/* â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:64px;
+  background:rgba(7,8,13,0.85);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:100;
+}
+.logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;letter-spacing:-0.5px;color:#fff;text-decoration:none}
+.logo-icon{width:32px;height:32px}
+.logo span{color:var(--orange)}
+.nav-links{display:flex;gap:2px}
+.nav-link{
+  padding:6px 14px;border-radius:8px;color:var(--muted);
+  font-size:13px;font-weight:500;text-decoration:none;
+  transition:all .2s;letter-spacing:.3px;
+}
+.nav-link:hover{color:var(--text);background:rgba(255,255,255,0.05)}
+.nav-link.active{color:var(--orange);background:rgba(247,147,26,0.08)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-balance{
+  display:flex;align-items:center;gap:8px;
+  background:rgba(247,147,26,0.08);
+  border:1px solid rgba(247,147,26,0.2);
+  padding:7px 16px;border-radius:10px;
+  font-family:var(--mono);font-size:13px;color:var(--orange);font-weight:600;
+}
+.dot-online{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
+
+/* â”€â”€ DEMO BANNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.banner{
+  background:linear-gradient(90deg,rgba(255,77,77,0.12),rgba(255,77,77,0.06));
+  border-bottom:1px solid rgba(255,77,77,0.2);
+  padding:10px 2rem;display:flex;align-items:center;justify-content:space-between;
+  font-size:13px;font-weight:500;color:rgba(255,100,100,0.9);cursor:pointer;
+  transition:.2s;
+}
+.banner:hover{background:rgba(255,77,77,0.12)}
+.banner-badge{
+  background:var(--red);color:#fff;
+  padding:3px 10px;border-radius:5px;font-size:11px;font-weight:700;letter-spacing:.5px;
+}
+
+/* â”€â”€ LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.container{max-width:1140px;margin:0 auto;padding:2rem 1.5rem}
+
+/* â”€â”€ GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.grid-main{display:grid;grid-template-columns:1fr 340px;gap:20px;margin-bottom:20px}
+.grid-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:20px}
+.grid-bottom{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+
+/* â”€â”€ CARD BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:20px;padding:24px;
+  position:relative;overflow:hidden;
+}
+.card::after{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+}
+
+/* â”€â”€ MAIN BALANCE CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.card-balance{
+  background:linear-gradient(135deg,#0d0f1a 0%,#0f1220 100%);
+  grid-column:1;
+}
+.card-balance .label{font-size:11px;font-weight:600;letter-spacing:1.5px;color:var(--muted);text-transform:uppercase;margin-bottom:12px}
+.balance-amount{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+.balance-btc{font-family:var(--mono);font-size:38px;font-weight:600;color:#fff;letter-spacing:-1px}
+.balance-btc span{color:var(--orange)}
+.balance-usd{font-size:14px;color:var(--muted);font-family:var(--mono)}
+.balance-usd em{color:var(--cyan);font-style:normal}
+.badge-demo{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,77,77,0.12);border:1px solid rgba(255,77,77,0.25);
+  color:var(--red);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;
+  letter-spacing:.5px;margin-top:14px;
+}
+.chart-mini{margin-top:20px;position:relative;height:60px}
+.chart-mini canvas{width:100%!important;height:60px!important}
+.card-btcprice{padding-top:16px;border-top:1px solid var(--border);margin-top:16px;display:flex;justify-content:space-between;align-items:center}
+.price-label{font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase}
+.price-val{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--cyan)}
+.price-change{font-size:13px;color:var(--green);font-weight:600}
+
+/* â”€â”€ HASHRATE CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.card-hash{
+  background:linear-gradient(135deg,rgba(0,229,255,0.04) 0%,var(--surface) 100%);
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.hash-ring-wrap{display:flex;justify-content:center;margin:10px 0}
+.hash-big{font-family:var(--mono);font-size:28px;font-weight:600;color:var(--cyan);text-align:center;margin-bottom:4px}
+.hash-unit{font-size:12px;color:var(--muted);text-align:center;letter-spacing:1px}
+.hash-rows{display:flex;flex-direction:column;gap:8px;margin-top:12px}
+.hash-row{display:flex;justify-content:space-between;align-items:center;font-size:13px}
+.hash-row .hl{color:var(--muted)}
+.hash-row .hr{font-family:var(--mono);font-weight:600}
+.hr-green{color:var(--green)}
+.hr-orange{color:var(--orange)}
+.hr-red{color:var(--red)}
+
+/* â”€â”€ STAT CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.stat-card{padding:18px 20px}
+.stat-label{font-size:11px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
+.stat-value{font-family:var(--mono);font-size:24px;font-weight:600;color:#fff}
+.stat-value span{font-size:13px;color:var(--muted);font-family:var(--font);font-weight:400}
+.stat-trend{font-size:12px;margin-top:6px}
+.trend-up{color:var(--green)}
+.trend-down{color:var(--red)}
+.stat-bar{height:3px;background:var(--border);border-radius:3px;margin-top:12px;overflow:hidden}
+.stat-bar-fill{height:100%;border-radius:3px;transition:width 1s}
+
+/* â”€â”€ MINERS CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.card-miners{grid-column:1/3}
+.miners-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.miners-title{font-size:16px;font-weight:600;color:#fff}
+.miners-actions{display:flex;gap:10px}
+.btn{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:9px 20px;border-radius:10px;font-size:13px;font-weight:600;
+  border:none;cursor:pointer;transition:all .2s;font-family:var(--font);
+}
+.btn-ghost{background:transparent;border:1px solid var(--border2);color:var(--text)}
+.btn-ghost:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,229,255,0.05)}
+.btn-primary{background:linear-gradient(135deg,var(--orange),#ffad47);color:#000;font-weight:700}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(247,147,26,0.3)}
+.btn-blue{background:linear-gradient(135deg,#0066ff,#00a8ff);color:#fff;font-weight:700}
+.btn-blue:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,102,255,0.3)}
+
+/* no miners empty */
+.miners-empty{
+  text-align:center;padding:60px 20px;
+  display:flex;flex-direction:column;align-items:center;gap:16px;
+}
+.empty-icon{
+  width:72px;height:72px;border-radius:50%;
+  background:rgba(247,147,26,0.08);border:1px solid rgba(247,147,26,0.2);
+  display:flex;align-items:center;justify-content:center;font-size:30px;
+}
+.empty-title{font-size:18px;font-weight:600;color:#fff}
+.empty-sub{font-size:14px;color:var(--muted);max-width:320px;line-height:1.6}
+
+/* â”€â”€ POOL TABLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.pool-table{width:100%;border-collapse:collapse;font-size:13px}
+.pool-table th{
+  text-align:left;padding:0 12px 10px;
+  font-size:11px;font-weight:600;letter-spacing:1px;
+  color:var(--muted);text-transform:uppercase;
+  border-bottom:1px solid var(--border);
+}
+.pool-table td{
+  padding:14px 12px;border-bottom:1px solid rgba(255,255,255,0.04);
+  vertical-align:middle;
+}
+.pool-table tr:last-child td{border-bottom:none}
+.pool-name{display:flex;align-items:center;gap:10px}
+.pool-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.status-pill{
+  padding:3px 10px;border-radius:20px;font-size:11px;font-weight:600;letter-spacing:.3px;
+}
+.pill-active{background:rgba(0,255,163,0.1);color:var(--green);border:1px solid rgba(0,255,163,0.2)}
+.pill-idle{background:rgba(107,117,144,0.1);color:var(--muted);border:1px solid var(--border)}
+
+/* â”€â”€ BONUS CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.bonus-card{
+  background:linear-gradient(135deg,rgba(247,147,26,0.06),rgba(247,147,26,0.02));
+  border-color:rgba(247,147,26,0.15);
+}
+.bonus-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.bonus-label{font-size:11px;letter-spacing:1.2px;color:var(--orange);text-transform:uppercase;font-weight:600}
+.bonus-val{font-family:var(--mono);font-size:28px;font-weight:600;color:#fff;margin-bottom:4px}
+.bonus-sub{font-size:13px;color:var(--muted)}
+.ref-link{
+  background:rgba(255,255,255,0.04);border:1px solid var(--border);
+  border-radius:10px;padding:10px 14px;display:flex;align-items:center;
+  justify-content:space-between;margin-top:16px;font-size:12px;
+  font-family:var(--mono);color:var(--muted);
+}
+.ref-copy{
+  padding:6px 12px;border-radius:7px;background:var(--surface2);
+  border:1px solid var(--border2);color:var(--text);
+  font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);
+  transition:.2s;
+}
+.ref-copy:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* â”€â”€ ACTIVITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.activity-list{display:flex;flex-direction:column;gap:12px;margin-top:4px}
+.activity-item{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;background:rgba(255,255,255,0.025);
+  border:1px solid var(--border);border-radius:12px;
+}
+.activity-dot{
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;
+}
+.dot-earn{background:rgba(0,255,163,0.1)}
+.dot-deposit{background:rgba(0,229,255,0.1)}
+.dot-alert{background:rgba(255,77,77,0.1)}
+.activity-info{flex:1}
+.activity-name{font-size:13px;font-weight:600;color:var(--text)}
+.activity-time{font-size:11px;color:var(--muted);margin-top:2px}
+.activity-amount{font-family:var(--mono);font-size:13px;font-weight:600}
+.amt-green{color:var(--green)}
+.amt-red{color:var(--red)}
+
+/* â”€â”€ NOTIFICATION STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+.notif-strip{
+  display:flex;align-items:center;justify-content:space-between;
+  background:rgba(255,77,77,0.06);border:1px solid rgba(255,77,77,0.15);
+  border-radius:14px;padding:14px 18px;margin-bottom:20px;
+}
+.notif-left{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:500}
+.notif-icon{
+  width:32px;height:32px;border-radius:8px;
+  background:rgba(255,77,77,0.15);display:flex;align-items:center;
+  justify-content:center;font-size:14px;color:var(--red);flex-shrink:0;
+}
+.notif-arrow{
+  color:var(--red);cursor:pointer;font-size:20px;transition:.2s;
+}
+.notif-arrow:hover{transform:translateX(3px)}
+
+/* card section title */
+.section-title{font-size:14px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+
+/* GLOW RING SVG */
+.ring-svg{width:120px;height:120px}
+
+/* Deposit Modal */
+.dep-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); z-index: 9999; align-items: center; justify-content: center; }
+.dep-content { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; width: 400px; max-width: 90%; padding: 30px; position: relative; }
+.dep-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: var(--muted); }
+.dep-close:hover { color: #fff; }
+.dep-title { font-size: 20px; font-weight: 700; margin-bottom: 20px; text-transform: uppercase; font-family: var(--mono); }
+.dep-input { width: 100%; background: var(--surface2); border: 1px solid var(--border2); padding: 15px; border-radius: 10px; color: #fff; font-family: var(--mono); font-size: 16px; margin-bottom: 20px; outline: none; }
+.dep-methods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+.dep-method { background: rgba(255,255,255,0.02); border: 1px solid var(--border2); padding: 10px; border-radius: 10px; text-align: center; cursor: pointer; font-size: 12px; font-weight: 600; }
+.dep-method.active { border-color: var(--cyan); background: rgba(0,229,255,0.1); }
+.dep-submit { width: 100%; padding: 15px; border-radius: 10px; border: none; background: var(--cyan); color: #000; font-family: var(--font); font-weight: 700; font-size: 14px; cursor: pointer; text-transform: uppercase; }
+.dep-submit:hover { opacity: 0.9; }
+</style>
+</head>
+<body>
+<canvas id="three-canvas"></canvas>
+
+<div class="app">
+<!-- NAVBAR -->
+<nav>
+  <a href="../index.html" class="logo">
+    <svg class="logo-icon" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="16" cy="16" r="15.5" stroke="#f7931a" stroke-width="1"/>
+      <circle cx="16" cy="16" r="10" stroke="#f7931a" stroke-width="1" stroke-dasharray="2 2"/>
+      <circle cx="16" cy="16" r="5" fill="#f7931a"/>
+    </svg>
+    CRYPTO<span>TAB</span> FARM
+  </a>
+  <div class="nav-links">
+    <a href="../index.html" class="nav-link">Home</a>
+    <a href="dashboard.html" class="nav-link active">Dashboard</a>
+    <a href="subscriptions.html" class="nav-link">Purchase</a>
+    <a href="withdrawal.html" class="nav-link">Withdrawal</a>
+    <a href="pool-miners.html" class="nav-link">Miners</a>
+    <a href="pool-miners.html" class="nav-link">Pools</a>
+    <a href="faq.html" class="nav-link">FAQ</a>
+    <a href="support.html" class="nav-link">Support</a>
+  </div>
+  <div class="nav-right">
+    <div class="dot-online" id="onlineDot"></div>
+    <div class="nav-balance">
+      ₿ <span id="navBal">0.00041339</span>
+    </div>
+    <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px">⋮</div>
+  </div>
+</nav>
+
+<!-- DEMO BANNER -->
+<div class="banner" id="topDemoBanner" onclick="window.location.href='subscriptions.html'">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span>🔒</span>
+    <strong>Demo Mode Active</strong> <span id="bannerText">— Only virtual miners can be added. Earnings are simulated.</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="banner-badge">DEMO</span>
+    <span id="bannerAction">Remove restrictions →</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- NOTIFICATION STRIP -->
+  <div class="notif-strip">
+    <div class="notif-left">
+      <div class="notif-icon">🔒</div>
+      <div class="notif-icon">🔒</div>
+      <div>
+        <strong>You are in demo mode.</strong>
+        <span style="color:var(--muted);font-weight:400"> Upgrade your plan to activate real mining and enable withdrawals.</span>
+      </div>
+    </div>
+    <div class="notif-arrow" onclick="window.location.href='subscriptions.html'">→</div>
+  </div>
+
+  <!-- TOP GRID -->
+  <div class="grid-main">
+
+    <!-- BALANCE CARD -->
+    <div class="card card-balance">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start">
+        <div>
+          <div class="label">Total Balance</div>
+          <div class="balance-amount">
+            <div class="balance-btc">₿ <span id="balBtc">0.00041339</span></div>
+          </div>
+          <div class="balance-usd">≈ <em id="balUsd">$32.92</em> USD</div>
+          <div class="badge-demo">⚠️ Demo Balance — Not Withdrawable</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Account</div>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--text)">ID: <strong style="color:var(--orange)">49136634</strong></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px">web37811@gmail.com</div>
+          <button onclick="alert('Settings')" style="margin-top:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border2);padding:7px 14px;border-radius:8px;color:var(--text);font-size:12px;font-family:var(--font);cursor:pointer;font-weight:500">⚙️ Settings</button>
+        </div>
+      </div>
+
+      <!-- Mini chart -->
+      <div class="chart-mini">
+        <canvas id="miniChart"></canvas>
+      </div>
+
+      <!-- BTC Price -->
+      <div class="card-btcprice">
+        <div>
+          <div class="price-label">BTC / USD</div>
+          <div class="price-val" id="btcPrice">$79,626.19</div>
+        </div>
+        <div class="price-change" id="priceChange">+0.42%</div>
+        <div style="display:flex;gap:10px">
+          <button class="btn btn-ghost" onclick="window.location.href='withdrawal.html'">Withdraw</button>
+          <button class="btn btn-primary" onclick="showDepositModal()">+ Deposit</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- HASHRATE CARD -->
+    <div class="card card-hash">
+      <div class="section-title">Network Hashrate</div>
+      <div class="hash-ring-wrap">
+        <svg class="ring-svg" viewBox="0 0 120 120">
+          <defs>
+            <linearGradient id="ringGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#00e5ff"/>
+              <stop offset="100%" stop-color="#00ffa3"/>
+            </linearGradient>
+          </defs>
+          <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="10"/>
+          <circle id="ringArc" cx="60" cy="60" r="50" fill="none" stroke="url(#ringGrad)"
+            stroke-width="10" stroke-linecap="round"
+            stroke-dasharray="314" stroke-dashoffset="220"
+            transform="rotate(-90 60 60)"/>
+          <text x="60" y="54" text-anchor="middle" font-family="JetBrains Mono,monospace" font-size="16" fill="#fff" font-weight="600" id="ringVal">2,511</text>
+          <text x="60" y="70" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-size="10" fill="rgba(255,255,255,0.4)">H/s</text>
+        </svg>
+      </div>
+      <div class="hash-rows">
+        <div class="hash-row">
+          <span class="hl">Online Miners</span>
+          <span class="hr hr-green">32 / 35</span>
+        </div>
+        <div class="hash-row">
+          <span class="hl">Pool Miners</span>
+          <span class="hr hr-orange">4 active</span>
+        </div>
+        <div class="hash-row">
+          <span class="hl">Uptime</span>
+          <span class="hr" style="color:var(--cyan)">99.2%</span>
+        </div>
+        <div class="hash-row">
+          <span class="hl">Demo Mode</span>
+          <span class="hr hr-red">Enabled</span>
+        </div>
+        <div class="hash-row">
+          <span class="hl">Est. Daily</span>
+          <span class="hr hr-green">0.000248 BTC</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STAT CARDS -->
+  <div class="grid-stats">
+    <div class="card stat-card">
+      <div class="stat-label">Earned Today</div>
+      <div class="stat-value" id="earnedToday">0.000021 <span>BTC</span></div>
+      <div class="stat-trend trend-up">↑ +12.4% vs yesterday</div>
+      <div class="stat-bar"><div class="stat-bar-fill" style="width:62%;background:var(--green)"></div></div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-label">7-Day Earnings</div>
+      <div class="stat-value">0.000148 <span>BTC</span></div>
+      <div class="stat-trend trend-up">↑ Avg 21.1 H/s/day</div>
+      <div class="stat-bar"><div class="stat-bar-fill" style="width:78%;background:var(--cyan)"></div></div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-label">Referral Bonus</div>
+      <div class="stat-value">0 <span>pts</span></div>
+      <div class="stat-trend" style="color:var(--muted)">Invite to earn bonus</div>
+      <div class="stat-bar"><div class="stat-bar-fill" style="width:0%;background:var(--orange)"></div></div>
+    </div>
+    <div class="card stat-card">
+      <div class="stat-label">Pool Power</div>
+      <div class="stat-value">720 <span>H/s</span></div>
+      <div class="stat-trend trend-up">↑ 4 pools active</div>
+      <div class="stat-bar"><div class="stat-bar-fill" style="width:45%;background:var(--orange)"></div></div>
+    </div>
+  </div>
+
+  <!-- MINERS + ACTIVITY -->
+  <div class="grid-bottom">
+
+    <!-- MINERS -->
+    <div class="card">
+      <div class="miners-header">
+        <div class="miners-title">My Miners</div>
+        <div class="miners-actions">
+          <button class="btn btn-ghost" onclick="alert('Adding demo miner...')">+ Demo</button>
+          <button class="btn btn-primary" onclick="alert('Go to pools...')">⚡ Add Pool</button>
+        </div>
+      </div>
+
+      <div class="miners-empty">
+        <div class="empty-icon">⚡</div>
+        <div class="empty-title">No miners connected</div>
+        <div class="empty-sub">Your farm is waiting for its first machine. Connect a computer or start with a Pool Miner to begin earning.</div>
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <button class="btn btn-ghost" onclick="alert('Demo miner added!')">Add Demo Miner</button>
+          <button class="btn btn-blue" onclick="window.location.href='pool-miners.html'">Browse Pool Plans</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ACTIVITY + BONUS -->
+    <div style="display:flex;flex-direction:column;gap:20px">
+
+      <!-- BONUS -->
+      <div class="card bonus-card">
+        <div class="bonus-header">
+          <div class="bonus-label">Referral Bonus</div>
+          <button class="btn btn-primary" style="padding:7px 16px;font-size:12px" onclick="alert('Invite link copied!')">Invite Friends</button>
+        </div>
+        <div class="bonus-val">0 pts</div>
+        <div class="bonus-sub">Earn 15% of every referral's mining income</div>
+        <div class="ref-link">
+          <span>farm.ct/ref/49136634</span>
+          <button class="ref-copy" onclick="alert('Link copied!')">Copy</button>
+        </div>
+      </div>
+
+      <!-- ACTIVITY -->
+      <div class="card">
+        <div class="section-title">Recent Activity</div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-dot dot-earn">₿</div>
+            <div class="activity-info">
+              <div class="activity-name">Mining Reward</div>
+              <div class="activity-time">2 minutes ago</div>
+            </div>
+            <div class="activity-amount amt-green">+0.000002 BTC</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot dot-deposit">↓</div>
+            <div class="activity-info">
+              <div class="activity-name">Account Created</div>
+              <div class="activity-time">Today, 09:14</div>
+            </div>
+            <div class="activity-amount" style="color:var(--cyan)">Demo</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-dot dot-alert">🔒</div>
+            <div class="activity-info">
+              <div class="activity-name">Demo Mode Enabled</div>
+              <div class="activity-time">Today, 09:14</div>
+            </div>
+            <div class="activity-amount amt-red">Restricted</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POOL TABLE -->
+  <div class="card" style="margin-top:20px">
+    <div class="miners-header">
+      <div class="miners-title">Pool Miners</div>
+      <button class="btn btn-primary" onclick="window.location.href='pool-miners.html'">+ Add Pool Miner</button>
+    </div>
+    <table class="pool-table">
+      <thead>
+        <tr>
+          <th>Pool Name</th>
+          <th>Hashrate</th>
+          <th>Earnings</th>
+          <th>Status</th>
+          <th>Uptime</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div class="pool-name"><div class="pool-dot" style="background:var(--green)"></div>Alpha Pool</div></td>
+          <td style="font-family:var(--mono);color:var(--cyan)">180 H/s</td>
+          <td style="font-family:var(--mono);color:var(--green)">+0.000062 BTC</td>
+          <td><span class="status-pill pill-active">Active</span></td>
+          <td style="color:var(--muted)">99.8%</td>
+        </tr>
+        <tr>
+          <td><div class="pool-name"><div class="pool-dot" style="background:var(--green)"></div>Beta Pool</div></td>
+          <td style="font-family:var(--mono);color:var(--cyan)">220 H/s</td>
+          <td style="font-family:var(--mono);color:var(--green)">+0.000071 BTC</td>
+          <td><span class="status-pill pill-active">Active</span></td>
+          <td style="color:var(--muted)">98.4%</td>
+        </tr>
+        <tr>
+          <td><div class="pool-name"><div class="pool-dot" style="background:var(--orange)"></div>Gamma Pool</div></td>
+          <td style="font-family:var(--mono);color:var(--cyan)">160 H/s</td>
+          <td style="font-family:var(--mono);color:var(--green)">+0.000051 BTC</td>
+          <td><span class="status-pill pill-active">Active</span></td>
+          <td style="color:var(--muted)">97.1%</td>
+        </tr>
+        <tr>
+          <td><div class="pool-name"><div class="pool-dot" style="background:var(--muted)"></div>Delta Pool</div></td>
+          <td style="font-family:var(--mono);color:var(--muted)">160 H/s</td>
+          <td style="font-family:var(--mono);color:var(--muted)">—</td>
+          <td><span class="status-pill pill-idle">Idle</span></td>
+          <td style="color:var(--muted)">—</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer style="border-top:1px solid var(--border);margin-top:40px;padding:40px 0;background:rgba(0,0,0,0.3)">
+  <div style="max-width:1140px;margin:0 auto;padding:0 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
+    <div style="font-size:13px;color:var(--muted)">© 2026 CryptoCompany OÜ — Estonia</div>
+    <div style="display:flex;gap:24px">
+      <a href="terms.html" style="color:var(--muted);font-size:13px;text-decoration:none">Terms</a>
+      <a href="privacy.html" style="color:var(--muted);font-size:13px;text-decoration:none">Privacy</a>
+      <a href="#" style="color:var(--cyan);font-size:13px;text-decoration:none">Telegram</a>
+      <a href="#" style="color:var(--cyan);font-size:13px;text-decoration:none">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<!-- DEPOSIT MODAL -->
+<div id="depModal" class="dep-modal">
+  <div class="dep-content">
+    <span class="dep-close" onclick="document.getElementById('depModal').style.display='none'">&times;</span>
+    <div class="dep-title">Select Payment Method</div>
+    <input type="number" id="depAmount" class="dep-input" placeholder="Amount USD (Min $2500)" min="2500">
+    <div class="dep-methods" id="depMethods">
+      <div class="dep-method active" onclick="selDep('btc', this)">BTC Bitcoin</div>
+      <div class="dep-method" onclick="selDep('eth', this)">ETH Ethereum</div>
+      <div class="dep-method" onclick="selDep('usdt', this)">USDT (ERC20)</div>
+      <div class="dep-method" onclick="selDep('sol', this)">SOL Solana</div>
+      <div class="dep-method" onclick="selDep('bnb', this)">BNB (BSC)</div>
+    </div>
+    <div id="depWallet" style="font-family:monospace; font-size:12px; color:var(--cyan); background:#000; padding:10px; border-radius:5px; margin-bottom:20px; word-break:break-all; text-align:center;">
+      bc1qxn75r74yxn506avewznvleyg80epcvmaduunpv
+    </div>
+    <button class="dep-submit" onclick="submitDeposit()">I Have Deposited</button>
+  </div>
+</div>
+
+</div><!-- /app -->
+
+<!-- THREE.JS 3D Background -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<!-- Chart.js for mini chart -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+
+<script>
+// â”€â”€ THREE.JS 3D ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+(function(){
+  const canvas = document.getElementById('three-canvas');
+  const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio,2));
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setClearColor(0x000000, 0);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, window.innerWidth/window.innerHeight, 0.1, 1000);
+  camera.position.set(0, 0, 28);
+
+  window.addEventListener('resize', ()=>{
+    camera.aspect = window.innerWidth/window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+
+  // Floating cubes (blockchain blocks)
+  const cubes = [];
+  const cubeGeo = new THREE.BoxGeometry(1, 1, 1);
+  const colors = [0xf7931a, 0x00e5ff, 0x00ffa3, 0x4488ff];
+  for(let i=0; i<40; i++){
+    const mat = new THREE.MeshBasicMaterial({
+      color: colors[i%colors.length],
+      wireframe: true,
+      transparent: true,
+      opacity: 0.15 + Math.random()*0.2
+    });
+    const cube = new THREE.Mesh(cubeGeo, mat);
+    cube.position.set(
+      (Math.random()-0.5)*60,
+      (Math.random()-0.5)*40,
+      (Math.random()-0.5)*20
+    );
+    cube.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, Math.random()*Math.PI);
+    cube.userData = {
+      rx: (Math.random()-0.5)*0.008,
+      ry: (Math.random()-0.5)*0.008,
+      vy: (Math.random()-0.5)*0.02,
+      vx: (Math.random()-0.5)*0.01
+    };
+    const scale = 0.6 + Math.random()*2;
+    cube.scale.setScalar(scale);
+    scene.add(cube);
+    cubes.push(cube);
+  }
+
+  // Particle field
+  const particleCount = 300;
+  const positions = new Float32Array(particleCount*3);
+  for(let i=0; i<particleCount; i++){
+    positions[i*3]   = (Math.random()-0.5)*100;
+    positions[i*3+1] = (Math.random()-0.5)*60;
+    positions[i*3+2] = (Math.random()-0.5)*40;
+  }
+  const pGeo = new THREE.BufferGeometry();
+  pGeo.setAttribute('position', new THREE.BufferAttribute(positions,3));
+  const pMat = new THREE.PointsMaterial({color:0x00e5ff,size:0.08,transparent:true,opacity:0.5});
+  scene.add(new THREE.Points(pGeo, pMat));
+
+  // Torus ring
+  const torusGeo = new THREE.TorusGeometry(8, 0.06, 8, 80);
+  const torusMat = new THREE.MeshBasicMaterial({color:0xf7931a,transparent:true,opacity:0.12});
+  const torus = new THREE.Mesh(torusGeo, torusMat);
+  torus.rotation.x = Math.PI/3;
+  scene.add(torus);
+
+  const torus2 = new THREE.Mesh(
+    new THREE.TorusGeometry(12, 0.04, 8, 80),
+    new THREE.MeshBasicMaterial({color:0x00e5ff,transparent:true,opacity:0.08})
+  );
+  torus2.rotation.x = -Math.PI/4;
+  torus2.rotation.y = Math.PI/6;
+  scene.add(torus2);
+
+  // Mouse parallax
+  let mx=0, my=0;
+  document.addEventListener('mousemove', e=>{
+    mx = (e.clientX/window.innerWidth - 0.5)*0.3;
+    my = (e.clientY/window.innerHeight - 0.5)*0.3;
+  });
+
+  let t=0;
+  function animate(){
+    requestAnimationFrame(animate);
+    t += 0.005;
+
+    cubes.forEach(c=>{
+      c.rotation.x += c.userData.rx;
+      c.rotation.y += c.userData.ry;
+      c.position.y += c.userData.vy;
+      c.position.x += c.userData.vx;
+      if(c.position.y > 22) c.position.y = -22;
+      if(c.position.y < -22) c.position.y = 22;
+      if(c.position.x > 32) c.position.x = -32;
+      if(c.position.x < -32) c.position.x = 32;
+    });
+
+    torus.rotation.z += 0.003;
+    torus2.rotation.z -= 0.002;
+    torus2.rotation.y += 0.001;
+
+    camera.position.x += (mx - camera.position.x)*0.03;
+    camera.position.y += (-my - camera.position.y)*0.03;
+    camera.lookAt(0,0,0);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+})();
+
+// â”€â”€ MINI CHART â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+(function(){
+  const ctx = document.getElementById('miniChart').getContext('2d');
+  const labels = Array.from({length:24},(_,i)=>i+'h');
+  const data = [31.1,31.3,31.8,31.5,31.9,32.1,31.7,32.0,32.3,32.1,32.5,32.4,
+                32.7,32.2,32.6,32.9,32.8,33.1,32.9,33.0,32.8,32.9,32.92,33.1];
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[{
+        data,
+        borderColor:'#f7931a',
+        borderWidth:1.5,
+        fill:true,
+        backgroundColor:'rgba(247,147,26,0.06)',
+        tension:0.4,
+        pointRadius:0
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:false,
+      plugins:{legend:{display:false},tooltip:{enabled:false}},
+      scales:{
+        x:{display:false},
+        y:{display:false}
+      }
+    }
+  });
+})();
+
+// ─── LIVE SIMULATION ────────────────────────────────────────────────────────
+(function(){
+  let balance = 0.00041339;
+  let btcPrice = 79626.19;
+  let pricePct = 0.42;
+
+  // Read User Status from Admin Panel
+  const userEmail = localStorage.getItem('user_email') || 'web37811@gmail.com';
+  let users = [];
+  try { users = JSON.parse(localStorage.getItem('site_users') || '[]'); } catch(e){}
+  const currentUser = users.find(u => u.email === userEmail);
+  
+  let baseHash = 2511;
+  let isActive = false;
+
+  if (currentUser && currentUser.status === "Active") {
+      isActive = true;
+      baseHash = parseInt(currentUser.hashrate.replace(/,/g, '')) || 50000;
+      
+      // Hide demo warnings
+      document.querySelectorAll('.notif-strip, .badge-demo, #topDemoBanner').forEach(el => el.style.display = 'none');
+      
+      // Update stats text
+      const demoModeTexts = document.querySelectorAll('.val');
+      demoModeTexts.forEach(el => {
+          if(el.textContent.includes('Enabled')) {
+              el.textContent = 'Disabled';
+              el.style.color = 'var(--green)';
+          }
+      });
+  } else if (currentUser && currentUser.balance && parseFloat(currentUser.balance) > 0) {
+      // User has deposited but is not active
+      const bannerText = document.getElementById('bannerText');
+      if (bannerText) bannerText.textContent = '- purchase cloud hash to start mining.';
+      
+      const bannerAction = document.getElementById('bannerAction');
+      if (bannerAction) bannerAction.innerHTML = 'purchase hash to remove restrictions.';
+  }
+
+  // Add deposited USD balance converted to BTC at fixed initial price
+  if (currentUser && currentUser.balance) {
+      balance += (parseFloat(currentUser.balance) / 79626.19);
+  }
+
+  window.showDepositModal = function() {
+    document.getElementById('depModal').style.display = 'flex';
+  };
+  
+  window.selDep = function(method, el) {
+    document.querySelectorAll('.dep-method').forEach(m => m.classList.remove('active'));
+    el.classList.add('active');
+    const wallets = {
+      btc: 'bc1qxn75r74yxn506avewznvleyg80epcvmaduunpv',
+      eth: '0xACBb8780B0eA4aDb9c87e7E9cc80b8D17d5F6060',
+      usdt: '0xACBb8780B0eA4aDb9c87e7E9cc80b8D17d5F6060',
+      sol: 'DSkxE7spkNuX26EwWHiGuPpq8eZXzFTzpFGxFbckHavi',
+      bnb: '0xACBb8780B0eA4aDb9c87e7E9cc80b8D17d5F6060'
+    };
+    document.getElementById('depWallet').innerText = wallets[method];
+  };
+  
+  window.submitDeposit = function() {
+    const amt = document.getElementById('depAmount').value;
+    if (!amt || parseFloat(amt) < 2500) {
+      alert("Minimum deposit amount is $2500.");
+      return;
+    }
+    const notifications = JSON.parse(localStorage.getItem('admin_notifications') || '[]');
+    notifications.unshift({
+      name: "Web3 User",
+      email: userEmail,
+      type: "Deposit",
+      price: amt,
+      status: "Payment Submitted",
+      timestamp: new Date().toISOString()
+    });
+    localStorage.setItem('admin_notifications', JSON.stringify(notifications));
+    alert("Deposit submitted. Your balance will be updated once the admin processes the payment.");
+    document.getElementById('depModal').style.display = 'none';
+  };
+
+  function fmt(n,d=8){return n.toFixed(d)}
+
+  function tick(){
+    const earnRate = isActive ? (baseHash / 2511) * 0.000000018 : 0.000000018;
+    balance += earnRate + Math.random()*(earnRate*0.2);
+    btcPrice += (Math.random()-0.48)*8;
+    pricePct = ((Math.random()-0.46)*0.1).toFixed(2);
+
+    const balStr = fmt(balance);
+    document.getElementById('balBtc').textContent = balStr;
+    document.getElementById('navBal').textContent = balStr;
+    document.getElementById('balUsd').textContent = '$' + (balance*btcPrice).toFixed(2);
+    document.getElementById('btcPrice').textContent = '$' + btcPrice.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+
+    const pEl = document.getElementById('priceChange');
+    const up = parseFloat(pricePct) >= 0;
+    pEl.textContent = (up?'+':'') + pricePct + '%';
+    pEl.style.color = up ? 'var(--green)' : 'var(--red)';
+
+    // Animate ring
+    const ring = document.getElementById('ringArc');
+    const pct = 0.35 + Math.sin(Date.now()/4000)*0.1;
+    ring.setAttribute('stroke-dashoffset', 314*(1-pct));
+    document.getElementById('ringVal').textContent = (baseHash + Math.floor(Math.sin(Date.now()/3000)*(baseHash*0.02))).toLocaleString();
+
+    // Today's earnings update
+    const earned = balance - 0.00041339;
+    document.getElementById('earnedToday').innerHTML = fmt(Math.max(earned,0.0000001),8) + ' <span>BTC</span>';
+  }
+
+  setInterval(tick, 2000);
+})();
+</script>
+</body>
+</html>
+
+

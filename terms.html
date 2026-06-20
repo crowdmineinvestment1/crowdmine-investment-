@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Terms of Use - CryptoTab Farm</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0f;
+            --accent-orange: #f7931a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+        }
+
+        #blockchainCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.2;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 120px 24px 60px; }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content { height: 70px; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 22px; color: var(--accent-orange); text-decoration: none; }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 50px;
+            border-radius: 30px;
+        }
+
+        h1 { font-family: 'Orbitron'; font-size: 32px; margin-bottom: 40px; color: var(--accent-orange); }
+        h2 { font-family: 'Orbitron'; font-size: 20px; margin: 30px 0 15px; }
+        p { color: var(--text-dim); margin-bottom: 20px; }
+
+        footer { text-align: center; padding: 40px; color: var(--text-dim); font-size: 14px; }
+    </style>
+</head>
+<body>
+
+    <canvas id="blockchainCanvas"></canvas>
+
+    <header>
+        <div class="header-content">
+            <a href="index.html" class="logo">CRYPTOTAB</a>
+            <nav style="display: flex; gap: 20px;">
+                <a href="index.html" style="color: var(--text-dim); text-decoration: none; font-weight: 600; font-size: 13px;">HOME</a>
+                <a href="faq.html" style="color: var(--text-dim); text-decoration: none; font-weight: 600; font-size: 13px;">FAQ</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="glass-panel">
+            <h1>Terms of Use</h1>
+            <p>Last updated: May 14, 2026</p>
+            
+            <h2>1. Acceptance of Terms</h2>
+            <p>By accessing and using CryptoTab Farm, you agree to be bound by these Terms of Use and all applicable laws and regulations. If you do not agree with any of these terms, you are prohibited from using or accessing this site.</p>
+            
+            <h2>2. License Use</h2>
+            <p>Permission is granted to temporarily download one copy of the materials (information or software) on CryptoTab Farm's website for personal, non-commercial transitory viewing only.</p>
+            
+            <h2>3. Disclaimer</h2>
+            <p>The materials on CryptoTab Farm's website are provided on an 'as is' basis. CryptoTab Farm makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+            
+            <h2>4. Limitations</h2>
+            <p>In no event shall CryptoTab Farm or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on CryptoTab Farm's website.</p>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2026 CryptoTab Farm. All rights reserved.
+    </footer>
+
+    <script>
+        // Blockchain Animation
+        const canvas = document.getElementById('blockchainCanvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<40; i++) points.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
+        }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#f7931a';
+            ctx.strokeStyle = 'rgba(247,147,26,0.05)';
+            points.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
+                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+                points.forEach(p2 => {
+                    const d = Math.hypot(p.x-p2.x, p.y-p2.y);
+                    if(d<200) { ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); }
+                });
+            });
+            requestAnimationFrame(draw);
+        }
+        window.addEventListener('resize', init);
+        init(); draw();
+    </script>
+</body>
+</html>
+

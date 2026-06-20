@@ -1,0 +1,940 @@
+﻿
+
+
+
+<!DOCTYPE html>
+<html lang="en" >
+  
+<!-- Mirrored from cryptotab.farm/en/faq/farm-setup/remote-control/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 13:00:16 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>
+  FAQ
+</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../../../../dashboard-theme.css">
+    <link rel="stylesheet" href="../../../../static/ctfarm_landing/styles/style6ac5.css?t=9986937602" />
+    <link href="https://cryptotab.farm/static/ctfarm_landing/images/favicon.ico" rel="icon" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="192x192" href="../../../../static/ctfarm_landing/images/icon-192x192.png">
+    <meta name="theme-color" content="#F7931A">
+    <script src="../../../../../www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+    <script src="../../../../../www.gstatic.com/firebasejs/8.8.0/firebase-messaging.js"></script>
+    <style>
+      @import url("../../../static/ctfarm_landing/fonts/inter.html");
+      * {
+          font-family: 'Inter', sans-serif !important; 
+      }
+    </style>
+    <script> 
+        (window.CT = window.CT || {}).share_host = "/share";
+        function initShareButtons() {
+          function init() {
+            window.CT.share('.social-btns');
+          }
+          if (document.readyState === "complete" || document.readyState === "loaded") {
+            init();
+          } else {
+            document.addEventListener('DOMContentLoaded', init);
+          }
+        }
+    </script>
+    <script type="text/javascript" src="../../../../static/django_sharing/share.js" async onload="initShareButtons()"></script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-670357828"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-670357828');
+    </script>
+    
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href='../../../../static/ctfarm_landing/styles/pages/faq-solo/indexa549.css?t=4' />
+
+    <script src="../../../../../an.cryptotab.farm/static/js/cwa5e1f.js?v=2"></script>
+<script src="../../../../../js.cryptotab.farm/static/utm-helper5e1f.js?v=2"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const LINKS = {
+      DEEP_ANDROID: 'https://link.cryptotab.farm/?link=https%3A%2F%2Fapp.cryptotab.farm&apn=com.cryptofarm',
+      GOOGLE_PLAY: 'https://play.google.com/store/apps/details?id=com.cryptofarm&referrer=utm',
+      DEEP_ANDROID_PRO: 'https://link.cryptotabfarm.com/?link=https%3A%2F%2Fapp.cryptotabfarm.com&apn=com.ctfarm',
+      GOOGLE_PLAY_PRO: 'https://play.google.com/store/apps/details?id=com.ctfarm',
+      DEEP_IOS: 'https://link.cryptotabfarm.com/?link=https%3A%2F%2Fapp.cryptotabfarm.com&ibi=com.ctfarm&imv=0&isi=1633191121',
+      APP_STORE: 'https://apps.apple.com/app/cryptotab-farm/id1633191121',
+      WEB: 'https://app.cryptotab.farm/?ver=1.0.2&action=register&ref='
+    };
+    const notificationLink = document.querySelector('.js-notification-btn')
+    const isMobile = /iPhone|iPod|iPad|Mac/.test(navigator.userAgent) && navigator.maxTouchPoints || navigator.userAgent.match(/Android/i)
+    const aid = ''
+    const landingName = 'faq_page'
+
+    window.utmHelperInstance = new UtmHelper({
+      targetSearchParams: window.location.search,
+      utmMedium: landingName,
+      utmSource: 'cfl'
+    });
+
+    const CWASettings = {
+      aid: aid,
+      project: 'farm',
+      meta: {
+        landing_name: landingName,
+      },
+    }
+    if (window.utmHelperInstance.getUtm['utm_campaign']) {
+      CWASettings.meta.campaign = window.utmHelperInstance.getUtm['utm_campaign'];
+    }
+    if (window.utmHelperInstance.getUtm['utm_ref']) {
+      CWASettings.aid = CWASettings.meta.ref = window.utmHelperInstance.getUtm['utm_ref'];
+    } else {
+      aid && (window.utmHelperInstance.updateUtm({ utm_ref: aid }), CWASettings.aid = CWASettings.meta.ref = aid);
+    }
+
+    const updateDeeplink = (link) => {
+      const deep_url = new URL(link.html);
+      deep_url.searchParams.set('link', window.utmHelperInstance.generateUtmStringWithRef(deep_url.searchParams.get('link')))
+      return deep_url.toString();
+    }
+
+    function setLinkForElements(selectors, link) {
+      document.querySelectorAll(selectors).forEach(linkBtn => linkBtn.href = link);
+    }
+
+
+    function WEBBtnSetLink(link) {
+      setLinkForElements('.web-version-btn, .select--web', link);
+
+      if (notificationLink && !isMobile) {
+        notificationLink.href = link;
+      }
+    }
+
+    function APPBtnSetLink(link, params) {
+      setLinkForElements('.app-store-btn, .ios-deep, .select--app', link);
+
+      if (notificationLink) {
+        notificationLink.href = link;
+      }
+
+      if (window.innerWidth < 768 && !/Android|Windows/i.test(navigator.userAgent)) {
+        setLinkForElements('.js-detect-os', link);
+      }
+
+    }
+
+    function handleInitPromise(data) {
+      const { c, u } = data;
+      window.utmHelperInstance.updateUtm({ utm_content: `${c}:${u}` });
+
+      const MODIFIED_LINKS_LIST = {
+        ANDROID_DEEP: updateDeeplink(LINKS.DEEP_ANDROID),
+        ANDROID_GP: window.utmHelperInstance.generateUtmStringWithReferer(LINKS.GOOGLE_PLAY),
+        ANDROID_PRO_DEEP: updateDeeplink(LINKS.DEEP_ANDROID_PRO),
+        ANDROID_PRO_GP: window.utmHelperInstance.generateUtmStringWithReferer(LINKS.GOOGLE_PLAY_PRO),
+        IOS_DEEP: updateDeeplink(LINKS.DEEP_IOS),
+        IOS: updateDeeplink(LINKS.DEEP_IOS),
+        WEB: window.utmHelperInstance.generateUtmStringWithRef(LINKS.WEB)
+      };
+      const MODIFIED_LINKS = {
+        ANDROID: isMobile ? MODIFIED_LINKS_LIST.ANDROID_DEEP : MODIFIED_LINKS_LIST.ANDROID_GP,
+        ANDROID_PRO: isMobile ? MODIFIED_LINKS_LIST.ANDROID_PRO_DEEP : MODIFIED_LINKS_LIST.ANDROID_PRO_GP,
+        IOS: isMobile ? MODIFIED_LINKS_LIST.IOS_DEEP : LINKS.APP_STORE,
+        WEB: MODIFIED_LINKS_LIST.WEB
+      };
+      APPBtnSetLink(MODIFIED_LINKS.IOS);
+      WEBBtnSetLink(MODIFIED_LINKS.WEB);
+
+
+      document.querySelectorAll('.download_android').forEach(linkBtn => {
+        linkBtn.href = linkBtn.dataset.version === 'pro' ? MODIFIED_LINKS.ANDROID_PRO : MODIFIED_LINKS.ANDROID;
+      });
+
+      if (window.innerWidth < 768 && /Android|Windows/i.test(navigator.userAgent)) {
+        setLinkForElements('.js-detect-os', MODIFIED_LINKS.ANDROID);
+      }
+      setLinkForElements('.select--gpay', MODIFIED_LINKS.ANDROID);
+
+      if (notificationLink && document.body.classList.contains('android')) {
+        notificationLink.href = MODIFIED_LINKS.ANDROID;
+      }
+
+      // js-utm-referrer Ð´Ð»Ñ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ ÑÑÑ‹Ð»Ð¾Ðº Ñ referrer=
+      const referrerLinks = document.querySelectorAll('.js-utm-referrer');
+      referrerLinks.forEach(link => {
+        if (!link.href) {
+          return;
+        }
+
+        const objLinks = { ...window.utmHelperInstance.getUtm() };
+        delete objLinks.utm_content;
+
+        const arr = Object.entries(objLinks);
+        arr.push(['utm_cid', c], ['utm_uid', u]);
+
+        let linkss = window.utmHelperInstance.updateUrlWithUtm({ targetUrl: link.href, utmParams: arr, targetUpdateParam: 'referrer' });
+
+        link.href = linkss
+      });
+
+      // js-utm-ref Ð´Ð»Ñ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ ÑÑÑ‹Ð»Ð¾Ðº Ñ ref=
+      const refLinks = document.querySelectorAll('.js-utm-ref');
+      refLinks.forEach(link => {
+        if (!link.href) {
+          return;
+        }
+        link.href = window.utmHelperInstance.generateUtmStringWithRef(link.href);
+      });
+
+      // js-cw-deep Ð´Ð»Ñ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ Ð³Ð»ÑƒÐ±Ð¾ÐºÐ¸Ñ… ÑÑÑ‹Ð»Ð¾Ðº 
+      const deepLinks = document.querySelectorAll('.js-cw-deep');
+      deepLinks?.forEach(link => {
+        if (!link.href) {
+          return;
+        }
+        link.href = updateDeeplink(link.href);
+      });
+
+      // js-utm-uid Ð´Ð»Ñ Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ñ Ð¾Ð±Ñ‹Ñ‡Ð½Ñ‹Ñ… ÑÑÑ‹Ð»Ð¾Ðº Ð´Ð¾Ð±Ð°Ð²Ð»ÑÑ utm_cid Ð¸ utm_uid
+      document.querySelectorAll('.js-utm-uid')?.forEach((el) => {
+        if (!el.href) {
+          return;
+        }
+        const arr = [['utm_cid', c], ['utm_uid', u]]
+        let link = window.utmHelperInstance.updateUrlWithUtm({ targetUrl: el.href, utmParams: arr })
+        el.href = link
+      })
+
+
+      // js-utm-query
+      document.querySelectorAll('.js-utm-query').forEach((el) => {
+        if (!el.href) {
+          return;
+        }
+        const arr = Object.entries(window.utmHelperInstance.getUtm())
+        let link = window.utmHelperInstance.updateUrlWithUtm({ targetUrl: el.href, utmParams: arr })
+        el.href = link
+      })
+
+      // js-utm-uid-no-utm-content Ð¾Ð±Ð½Ð¾Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¾Ð±Ñ‹Ñ‡Ð½Ñ‹Ñ… ÑÑÑ‹Ð»Ð¾Ðº  Ð½Ðµ Ð´Ð¾Ð±Ð°Ð²Ð»ÑÑ utm_content , Ð´Ð¾Ð±Ð°Ð²Ð»ÑÑ utm_cid Ð¸ utm_uid
+      function updateJSNoUtmContent() {
+        const utms = { ...window.utmHelperInstance.getUtm() };
+        delete utms.utm_content;
+
+        document.querySelectorAll('.js-utm-uid-no-utm-content')?.forEach((el) => {
+          if (!el.href) {
+            return;
+          }
+          const arr = [];
+          Object.entries(utms).forEach((u) => {
+            arr.push([u[0], u[1]]);
+          })
+          let link = window.utmHelperInstance.updateUrlWithUtm({ targetUrl: el.href, utmParams: arr })
+          el.href = link
+        })
+      }
+      updateJSNoUtmContent();
+    }
+
+    CWA.initPromise.then(handleInitPromise, (error) => console.error(error))
+    // handleInitPromise({ c: 'c', u: 'u' });
+    CWA.init('https://an.cryptotab.farm/', CWASettings);
+  });
+</script>
+    <script
+  src="../../../../../browser.sentry-cdn.com/6.10.0/bundle.min.js"
+  integrity="sha384-nsIkfmMh0uiqg+AwegHcT1SMiPNWnhZmjFDwTshLTxur6ZPNaGT8vwT+vHwI5Jag"
+  crossorigin="anonymous"
+></script>
+<script>
+  try {
+    Sentry.init({
+      dsn: 'https://d9b6fbaca1ab4fa58ecaa99570457801@snt.wcode.pro/82',
+      integrations: [Sentry.globalHandlersIntegration({ onerror: true, onunhandledrejection: true })],
+      attachStacktrace: true,
+      sampleRate: 1,
+      ignoreErrors: [
+        /messaging\/notifications-blocked/,
+        /messaging\/permission-blocked/,
+        /messaging\/permission-default/,
+      ]
+    })
+
+    Sentry.configureScope(function (scope) {
+      scope.setTag('version', '0.0.1')
+    })
+
+    self.addEventListener('error', function (error) {
+      try {
+        if (error instanceof ErrorEvent) {
+          Sentry.captureException(error.message)
+        } else {
+          Sentry.captureException(error)
+        }
+      } catch (e) {
+        Sentry.captureException(e)
+      }
+    })
+  } catch (e) {}
+</script>
+    
+
+
+
+
+<div class="cookies animated fadeInUp" data-anim='fadeInUp'>
+  <div class="cookies__inner">
+    <p class="cookies__text" >
+      We use cookies.
+      This helps us run our website and give you a better experience. By using our site, you agree to our <a href="../../../cookie/index.html" target="_top">cookie policy</a>.</p>
+    <button class="btn">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M15.4188 0.582221C16.0034 0.954211 16.1757 1.72965 15.8037 2.3142L7.09447 16.0001L0.367455 9.27312C-0.122485 8.78318 -0.122485 7.98883 0.367455 7.49889C0.857395 7.00895 1.65175 7.00895 2.14169 7.49889L6.65692 12.0141L13.6868 0.967106C14.0588 0.38255 14.8343 0.210231 15.4188 0.582221Z" fill="white"/>
+      </svg>
+      ok
+    </button>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    let cookieNote = document.querySelector('.cookies')
+    let cookieBtnAccept = cookieNote.querySelector('.btn')
+
+
+    function setCookie(name, value, days) {
+      let expires = "";
+      if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    function getCookie(name) {
+      let matches = document.cookie.match(new RegExp("(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"));
+      return matches ? decodeURIComponent(matches[1]) : undefined;
+    }
+
+
+    function checkCookies() {
+      if (!getCookie('cookies_policy')) {
+        cookieNote.classList.add('cookies-show');
+      }
+
+      cookieBtnAccept.addEventListener('click', function () {
+        setCookie('cookies_policy', 'true', 365);
+        cookieNote.classList.remove('fadeInUp');
+        cookieNote.classList.remove('fadeInUp');
+        cookieNote.classList.add('fadeOutDown');
+        cookieNote.classList.add('fadeOutDown');
+        cookieNote.dataset.anim = 'fadeOutDown';
+        setTimeout(() => {
+          cookieNote.classList.remove('cookies-show');
+        }, 1000)
+      });
+    }
+
+
+    setTimeout(() => {
+      checkCookies();
+    }, 3000)
+  })
+
+
+</script>
+  </head>
+  <body class="page page_en page_faq">
+    <div class="container">
+      
+
+
+      
+
+
+
+
+<div class="header header--new" id="header">
+  <div class="header__wrapper">
+    <div class="header__container animate__animated" data-anim='fadeInDown'>
+      <div class="burger"><span></span></div>
+      <div class="header__logo">
+        <a href="https://cryptotab.farm/" class="logo js-anim-logo-new">
+        </a>
+      </div>
+      <div class="header__navbar">
+        <nav class="header__menu">
+          <a href="../../../index.html" class="js-accept ">FARM</a>
+          <a href="../../../miner/index.html" class="js-accept ">MINER</a>
+          <a href="../../../pool-miners/index.html" class="js-accept ">Pool Miners</a>
+          
+          <a href="../../index.html" class="js-accept ">FAQ</a>
+          <a target="_blank" class="js-detect-os"
+            >GET THE APP</a
+          >
+          <a href="../../../feedback/index.html" class="js-accept ">Support</a>
+          
+          <!-- test -->
+          <div class="header__selects">
+            <a href="https://play.google.com/store/apps/details?id=com.cryptofarm" class="select select--gpay" target="_blank"></a>
+            <a href="https://cryptotabfarm.com/en" class="select select--app" target="_blank"></a>
+            <a href="https://app.cryptotab.farm/?ver=1.0.2&amp;action=register" class="select select--web" target="_blank"></a>
+             <a href="https://apps.apple.com/app/cryptotab-farm/id1633191121" class="select select--mac" target="_blank"></a>
+          </div>
+        </nav>
+        <div class="social-links-new">
+          <a href="https://t.me/CryptoTabChannel" target="_blank" class="social-link-new social-link-new_telegram" aria-label="telegram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="18" viewBox="0 0 20 18" fill="none">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M16.9079 16.6255L19.9264 2.27837C20.0736 1.68367 20 1.23765 19.7055 0.940302C19.411 0.642953 19.1165 0.642953 18.6748 0.791627L0.931827 7.70499C0.563715 7.85366 0.269226 8.00234 0.121981 8.22535C-0.0252632 8.44836 -0.0252632 8.59704 0.0483591 8.74571C0.121981 8.89439 0.342848 9.04306 0.71096 9.1174L5.27554 10.5298L15.8035 3.83945C16.098 3.61644 16.3189 3.61644 16.4661 3.69078C16.5398 3.76512 16.5398 3.83945 16.3925 3.98813L7.85232 11.8679L7.48421 16.6255C7.7787 16.6255 8.07319 16.4768 8.4413 16.1794L10.65 14.0237L15.2146 17.4432C16.1716 17.9635 16.687 17.6662 16.9079 16.6255Z" fill="#31A5E0"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com/CryptoTabnet" target="_blank" class="social-link-new social-link-new_twitter" aria-label="twitter">
+            <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 19 17" fill="none">
+              <path d="M14.2033 0.0689697H16.9599L10.9374 6.9523L18.0224 16.319H12.4749L8.12992 10.6381L3.15826 16.319H0.399922L6.84159 8.95647L0.0449219 0.0689697H5.73326L9.66076 5.26147L14.2033 0.0689697ZM13.2358 14.669H14.7633L4.90326 1.6323H3.26409L13.2358 14.669Z" fill="black"/>
+              </svg>
+          </a>
+          <a href="https://discord.gg/cryptotab-community-997079413013352529" target="_blank" class="social-link-new social-link-new_discord" aria-label="discord">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="21" viewBox="0 0 20 21" fill="none">
+              <path d="M16.9566 3.68974C19.2154 7.10076 20.3309 10.9483 19.9139 15.3777C19.9122 15.3965 19.9026 15.4136 19.8877 15.4249C18.1771 16.715 16.5199 17.4979 14.8859 18.0171C14.8732 18.0211 14.8596 18.0208 14.847 18.0165C14.8343 18.0121 14.8234 18.0038 14.8157 17.9928C14.4382 17.4533 14.0951 16.8845 13.7946 16.2872C13.7774 16.2521 13.7931 16.2096 13.8287 16.1958C14.3734 15.985 14.8914 15.7323 15.3897 15.4332C15.4289 15.4095 15.4314 15.3518 15.3951 15.3241C15.2894 15.2435 15.1846 15.1587 15.0844 15.074C15.0657 15.0582 15.0404 15.0552 15.0191 15.0657C11.7844 16.6 8.24091 16.6 4.96791 15.0657C4.94667 15.056 4.92142 15.0593 4.90317 15.0747C4.80317 15.1595 4.69817 15.2435 4.59342 15.3241C4.55717 15.3518 4.56017 15.4095 4.59967 15.4332C5.09791 15.7267 5.61591 15.985 6.15991 16.1968C6.19517 16.2107 6.21191 16.2521 6.19442 16.2872C5.90042 16.8853 5.55742 17.454 5.17291 17.9935C5.15617 18.0153 5.12867 18.0254 5.10267 18.0171C3.47642 17.4979 1.81917 16.715 0.108676 15.4249C0.0944251 15.4136 0.0841754 15.3957 0.0826754 15.3769C-0.265824 11.5455 0.444425 7.66619 3.03717 3.68897C3.04342 3.67844 3.05292 3.67022 3.06392 3.66535C4.33967 3.06398 5.70642 2.62155 7.13491 2.36888C7.16091 2.36477 7.18691 2.3771 7.20042 2.40072C7.37691 2.72169 7.57866 3.1333 7.71517 3.46968C9.22087 3.23345 10.7502 3.23345 12.2874 3.46968C12.4239 3.14049 12.6187 2.72169 12.7944 2.40072C12.8007 2.389 12.8103 2.37961 12.8221 2.37389C12.8339 2.36818 12.8471 2.36642 12.8599 2.36888C14.2891 2.62232 15.6559 3.06475 16.9306 3.66535C16.9419 3.67022 16.9511 3.67844 16.9566 3.68974ZM8.48066 10.9745C8.49641 9.84186 7.69241 8.90462 6.68317 8.90462C5.68217 8.90462 4.88592 9.83364 4.88592 10.9745C4.88592 12.1151 5.69791 13.0441 6.68317 13.0441C7.68441 13.0441 8.48066 12.1151 8.48066 10.9745ZM15.1262 10.9745C15.1419 9.84186 14.3379 8.90462 13.3289 8.90462C12.3277 8.90462 11.5314 9.83364 11.5314 10.9745C11.5314 12.1151 12.3434 13.0441 13.3289 13.0441C14.3379 13.0441 15.1262 12.1151 15.1262 10.9745Z" fill="#5B68F2"/>
+              </svg>
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.cryptofarm" target="_blank" class="js-utm-referrer social-link-new social-link-new_gp not-hover" aria-label="google play">
+            <svg width="16" height="18" viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M14.8932 11.053L3.17648 17.5221C2.14113 18.0937 0.838399 17.7178 0.266758 16.6824C0.0917781 16.3655 0 16.0094 0 15.6474L0 2.70942C0 1.52674 0.958751 0.567993 2.14143 0.567993C2.50344 0.567993 2.85954 0.659767 3.17646 0.834738L14.8932 7.30363C15.9286 7.87526 16.3045 9.17798 15.7329 10.2133C15.5377 10.5668 15.2467 10.8578 14.8932 11.053Z" fill="url(#paint0_linear_4410_2558)"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M1.10742 17.523L9.24017 9.02466L12.4774 12.3861L3.17556 17.5219C2.48313 17.9042 1.71491 17.858 1.10742 17.523Z" fill="url(#paint1_linear_4410_2558)"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M12.3965 5.92474L3.17705 0.834596C2.51778 0.470607 1.7898 0.495033 1.19727 0.787389L9.24008 9.02683L12.3965 5.92474Z" fill="url(#paint2_linear_4410_2558)"/>
+              <path fill-rule="evenodd" clip-rule="evenodd" d="M0 4.83858L0.0147586 2.45248C0.102717 1.69547 0.575104 1.09416 1.19647 0.787506L9.24076 9.0241L1.13762 17.5389C0.477753 17.188 0 16.4993 0 15.6473V4.83858Z" fill="url(#paint3_linear_4410_2558)"/>
+              <defs>
+              <linearGradient id="paint0_linear_4410_2558" x1="4.88699" y1="0.567993" x2="4.88699" y2="7.26922" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FBDA09"/>
+              <stop offset="1" stop-color="#FFBC00"/>
+              </linearGradient>
+              <linearGradient id="paint1_linear_4410_2558" x1="5.38383" y1="7.73064" x2="0.106367" y2="15.5715" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#F2414E"/>
+              <stop offset="1" stop-color="#E02554"/>
+              </linearGradient>
+              <linearGradient id="paint2_linear_4410_2558" x1="-0.0882594" y1="4.95418" x2="5.08443" y2="11.798" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#28D781"/>
+              <stop offset="1" stop-color="#02F076"/>
+              </linearGradient>
+              <linearGradient id="paint3_linear_4410_2558" x1="0.896001" y1="16.3878" x2="7.64111" y2="15.3467" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#01E2FF"/>
+              <stop offset="1" stop-color="#01C4FF"/>
+              </linearGradient>
+              </defs>
+              </svg>
+          </a>
+        </div>
+        <a class="header__btn js-utm-ref" href="https://app.cryptotab.farm/" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <rect width="4" height="4" fill="white"/>
+            <rect y="6" width="4" height="4" fill="white"/>
+            <rect y="12" width="4" height="4" fill="white"/>
+            <rect x="6" width="4" height="4" fill="white"/>
+            <rect x="6" y="6" width="4" height="4" fill="white"/>
+            <rect x="6" y="12" width="4" height="4" fill="white"/>
+            <rect x="12" width="4" height="4" fill="white"/>
+            <rect x="12" y="6" width="4" height="4" fill="white"/>
+            <rect x="12" y="12" width="4" height="4" fill="white"/>
+            </svg>
+          GET THE APP
+        </a>
+        
+
+
+
+
+  <div class="lang">
+    <div class="lang__current"><img data-src="/static/ctfarm_landing/images/lang/en.png" data-srcset="/static/ctfarm_landing/images/lang/en@2x.png 2x" class="lazy" alt=""/>en</div>
+    <div class="lang__list">
+      
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/de/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/de.png" data-srcset="/static/ctfarm_landing/images/lang/de@2x.png 2x" class="lazy" alt="German"/>de
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/fr/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/fr.png" data-srcset="/static/ctfarm_landing/images/lang/fr@2x.png 2x" class="lazy" alt="France"/>fr
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/es/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/es.png" data-srcset="/static/ctfarm_landing/images/lang/es@2x.png 2x" class="lazy" alt="Spanish"/>es
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/it/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/it.png" data-srcset="/static/ctfarm_landing/images/lang/it@2x.png 2x" class="lazy" alt="Italian"/>it
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/ru/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/ru.png" data-srcset="/static/ctfarm_landing/images/lang/ru@2x.png 2x" class="lazy" alt="Russian"/>ru
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/pt/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/pt.png" data-srcset="/static/ctfarm_landing/images/lang/pt@2x.png 2x" class="lazy" alt="Portuguese"/>pt
+            </a>
+          
+        
+      
+    </div>
+  </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+      <div class="renewed-faq">
+        <div class="renewed-faq-one">
+          <ul class="renewed-faq-breadcrumbs animate__animated" data-anim='fadeInLeft'>
+            <li>
+              <a href="../../index.html">FAQ</a>
+            </li>
+            <li>
+              <a href="#" class="renewed-faq__theme-link renewed-faq__theme-link--name">
+<b>Farm setup</b></a>
+            </li>
+            <li>
+              <span class="renewed-faq__theme-link renewed-faq__theme-link--question"></span>
+            </li>
+
+          </ul>
+          <section class="renewed-faq-card animate__animated" data-anim='fadeInUpBig'>
+            <div
+              class="renewed-faq-card__content"
+              itemscope
+              itemprop="mainEntity"
+              itemtype="https://schema.org/Question"
+            >
+              <h1 itemprop="name">
+	<b>What is the â€œRemote Controlâ€ feature for?</b>
+</h1>
+              <div itemscope itemprop="acceptedAnswer" class="renewed-faq-card__text-block" itemtype="https://schema.org/Answer">
+                <div itemprop="text">
+                  
+	<p>The Remote control feature is needed to control the work of the miner from the Dashboard. You can set up this feature in the CryptoTab Farm miner program installed on your computer.</p>
+	<p>* If the owner of the device doesnâ€™t allow remote control, the functionality in the Dashboard will be limited. You can only monitor this computer: view statistics, track the current mining speed and core temperature, receive notifications.</p>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="renewed-faq-card__sharing">
+              <p>Share this article on</p>
+              <div
+                data-services="fb,wa,tg,tw,rd,li,pt,ln,eml"
+                class="social-btns"
+                data-msg="faq"
+                data-limit="9"
+                data-linkid=""
+                data-description="What will my estimated income be?"
+                data-currenturl="http://cryptotab.farm/en/faq/"
+              >
+
+              </div>
+            </div>
+            <div class="renewed-faq-card__footer">
+              <a href="../../index.html" class="btn renewed-faq-card__back animate__animated" data-anim='fadeInUp'>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="14" viewBox="0 0 20 14" fill="none">
+                  <path fill-rule="evenodd" clip-rule="evenodd" d="M0 7L6.70711 13.7071C7.09763 14.0976 7.7308 14.0976 8.12132 13.7071C8.51184 13.3166 8.51184 12.6834 8.12132 12.2929L3.82843 8L19 8C19.5523 8 20 7.55228 20 7C20 6.44771 19.5523 6 19 6L3.82843 6L8.12132 1.70711C8.51184 1.31658 8.51184 0.683417 8.12132 0.292893C7.7308 -0.0976311 7.09763 -0.0976311 6.70711 0.292893L0 7Z" fill="currentColor"/>
+                  </svg>
+                Back
+              </a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const link = document.querySelector('.renewed-faq__theme-link--name')
+        link.href = `${window.location.origin}/faq#${window.location.pathname.split('https://cryptotab.farm/')[3]}`
+        // Ð²Ñ€ÐµÐ¼ÐµÐ½Ð½Ð¾Ðµ Ñ€ÐµÑˆÐµÐ½Ð¸Ðµ Ð½ÑƒÐ¶Ð½Ð¾ Ð±ÑƒÐ´ÐµÑ‚ Ð¸ÑÐ¿Ñ€Ð°Ð²Ð¸Ñ‚ÑŒ
+        const question = document.querySelector('.renewed-faq-card h1').textContent;
+        document.querySelector('.renewed-faq__theme-link--question').textContent = question;
+      })
+    </script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const animElements = document.querySelectorAll('.animate__animated')
+    const options = {
+          root: null,
+          rootMargin: '0px',
+          thresholds: 0.5
+      }
+
+      const observer = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                  let element = entry.target;
+                  element.classList.add(`${element.dataset.anim}`);
+                  element.classList.add('animated')
+              }
+          })
+      }, options)
+
+      animElements.forEach(item => observer.observe(item));
+  })
+</script>
+
+
+    </div>
+    
+    
+    <!-- ------------------------- STICKY-SHARING START ------------------------- -->
+    
+    <div class="sticky-sharing">
+      <div class="social-btns"
+
+           data-size="s"
+           data-limit="4"
+           data-description="Build a mining farm and boost your income"
+           data-hashtags=""
+      ></div>
+    </div>
+    
+    
+    <!-- ------------------------- STICKY-SHARING END ------------------------- -->
+
+      <!-- ---------------------------- FOOTER START ------------------------- -->
+      
+        
+           
+
+<footer class="footer">
+  <div class="footer__content">
+    <div class="footer__logo">
+      <img data-src="/static/ctfarm_landing/images/ct-farm_logo_white.svg" alt="Cryptotab Logo" width="206"
+        class="lazy" />
+    </div>
+    <div class="footer__menu">
+      <div class="menu">
+        <div class="menu__label">
+          General
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../index.html">Overview Farm</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../qr_code/index.html">Overview Miner</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../index.html">FAQ Farm</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" class='js-utm-uid js-utm-uid-no-utm-content' href="https://cryptobrowser.site/en/cryptotab/">CryptoTab</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="https://cryptobrowser.site/en/affiliate/">Affiliate Program</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../news/index.html">Useful Tips</a>
+        </div>
+      </div>
+      <div class="menu">
+        <div class="menu__label">
+          Additional
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../terms/index.html">Terms of Use</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../terms/affiliate.html">Affiliate Terms Of Use</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../privacy/index.html">Privacy Policy</a>
+        </div>
+        <div class="menu__item">
+          <a target='_top' href="../../../cookie/index.html">Cookie Policy</a>
+        </div>
+        <div class="menu__item">
+          <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSdl5hATDzld10NzUeKvUtzauFfnh14cLE4X9rNVTVOfS-Ts5A/viewform">Advertise</a>
+        </div>
+        <div class="menu__item">
+          <a target="_top" href="../../../tutorial_demo/index.html">Tutorial Demo</a>
+          <span>/</span>
+          <a target="_top" href="../../../tutorial_real/index.html">Real</a>
+        </div>
+      </div>
+      <ul class="menu">
+        <li class="menu__label">
+          CryptoTab Family
+        </li>
+        <li class="menu__item">
+          <a class="js-utm-referrer" target="_top" href="https://play.google.com/store/apps/details?id=pro.cryptotab.android">CryptoTab <b>for Android</b></a>
+        </li>
+
+        <li class="menu__item">
+          <a class="js-utm-uid js-utm-uid-no-utm-content" href="https://cryptobrowser.site/en/">CryptoTab <b>Browser</b></a>
+        </li>
+
+        
+          
+          
+        <li class="menu__item">
+          <a class="js-utm-uid js-utm-uid-no-utm-content" href="https://pool.cryptobrowser.site/landing/?utm_source=cryptotab-farm" target="_blank">CryptoTab <b>Pool</b></a>
+        </li>
+        <li class="menu__item">
+          <a target="_blank" href="https://ctags.app/?utm_source=cryptotab-farm">CTags</a><span
+            class="bonus bonus_red">New</span>
+        </li>
+        <li class="menu__item">
+          <a class='js-utm-query' target="_blank" href="https://ct-vpn.com/en/landing_full/">CT VPN</a>
+        </li>
+        <li class="menu__item">
+          <a target="_blank" href="https://cb.click/">CB.click</a>
+        </li>
+        <li class="menu__item">
+          <a target="_blank" href="https://start.cryptobrowser.site/en/">CryptoTab
+            <b>START</b></a><span class="bonus bonus_blue">Bonus</span>
+        </li>
+        <li class="menu__item">
+          <a target="_blank" href="https://ctabs.net/">CTabs</a><span class="bonus bonus_blue">Bonus</span>
+        </li>
+      </ul>
+      <div class="menu">
+        <div class="menu__label">
+          Stay Connected
+        </div>
+        <div class="menu__item menu__item_join">
+          <div class="social-links">
+            <a href="https://discord.gg/cryptotab-community-997079413013352529" target="_blank"
+              class="social-link social-link_discord" aria-label="Discord link">
+              <svg width="23" height="17" viewBox="0 0 23 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor"
+                  d="M4.15368 1.25275C5.44822 0.539259 6.88632 0.0507577 8.36344 0.00504094L8.56002 0.250576C7.25348 0.643534 5.97894 1.16131 4.80345 1.86967C4.31725 2.17736 3.82305 2.48453 3.40187 2.88263C4.46231 2.33865 5.54626 1.82087 6.69725 1.51061C7.3175 1.33083 7.94477 1.16542 8.58653 1.08991C10.1237 0.868008 11.6878 0.769897 13.2345 0.947627C14.3394 1.07736 15.4291 1.31876 16.4878 1.66831C17.4141 1.98598 18.3133 2.3813 19.1765 2.85026C18.9469 2.61141 18.6742 2.4234 18.4041 2.23797C17.1631 1.38784 15.777 0.782225 14.3554 0.329681C14.4835 0.207427 14.5675 -0.0339981 14.7786 0.00401357C16.6444 0.126267 18.4381 0.876227 19.9543 1.98216C20.0628 2.05459 20.1859 2.12393 20.2324 2.25697C21.1728 4.19454 21.8701 6.25334 22.3488 8.36041C22.7449 10.1316 22.973 11.9443 22.9985 13.7622C23.0025 13.8531 23.0025 13.9512 22.94 14.0247C21.9341 15.4681 20.3444 16.4035 18.6747 16.7851C18.1153 16.913 17.545 16.9849 16.972 16.9998C16.5323 16.4568 16.0996 15.9078 15.674 15.353C16.2717 15.1928 16.8375 14.9323 17.3792 14.6313C18.0885 14.2044 18.7563 13.6651 19.2255 12.9639C18.5532 13.4067 17.8504 13.8043 17.1016 14.095C16.6235 14.2992 16.137 14.4821 15.6435 14.6431C14.7966 14.9205 13.9163 15.0705 13.0354 15.1773C12.019 15.2904 10.9915 15.257 9.97711 15.1383C8.92317 15.0222 7.89124 14.7489 6.88582 14.4099C6.05648 14.1002 5.21563 13.7945 4.46681 13.306C4.27523 13.1817 4.08415 13.0574 3.88657 12.9434C4.1827 13.4129 4.59887 13.7858 5.01905 14.1346C5.70583 14.6714 6.49616 15.0597 7.32101 15.3145C6.94955 15.7997 6.57169 16.2797 6.18753 16.7543C6.0975 16.8504 6.03897 17.0317 5.8784 16.9952C5.0846 16.9629 4.29845 16.8228 3.54043 16.5786C2.49899 16.2088 1.50658 15.6468 0.725753 14.8399C0.45364 14.563 0.186528 14.2666 0.000450617 13.9204C-0.0190575 10.9036 0.596199 7.9089 1.58261 5.076C1.93576 4.07742 2.33392 3.09169 2.82013 2.15373C3.2243 1.79981 3.69149 1.52191 4.15368 1.25275M7.58712 7.5632C6.88883 7.64384 6.27957 8.1493 6.00546 8.80525C5.56277 9.78688 5.8654 11.0762 6.74426 11.6936C7.18845 12.0085 7.76819 12.122 8.29041 11.971C8.86415 11.8267 9.33535 11.3787 9.58895 10.8399C10.0156 9.95125 9.84506 8.78984 9.14377 8.09896C8.73209 7.70446 8.15035 7.48204 7.58712 7.5632M14.6561 7.58066C13.6807 7.76764 12.9804 8.758 12.9929 9.75709C12.9809 10.5451 13.363 11.3464 14.0283 11.7589C14.4695 12.0475 15.0352 12.1092 15.5334 11.9556C16.0872 11.7974 16.5389 11.3556 16.7825 10.8291C17.2251 9.904 17.002 8.67838 16.2277 8.01163C16.0128 7.8255 15.7604 7.69037 15.4888 7.61587C15.2171 7.54138 14.9328 7.52935 14.6561 7.58066V7.58066Z" />
+              </svg>
+            </a>
+            <a href="https://www.facebook.com/CryptoTabFarm" target="_blank" class="social-link social-link_fb"
+              aria-label="Facebook link">
+              <i></i>
+              <svg width="20" height="20" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g clip-path="url(#clip0_315_2045)">
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M9.75668 0C15.1451 0 19.5133 4.3682 19.5133 9.75668C19.5133 14.6265 15.9455 18.6629 11.2812 19.3948C10.7844 19.4727 10.2751 19.5136 9.75644 19.5136C9.23781 19.5136 8.72868 19.473 8.23195 19.3951C3.56776 18.663 0 14.6264 0 9.75668C0 4.3682 4.3682 0 9.75668 0Z"
+                    fill="currentColor" />
+                  <path fill-rule="evenodd" clip-rule="evenodd"
+                    d="M13.5535 12.5773L13.9861 9.757H11.2802V7.9268C11.2802 7.15524 11.6582 6.40314 12.8702 6.40314H14.1004V4.00208C14.1004 4.00208 12.9839 3.81152 11.9164 3.81152C9.68781 3.81152 8.23117 5.16222 8.23117 7.60748V9.757H5.75391V12.5773H8.23117V19.3951C8.72791 19.4731 9.23703 19.5137 9.75566 19.5137C10.2743 19.5137 10.7834 19.4731 11.2802 19.3951V12.5773H13.5535Z"
+                    fill="#000" id="social-link_fb-icon" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_315_2045">
+                    <rect width="20" height="20" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+
+            </a>
+            <a href="https://t.me/CryptoTabChannel" target="_blank" class="social-link social-link_telegram"
+              aria-label="Telegram link">
+              <svg width="21px" height="17px" viewBox="0 0 21 17" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <defs></defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="getcryptotab--chat-icons" transform="translate(-771.000000, -49.000000)">
+                    <g id="first" transform="translate(-100.000000, -61.000000)">
+                      <g id="social" transform="translate(726.000000, 109.000000)">
+                        <path fill="currentColor"
+                          d="M161.907864,16.9314884 L164.926378,2.58440214 C165.073622,1.98970427 165,1.54368086 164.705511,1.24633193 C164.411022,0.948982988 164.116533,0.948982988 163.674799,1.09765746 L145.931827,8.01102025 C145.563715,8.15969472 145.269226,8.30836919 145.121981,8.53138089 C144.974737,8.7543926 144.974737,8.90306707 145.048359,9.05174153 C145.121981,9.200416 145.342848,9.34909047 145.71096,9.42342771 L150.275542,10.8358352 L160.803529,4.14548407 C161.098019,3.92247236 161.318885,3.92247236 161.46613,3.9968096 C161.539752,4.07114683 161.539752,4.14548407 161.392508,4.29415853 L152.852322,12.1739054 L152.484211,16.9314884 C152.7787,16.9314884 153.073189,16.7828139 153.4413,16.485465 L155.649969,14.3296852 L160.214551,17.749198 C161.171641,18.2695586 161.686997,17.9722097 161.907864,16.9314884 Z"
+                          id="Path"></path>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </a>
+            <a href="https://twitter.com/CryptoTabnet" target="_blank" class="social-link social-link_twitter"
+              aria-label="Twitter link">
+              <svg xmlns="http://www.w3.org/2000/svg" width="19" height="17" viewBox="0 0 17 17" fill="none">
+                <path
+                  d="M14.2033 0.0689697H16.9599L10.9374 6.9523L18.0224 16.319H12.4749L8.12992 10.6381L3.15826 16.319H0.399922L6.84159 8.95647L0.0449219 0.0689697H5.73326L9.66076 5.26147L14.2033 0.0689697ZM13.2358 14.669H14.7633L4.90326 1.6323H3.26409L13.2358 14.669Z"
+                  fill="currentColor"></path>
+              </svg>
+            </a>
+
+            <a href="https://www.instagram.com/officialcryptotab/" target="_blank"
+              class="social-link social-link_instagram" aria-label="Instagram link">
+              <svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="ctb_instagram-youtube" transform="translate(-1110.000000, -51.000000)" fill="#494949"
+                    fill-rule="nonzero">
+                    <g id="head" transform="translate(40.000000, 30.000000)">
+                      <g id="social" transform="translate(882.000000, 20.000000)">
+                        <g id="instagram" transform="translate(188.000000, 1.000000)">
+                          <path fill="currentColor"
+                            d="M1.91145833,5.79828774 L1.91145833,14.1841341 C1.91145833,16.3253435 3.62515745,18.0595703 5.74047844,18.0595703 L14.1241049,18.0595703 C16.2379466,18.0595703 17.953125,16.3238517 17.953125,14.1841341 L17.953125,5.79828774 C17.953125,3.65707835 16.2394259,1.92285156 14.1241049,1.92285156 L5.74047844,1.92285156 C3.62663676,1.92285156 1.91145833,3.65857021 1.91145833,5.79828774 Z M0.0885416667,5.79828774 C0.0885416667,2.6390024 2.62007905,0.0771484375 5.74047844,0.0771484375 L14.1241049,0.0771484375 C17.2459848,0.0771484375 19.7760417,2.63751176 19.7760417,5.79828774 L19.7760417,14.1841341 C19.7760417,17.3434195 17.2445043,19.9052734 14.1241049,19.9052734 L5.74047844,19.9052734 C2.61859853,19.9052734 0.0885416667,17.3449101 0.0885416667,14.1841341 L0.0885416667,5.79828774 Z M9.95833333,15.3173828 C7.09623268,15.3173828 4.77604167,12.9681894 4.77604167,10.0703125 C4.77604167,7.17243559 7.09623268,4.82324219 9.95833333,4.82324219 C12.820434,4.82324219 15.140625,7.17243559 15.140625,10.0703125 C15.140625,12.9681894 12.820434,15.3173828 9.95833333,15.3173828 Z M9.95833333,13.4716797 C11.8136649,13.4716797 13.3177083,11.9488357 13.3177083,10.0703125 C13.3177083,8.19178927 11.8136649,6.66894531 9.95833333,6.66894531 C8.10300175,6.66894531 6.59895833,8.19178927 6.59895833,10.0703125 C6.59895833,11.9488357 8.10300175,13.4716797 9.95833333,13.4716797 Z M15.1927083,5.95703125 C14.5023524,5.95703125 13.9427083,5.39039164 13.9427083,4.69140625 C13.9427083,3.99242086 14.5023524,3.42578125 15.1927083,3.42578125 C15.8830643,3.42578125 16.4427083,3.99242086 16.4427083,4.69140625 C16.4427083,5.39039164 15.8830643,5.95703125 15.1927083,5.95703125 Z"
+                            id="instagram_up"></path>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </a>
+            <a href="https://www.youtube.com/c/CryptoTabBrowser" target="_blank" class="social-link social-link_youtube"
+              aria-label="youtube">
+              <svg width="20px" height="14px" viewBox="0 0 20 14" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                xmlns:xlink="http://www.w3.org/1999/xlink">
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="ctb_instagram-youtube" transform="translate(-1038.000000, -702.000000)" fill="#FFFFFF">
+                    <g id="footer" transform="translate(0.000000, 570.000000)">
+                      <g id="Group" transform="translate(897.000000, 95.000000)">
+                        <g id="social" transform="translate(3.000000, 34.000000)">
+                          <g id="youtube_icon" transform="translate(138.000000, 3.000000)">
+                            <path
+                              d="M9.98451161,0 C14.7021717,0 16.9409606,0.2252828 16.9409606,0.2252828 C16.9409606,0.2252828 18.6569011,0.284647225 19.3276204,1.56051046 C19.3276204,1.56051046 19.9983397,2.48627459 19.9983397,7 C19.9983397,7 20.0387416,9.79432782 19.7209449,11.2799013 C19.4031007,12.7654276 18.7012957,13.1992881 18.7012957,13.1992881 C18.7012957,13.1992881 18.2510758,13.6331014 17.2579492,13.7514056 C16.2648227,13.8697569 13.0446,14 9.98451161,14 C9.98451161,14 4.38247739,13.9968383 2.49551791,13.6871806 C0.608558439,13.3775701 0.343474356,11.6280656 0.343474356,11.6280656 C0.343474356,11.6280656 -0.429342946,7.19932856 0.343474356,2.37688927 C0.343474356,2.37688927 0.567158361,0.45061279 2.82177524,0.2252828 C2.82177524,0.2252828 5.26680397,0 9.98451161,0 Z M13.4065934,6.890625 L7.91208791,4.15625 L7.91208791,9.625 L13.4065934,6.890625 Z"
+                              id="youtube_icon-up"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </svg>
+            </a>
+
+
+          </div>
+
+          <span>â€“&nbsp;&nbsp;join us</span>
+        </div>
+        <div class="menu__item" style="margin-top: 20px">
+          <div class="feedback-link">
+            <a href="https://cryptotab.farm/feedback">Support</a>
+          </div>
+        </div>
+        <div class="menu__item">
+          <div class="other-inquiries">
+            Other Inquiries:
+            <a href="https://cryptotab.farm/cdn-cgi/l/email-protection#8cefe3e2f8edeff8f9ffcceffef5fcf8e3f8edeea2eaedfee1"><span class="__cf_email__" data-cfemail="0a6965647e6b697e7f794a6978737a7e657e6b68246c6b7867">[email&#160;protected]</span></a>
+          </div>
+        </div>
+        <div class="menu__item">
+          <div class="bank">
+            <div class="bank__item"><img src="https://cryptotab.farm/static/ctfarm_landing/images/icon-visa.svg" alt="visa" width="52"
+                height="17"></div>
+            <div class="bank__item"><img src="https://cryptotab.farm/static/ctfarm_landing/images/icon-mastercard.svg"
+                alt="mastercard" width="43" height="26"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <div class="footer__content">
+      <div class="footer__copyright">
+        &copy; 2026. <span>All rights reserved. CryptoCompany OÃœ, Rebase tn 1, Tartu 50104, Estonia</span>
+      </div>
+      
+
+
+
+
+  <div class="lang">
+    <div class="lang__current"><img data-src="/static/ctfarm_landing/images/lang/en.png" data-srcset="/static/ctfarm_landing/images/lang/en@2x.png 2x" class="lazy" alt=""/>en</div>
+    <div class="lang__list">
+      
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/de/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/de.png" data-srcset="/static/ctfarm_landing/images/lang/de@2x.png 2x" class="lazy" alt="German"/>de
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/fr/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/fr.png" data-srcset="/static/ctfarm_landing/images/lang/fr@2x.png 2x" class="lazy" alt="France"/>fr
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/es/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/es.png" data-srcset="/static/ctfarm_landing/images/lang/es@2x.png 2x" class="lazy" alt="Spanish"/>es
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/it/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/it.png" data-srcset="/static/ctfarm_landing/images/lang/it@2x.png 2x" class="lazy" alt="Italian"/>it
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/ru/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/ru.png" data-srcset="/static/ctfarm_landing/images/lang/ru@2x.png 2x" class="lazy" alt="Russian"/>ru
+            </a>
+          
+        
+      
+        
+          
+            <a class="lang__item" href="https://cryptotab.farm/pt/faq/farm-setup/remote-control/">
+              <img data-src="/static/ctfarm_landing/images/lang/pt.png" data-srcset="/static/ctfarm_landing/images/lang/pt@2x.png 2x" class="lazy" alt="Portuguese"/>pt
+            </a>
+          
+        
+      
+    </div>
+  </div>
+
+    </div>
+  </div>
+</footer>
+        
+      
+
+      <!-- ---------------------------- FOOTER END ------------------------- -->
+        <a data-scroll href="#header" class="scroll2top" aria-label="Scroll to top">
+          <img data-src="/static/ctfarm_landing/images/scroll2top.svg" alt="Scroll to top" class="lazy" width="18" height="23">
+        </a>
+      </div>
+    
+    
+    <script data-cfasync="false" src="../../../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="../../../../static/ctfarm_landing/scripts/main8915.js?v=42" defer></script>
+
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"cf8f6faa68584be5946b6a1649b6d658","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from cryptotab.farm/en/faq/farm-setup/remote-control/ by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 28 Apr 2026 13:00:17 GMT -->
+</html>
+

