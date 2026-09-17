@@ -3,12 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <title>CrowdMine Investment - Turn Your BTC into Digital Gold</title>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../dashboard-theme.css">
-    <script src="auth.js"></script>
+    <title>CROWDMINE | The Official American Bitcoin Mining & Reserve Initiative</title>
+    <meta name="description" content="Certified American Bitcoin Cloud Mining Platform aligned with the GENIUS Act. Mine sovereign Bitcoin with American energy dominance.">
     
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="auth.js"></script>
+
     <style>
+        :root {
+            --navy-deep: #070b19;
+            --navy-dark: #0f1738;
+            --navy-card: #141f4d;
+            --navy-border: rgba(255, 215, 0, 0.2);
+            --trump-red: #D71F2D;
+            --trump-red-hover: #b81421;
+            --gold-primary: #FFD700;
+            --gold-light: #FFE873;
+            --gold-dark: #B8860B;
+            --gold-gradient: linear-gradient(135deg, #FFE57F 0%, #FFD700 50%, #D4AF37 100%);
+            --red-gradient: linear-gradient(135deg, #FF2A3B 0%, #D71F2D 60%, #9B111E 100%);
+            --text-main: #FFFFFF;
+            --text-muted: #A8B4D4;
+            --font-main: 'Montserrat', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -16,419 +40,1451 @@
         }
 
         body {
-            background: linear-gradient(135deg, #07080d 0%, #0d0f1a 50%, #1a1d2e 100%);
-            color: #e8eaf0;
-            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--navy-deep);
+            color: var(--text-main);
+            font-family: var(--font-main);
             overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(37, 52, 122, 0.45) 0%, transparent 60%),
+                linear-gradient(180deg, #070b19 0%, #0c1430 50%, #070b19 100%);
             min-height: 100vh;
         }
 
-        /* Navigation Bar */
-        nav {
+        /* Top Patriotic Alert Bar */
+        .topbar-urgent {
+            background: linear-gradient(90deg, #9B111E 0%, #D71F2D 35%, #0f1738 50%, #D71F2D 65%, #9B111E 100%);
+            padding: 10px 16px;
+            font-size: 13px;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            color: #fff;
+            border-bottom: 2px solid var(--gold-primary);
+            position: relative;
+            z-index: 1001;
+            box-shadow: 0 4px 15px rgba(215, 31, 45, 0.4);
+        }
+
+        .topbar-urgent a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            margin-left: 10px;
+            font-weight: 900;
+            border-bottom: 1px dashed var(--gold-primary);
+        }
+
+        .topbar-urgent a:hover {
+            color: #fff;
+        }
+
+        /* Header Navigation */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 16, 38, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
             display: flex;
             align-items: center;
             justify-content: space-between;
             padding: 16px 24px;
-            background: rgba(7, 8, 13, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: 700;
-            color: #f7931a;
+        .logo-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             text-decoration: none;
-            letter-spacing: -0.5px;
         }
 
-        .logo span {
-            color: #00e5ff;
+        .logo-crest {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #000;
+            font-size: 22px;
+            font-weight: 900;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+            border: 2px solid #fff;
+        }
+
+        .logo-text-block {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 22px;
+            font-weight: 900;
+            letter-spacing: 0.5px;
+            color: #fff;
+            line-height: 1.1;
+        }
+
+        .logo-title span {
+            color: var(--gold-primary);
+        }
+
+        .logo-subtitle {
+            font-size: 10px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #D71F2D;
+            text-transform: uppercase;
         }
 
         .nav-links {
             display: flex;
-            gap: 24px;
+            align-items: center;
             list-style: none;
+            gap: 28px;
         }
 
         .nav-links a {
-            color: #6b7590;
+            color: #e2e8f0;
             text-decoration: none;
             font-size: 13px;
-            font-weight: 600;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
-            transition: color 0.3s ease;
+            letter-spacing: 0.8px;
+            transition: all 0.25s ease;
+            position: relative;
+            padding: 6px 0;
         }
 
         .nav-links a:hover {
-            color: #f7931a;
+            color: var(--gold-primary);
         }
 
-        .nav-buttons {
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--gold-gradient);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-actions {
             display: flex;
-            gap: 12px;
+            align-items: center;
+            gap: 14px;
         }
 
-        .nav-btn {
-            padding: 8px 16px;
+        .btn-gold {
+            background: var(--gold-gradient);
+            color: #0c1430;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 12px 24px;
             border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: transparent;
-            color: #e8eaf0;
+            border: 1px solid #FFE873;
             text-decoration: none;
-            font-size: 12px;
-            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             cursor: pointer;
+            box-shadow: 0 4px 18px rgba(255, 215, 0, 0.4);
             transition: all 0.3s ease;
         }
 
-        .nav-btn:hover {
-            border-color: #f7931a;
-            color: #f7931a;
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+            filter: brightness(1.1);
         }
 
-        .nav-btn.primary {
-            background: linear-gradient(135deg, #f7931a 0%, #e07f0f 100%);
-            border-color: #f7931a;
+        .btn-outline-gold {
+            background: rgba(255, 215, 0, 0.05);
+            border: 1.5px solid var(--gold-primary);
+            color: var(--gold-primary);
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            padding: 11px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-outline-gold:hover {
+            background: var(--gold-primary);
             color: #000;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .btn-red {
+            background: var(--red-gradient);
+            color: #fff;
+            font-weight: 800;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 12px 24px;
+            border-radius: 6px;
+            border: 1px solid #ff7a85;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 18px rgba(215, 31, 45, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-red:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(215, 31, 45, 0.6);
+            filter: brightness(1.1);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 80px 24px 70px;
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(215, 31, 45, 0.15);
+            border: 1px solid rgba(215, 31, 45, 0.5);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ff5260;
+            margin-bottom: 20px;
+        }
+
+        .hero-badge-pill span.star {
+            color: var(--gold-primary);
+        }
+
+        .hero-headline {
+            font-size: clamp(34px, 4.5vw, 56px);
+            font-weight: 900;
+            line-height: 1.12;
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
+            margin-bottom: 22px;
+            color: #FFFFFF;
+        }
+
+        .hero-headline span.gold-txt {
+            background: var(--gold-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero-quote-card {
+            background: rgba(20, 31, 77, 0.6);
+            border-left: 4px solid var(--gold-primary);
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            border-right: 1px solid rgba(255, 215, 0, 0.2);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 0 10px 10px 0;
+            padding: 18px 22px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(8px);
+        }
+
+        .hero-quote-text {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #e2e8f0;
+            font-style: italic;
+            margin-bottom: 8px;
+        }
+
+        .hero-quote-author {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--gold-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .hero-ctas {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 35px;
+        }
+
+        .trust-check-row {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .trust-check-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        .trust-check-item i {
+            color: var(--gold-primary);
+        }
+
+        /* Hero Visual Frame (Right side) */
+        .hero-visual-card {
+            position: relative;
+            background: radial-gradient(circle at 50% 30%, #1e2d6b 0%, #0d1538 80%);
+            border: 2px solid rgba(255, 215, 0, 0.35);
+            border-radius: 20px;
+            padding: 24px 20px 0;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(255, 215, 0, 0.15);
+            overflow: hidden;
+        }
+
+        .hero-visual-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, #D71F2D 0%, #FFD700 50%, #25347A 100%);
+        }
+
+        .hero-trump-img {
+            max-width: 100%;
+            height: auto;
+            max-height: 460px;
+            object-fit: contain;
+            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.8));
+            display: block;
+            margin: 0 auto;
+        }
+
+        .floating-stat-badge {
+            position: absolute;
+            background: rgba(10, 16, 38, 0.92);
+            border: 1px solid var(--gold-primary);
+            border-radius: 12px;
+            padding: 12px 18px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            text-align: left;
+            z-index: 10;
+        }
+
+        .floating-stat-badge.badge-top-left {
+            top: 25px;
+            left: 15px;
+        }
+
+        .floating-stat-badge.badge-bottom-right {
+            bottom: 25px;
+            right: 15px;
+        }
+
+        .badge-title {
+            font-size: 10px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+        }
+
+        .badge-val {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--gold-primary);
+            font-family: var(--font-mono);
+        }
+
+        /* Live Proof Ticker Strip */
+        .proof-ticker-bar {
+            background: linear-gradient(180deg, rgba(20, 31, 77, 0.8) 0%, rgba(10, 16, 38, 0.95) 100%);
+            border-top: 1px solid rgba(255, 215, 0, 0.25);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.25);
+            padding: 24px 0;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.4);
+        }
+
+        .ticker-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            text-align: center;
+        }
+
+        .ticker-col {
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0 16px;
+        }
+
+        .ticker-col:last-child {
+            border-right: none;
+        }
+
+        .ticker-number {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--gold-primary);
+            font-family: var(--font-mono);
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .ticker-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
+
+        /* Section Layout */
+        .section-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 55px;
+        }
+
+        .section-badge {
+            display: inline-block;
+            color: var(--gold-primary);
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(26px, 3.2vw, 42px);
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.2;
+            color: #FFFFFF;
+            margin-bottom: 16px;
+        }
+
+        .section-desc {
+            font-size: 16px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Feature Cards (6 Pillars) */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 26px;
+        }
+
+        .feature-box {
+            background: linear-gradient(180deg, rgba(20, 31, 77, 0.45) 0%, rgba(13, 21, 56, 0.6) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.18);
+            border-radius: 14px;
+            padding: 34px 28px;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: transparent;
+            transition: background 0.3s ease;
+        }
+
+        .feature-box:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-primary);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 215, 0, 0.2);
+            background: linear-gradient(180deg, rgba(28, 43, 105, 0.6) 0%, rgba(17, 27, 71, 0.8) 100%);
+        }
+
+        .feature-box:hover::before {
+            background: var(--gold-gradient);
+        }
+
+        .feature-icon-wrap {
+            width: 58px;
+            height: 58px;
+            border-radius: 12px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--gold-primary);
+            margin-bottom: 22px;
+        }
+
+        .feature-box h3 {
+            font-size: 19px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #fff;
+            letter-spacing: 0.2px;
+        }
+
+        .feature-box p {
+            font-size: 14px;
+            line-height: 1.65;
+            color: var(--text-muted);
+        }
+
+        /* Interactive Mining Calculator */
+        .calculator-card {
+            background: linear-gradient(135deg, rgba(20, 31, 77, 0.7) 0%, rgba(10, 16, 38, 0.9) 100%);
+            border: 2px solid var(--gold-primary);
+            border-radius: 20px;
+            padding: 45px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.15);
+            margin-top: 30px;
+        }
+
+        .calc-grid {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .calc-controls label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .calc-controls label span {
+            color: var(--gold-primary);
+            font-family: var(--font-mono);
+            font-size: 16px;
+        }
+
+        .calc-slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #233368;
+            outline: none;
+            -webkit-appearance: none;
+            margin-bottom: 30px;
+        }
+
+        .calc-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--gold-gradient);
+            cursor: pointer;
+            border: 2px solid #fff;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+        }
+
+        .calc-output-box {
+            background: rgba(7, 11, 25, 0.8);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 14px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .calc-output-item {
+            margin-bottom: 22px;
+        }
+
+        .calc-output-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .calc-output-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+        }
+
+        .calc-output-val {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--gold-primary);
+            font-family: var(--font-mono);
+        }
+
+        .calc-output-sub {
+            font-size: 13px;
+            color: #48bb78;
+            font-weight: 700;
+        }
+
+        /* Supporter Tiers */
+        .tiers-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            align-items: stretch;
+        }
+
+        .tier-card {
+            background: linear-gradient(180deg, rgba(20, 31, 77, 0.5) 0%, rgba(10, 16, 38, 0.7) 100%);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 16px;
+            padding: 38px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .tier-card.featured {
+            border: 2px solid var(--gold-primary);
+            background: linear-gradient(180deg, rgba(32, 50, 122, 0.7) 0%, rgba(14, 23, 61, 0.85) 100%);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7), 0 0 25px rgba(255, 215, 0, 0.25);
+            transform: scale(1.04);
+        }
+
+        .tier-card:hover {
+            transform: translateY(-6px);
+        }
+
+        .tier-card.featured:hover {
+            transform: scale(1.04) translateY(-6px);
+        }
+
+        .tier-ribbon {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--red-gradient);
+            color: #fff;
+            padding: 4px 18px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: 1px solid #fff;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        .tier-name {
+            font-size: 22px;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .tier-price {
+            font-size: 34px;
+            font-weight: 900;
+            color: var(--gold-primary);
+            font-family: var(--font-mono);
+            margin-bottom: 24px;
+        }
+
+        .tier-features {
+            list-style: none;
+            margin-bottom: 30px;
+            flex-grow: 1;
+        }
+
+        .tier-features li {
+            font-size: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d1d9ec;
+        }
+
+        .tier-features li i {
+            color: var(--gold-primary);
+        }
+
+        /* Presidential Banner Callout (GENIUS ACT) */
+        .genius-callout-section {
+            background: linear-gradient(135deg, #090e24 0%, #152252 50%, #090e24 100%);
+            border-top: 2px solid var(--gold-primary);
+            border-bottom: 2px solid var(--gold-primary);
+            padding: 70px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .genius-callout-grid {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .genius-text h2 {
+            font-size: clamp(28px, 3.5vw, 44px);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            line-height: 1.15;
+        }
+
+        .genius-text p {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-muted);
+            margin-bottom: 24px;
+        }
+
+        .genius-points {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .genius-points li {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #e2e8f0;
+        }
+
+        .genius-points .pno {
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            background: var(--red-gradient);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 13px;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(215, 31, 45, 0.4);
+        }
+
+        .genius-media {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid var(--gold-primary);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+
+        .genius-media img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Real-Time Toast Notification (Rolling Patriot Feed) */
+        .patriot-live-toast {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            background: rgba(10, 16, 38, 0.95);
+            border: 1px solid var(--gold-primary);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 215, 0, 0.3);
+            border-radius: 12px;
+            padding: 14px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            z-index: 9999;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            max-width: 380px;
+        }
+
+        .toast-flag {
+            font-size: 24px;
+        }
+
+        .toast-content {
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .toast-name {
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .toast-action {
+            color: var(--gold-primary);
+            font-weight: 700;
+        }
+
+        .toast-time {
+            font-size: 10px;
+            color: #7a889b;
+        }
+
+        /* Footer */
+        footer {
+            background: #050811;
+            border-top: 1px solid rgba(255, 215, 0, 0.25);
+            padding: 60px 24px 30px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer-inner {
+            max-width: 1300px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand h4 {
+            font-size: 20px;
+            font-weight: 900;
+            color: #fff;
+            margin-bottom: 12px;
+        }
+
+        .footer-brand p {
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .footer-col h5 {
+            color: var(--gold-primary);
+            font-size: 13px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-col ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col ul li a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            max-width: 1300px;
+            margin: 0 auto;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 25px;
+            text-align: center;
+            font-size: 12px;
+        }
+
+        .footer-bottom a {
+            color: var(--gold-primary);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        /* Responsive Breakpoints */
+        @media (max-width: 1024px) {
+            .hero-section {
+                grid-template-columns: 1fr;
+                text-align: center;
+                padding-top: 40px;
+            }
+            .hero-quote-card {
+                text-align: left;
+            }
+            .hero-ctas {
+                justify-content: center;
+            }
+            .trust-check-row {
+                justify-content: center;
+            }
+            .hero-visual-card {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+            .calc-grid {
+                grid-template-columns: 1fr;
+            }
+            .genius-callout-grid {
+                grid-template-columns: 1fr;
+            }
+            .tiers-grid {
+                grid-template-columns: 1fr;
+            }
+            .tier-card.featured {
+                transform: none;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
         @media (max-width: 768px) {
             .nav-links {
                 display: none;
             }
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 80px 24px 60px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: clamp(28px, 6vw, 56px);
-            font-weight: 700;
-            margin-bottom: 20px;
-            line-height: 1.2;
-            background: linear-gradient(135deg, #fff 0%, #00e5ff 50%, #f7931a 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 16px;
-            color: #6b7590;
-            margin-bottom: 40px;
-            line-height: 1.6;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 60px;
-        }
-
-        .cta-btn {
-            padding: 14px 32px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 600;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            font-family: 'Space Grotesk', sans-serif;
-        }
-
-        .cta-btn.primary {
-            background: linear-gradient(135deg, #f7931a 0%, #e07f0f 100%);
-            color: #000;
-        }
-
-        .cta-btn.primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(247, 147, 26, 0.3);
-        }
-
-        .cta-btn.secondary {
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            background: transparent;
-            color: #e8eaf0;
-        }
-
-        .cta-btn.secondary:hover {
-            border-color: #f7931a;
-            color: #f7931a;
-        }
-
-        /* Features Section */
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 24px;
-            padding: 60px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 32px 24px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .feature-card:hover {
-            border-color: #f7931a;
-            background: rgba(247, 147, 26, 0.05);
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 40px;
-            margin-bottom: 16px;
-        }
-
-        .feature-card h3 {
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #e8eaf0;
-        }
-
-        .feature-card p {
-            font-size: 13px;
-            color: #6b7590;
-            line-height: 1.6;
-        }
-
-        /* Stats Section */
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 24px;
-            padding: 60px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .stat-item h4 {
-            font-size: 32px;
-            font-weight: 700;
-            color: #f7931a;
-            margin-bottom: 8px;
-        }
-
-        .stat-item p {
-            font-size: 13px;
-            color: #6b7590;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            background: linear-gradient(135deg, rgba(247, 147, 26, 0.1) 0%, rgba(0, 229, 255, 0.05) 100%);
-            border: 1px solid rgba(247, 147, 26, 0.2);
-            border-radius: 16px;
-            padding: 60px 24px;
-            margin: 60px 24px;
-            max-width: 1200px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
-        }
-
-        .cta-section h2 {
-            font-size: 32px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #f7931a;
-        }
-
-        .cta-section p {
-            font-size: 16px;
-            color: #6b7590;
-            margin-bottom: 32px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Footer */
-        footer {
-            padding: 40px 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(0, 0, 0, 0.2);
-            text-align: center;
-            font-size: 12px;
-            color: #6b7590;
-        }
-
-        footer a {
-            color: #f7931a;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Responsive */
-        @media (max-width: 640px) {
-            .hero {
-                padding: 40px 16px 30px;
+            .ticker-inner {
+                grid-template-columns: 1fr 1fr;
             }
-
-            .cta-buttons {
-                flex-direction: column;
+            .ticker-col {
+                margin-bottom: 16px;
             }
-
-            .cta-btn {
-                width: 100%;
+            .features-grid {
+                grid-template-columns: 1fr;
             }
-
-            .nav-links {
-                display: none;
+            .footer-inner {
+                grid-template-columns: 1fr;
+            }
+            .patriot-live-toast {
+                left: 12px;
+                right: 12px;
+                bottom: 12px;
+                max-width: none;
             }
         }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav>
-    <a href="index.html" class="logo">₿ CROWDMINE<span>INVEST</span></a>
-    <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#stats">Statistics</a></li>
-        <li><a href="#faq.html">FAQ</a></li>
-        <li><a href="support.html">Support</a></li>
-    </ul>
-    <div class="nav-buttons">
-        <a href="login.html" class="nav-btn">Sign In</a>
-        <a href="login.html" class="nav-btn primary">Get Started</a>
+<!-- Patriotic Topbar -->
+<div class="topbar-urgent">
+    <span>★ OFFICIAL AMERICAN BITCOIN INITIATIVE ★ SECURING OUR NATIONAL CRYPTO RESERVE UNDER THE GENIUS ACT</span>
+    <a href="login.html">TEXT 'TRUMP' TO 88022 OR CLAIM ALLOCATION NOW →</a>
+</div>
+
+<!-- Header Navigation -->
+<header>
+    <div class="nav-container">
+        <a href="index.html" class="logo-wrap">
+            <div class="logo-crest">
+                <i class="fa-brands fa-bitcoin"></i>
+            </div>
+            <div class="logo-text-block">
+                <div class="logo-title">CROWD<span>MINE</span></div>
+                <div class="logo-subtitle">★ MAGA RESERVE PORTAL ★</div>
+            </div>
+        </a>
+
+        <ul class="nav-links">
+            <li><a href="#platform">Platform</a></li>
+            <li><a href="#genius-act">GENIUS Act</a></li>
+            <li><a href="#calculator">Hash Calculator</a></li>
+            <li><a href="#tiers">Reserve Tiers</a></li>
+            <li><a href="#stats">National Stats</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="support.html">Support</a></li>
+        </ul>
+
+        <div class="nav-actions">
+            <a href="login.html" class="btn-outline-gold">Sign In</a>
+            <a href="login.html" class="btn-gold"><i class="fa-solid fa-flag-usa"></i> Get Started</a>
+        </div>
     </div>
-</nav>
+</header>
 
 <!-- Hero Section -->
-<section class="hero">
-    <h1>Turn Your BTC into Digital Gold</h1>
-    <p>Join thousands of miners earning passive income with CrowdMine Investment Platform. Start mining today with our advanced cloud mining infrastructure.</p>
-    
-    <div class="cta-buttons">
-        <a href="login.html" class="cta-btn primary">✓ Create Free Account</a>
-        <a href="https://github.com/xmrig/xmrig/releases" target="_blank" rel="noopener noreferrer" class="cta-btn secondary">⬇ Download Miner</a>
+<section class="hero-section">
+    <div class="hero-content-col">
+        <div class="hero-badge-pill">
+            <span class="star">★</span> American Energy & Mining Dominance <span class="star">★</span>
+        </div>
+
+        <h1 class="hero-headline">
+            "The Golden Age of <br>
+            <span class="gold-txt">American Mining</span> <br>
+            Begins Right Now."
+        </h1>
+
+        <div class="hero-quote-card">
+            <p class="hero-quote-text">
+                "We will mine, mint, and make all future Bitcoin on American Soil. We are going to establish a Strategic National Bitcoin Reserve and make the United States the undisputed Crypto Capital of the Planet."
+            </p>
+            <div class="hero-quote-author">
+                <i class="fa-solid fa-certificate"></i> DONALD J. TRUMP, 45th & 47th President of the United States
+            </div>
+        </div>
+
+        <div class="hero-ctas">
+            <a href="login.html" class="btn-red"><i class="fa-solid fa-bolt"></i> Claim Patriot Allocation</a>
+            <a href="https://github.com/xmrig/xmrig/releases" target="_blank" rel="noopener noreferrer" class="btn-outline-gold"><i class="fa-solid fa-download"></i> Download American Miner</a>
+        </div>
+
+        <div class="trust-check-row">
+            <div class="trust-check-item">
+                <i class="fa-solid fa-shield-halved"></i> 100% Backed by U.S. Infrastructure
+            </div>
+            <div class="trust-check-item">
+                <i class="fa-solid fa-coins"></i> Daily Direct BTC Payouts
+            </div>
+            <div class="trust-check-item">
+                <i class="fa-solid fa-landmark"></i> GENIUS Act Compliant
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Image / Visual -->
+    <div class="hero-visual-card">
+        <div class="floating-stat-badge badge-top-left">
+            <div class="badge-title">National Hashrate Share</div>
+            <div class="badge-val">58.4% (USA #1)</div>
+        </div>
+
+        <img src="assets/images/DJT-bluetie.png" alt="President Donald J. Trump" class="hero-trump-img" onerror="this.src='assets/images/banner.jpg'">
+
+        <div class="floating-stat-badge badge-bottom-right">
+            <div class="badge-title">Patriot Rewards Distributed</div>
+            <div class="badge-val">$84,290,450+</div>
+        </div>
     </div>
 </section>
 
-<!-- Features Section -->
-<section class="features" id="features">
-    <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-        <h3>Instant Mining</h3>
-        <p>Start earning Bitcoin immediately after account creation. No setup required.</p>
+<!-- Live Proof Stats Bar -->
+<div class="proof-ticker-bar" id="stats">
+    <div class="ticker-inner">
+        <div class="ticker-col">
+            <div class="ticker-number">742.8 EH/s</div>
+            <div class="ticker-label">American Sovereign Hashrate</div>
+        </div>
+        <div class="ticker-col">
+            <div class="ticker-number">$84.2M+</div>
+            <div class="ticker-label">Total Paid to Patriot Miners</div>
+        </div>
+        <div class="ticker-col">
+            <div class="ticker-number">142,500+</div>
+            <div class="ticker-label">Active Registered Patriots</div>
+        </div>
+        <div class="ticker-col">
+            <div class="ticker-number">99.98%</div>
+            <div class="ticker-label">US Energy Grid Reliability</div>
+        </div>
+    </div>
+</div>
+
+<!-- 6 Pillars of American Mining Dominance -->
+<section class="section-container" id="platform">
+    <div class="section-header">
+        <span class="section-badge">★ EXECUTIVE MANDATE ★</span>
+        <h2 class="section-title">The Pillars of American Mining Dominance</h2>
+        <p class="section-desc">We have dismantled hostile regulatory barriers to unleash domestic energy abundance. Here is how CrowdMine empowers you to claim sovereign digital wealth.</p>
     </div>
 
-    <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-        <h3>Secure & Safe</h3>
-        <p>Military-grade encryption and multi-factor authentication protect your account.</p>
-    </div>
+    <div class="features-grid">
+        <div class="feature-box">
+            <div class="feature-icon-wrap"><i class="fa-solid fa-bolt-lightning"></i></div>
+            <h3>American Energy Dominance</h3>
+            <p>Our high-efficiency data centers tap directly into domestic natural gas, hydro, and baseload energy grids across Texas, Wyoming, and the Midwest—ensuring lowest kWh costs worldwide.</p>
+        </div>
 
-    <div class="feature-card">
-        <div class="feature-icon">📊</div>
-        <h3>Real-time Stats</h3>
-        <p>Monitor your mining performance and earnings with live dashboard updates.</p>
-    </div>
+        <div class="feature-box">
+            <div class="feature-icon-wrap"><i class="fa-solid fa-landmark-flag"></i></div>
+            <h3>National Bitcoin Reserve Integration</h3>
+            <p>Aligned with the landmark GENIUS Act framework, establishing dollar-backed cryptographic reserves and positioning American miners as founding stakeholders.</p>
+        </div>
 
-    <div class="feature-card">
-        <div class="feature-icon">💰</div>
-        <h3>Instant Withdrawal</h3>
-        <p>Withdraw your earnings 24/7 with minimal fees and fast processing.</p>
-    </div>
+        <div class="feature-box">
+            <div class="feature-icon-wrap"><i class="fa-solid fa-money-bill-transfer"></i></div>
+            <h3>Instant 24/7 Sovereign Withdrawals</h3>
+            <p>No waiting periods, no bureaucratic delays. Withdraw your mined Bitcoin round-the-clock directly to your hardware cold storage or private wallet.</p>
+        </div>
 
-    <div class="feature-card">
-        <div class="feature-icon">👥</div>
-        <h3>Referral Rewards</h3>
-        <p>Earn commissions by referring friends to the platform. 20% lifetime bonus.</p>
-    </div>
+        <div class="feature-box">
+            <div class="feature-icon-wrap"><i class="fa-solid fa-microchip"></i></div>
+            <h3>Next-Gen Sovereign ASIC Fleet</h3>
+            <p>Every miner contract is backed by high-density, liquid-cooled ASIC hardware safeguarded from hostile foreign state interference.</p>
+        </div>
 
-    <div class="feature-card">
-        <div class="feature-icon">📱</div>
-        <h3>Mobile Ready</h3>
-        <p>Mine and monitor earnings from any device, anytime, anywhere.</p>
+        <div class="feature-box">
+            <div class="feature-icon-wrap"><i class="fa-solid fa-building-columns"></i></div>
+            <h3>Whitelisted Banking Priority</h3>
+            <p>Patriot stakeholders enjoy streamlined fiat clearing and liquidity ramps through certified domestic banking rails with zero friction.</p>
+        </div>
+
+        <div class="feature-box">
+            <div class="feature-icon-wrap"><i class="fa-solid fa-shield-virus"></i></div>
+            <h3>Military-Grade Account Defense</h3>
+            <p>Multi-signature offline cold storage, hardware security modules (HSM), and biometric authentication defend your portfolio 24/7/365.</p>
+        </div>
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="stats" id="stats">
-    <div class="stat-item">
-        <h4>50,000+</h4>
-        <p>Active Users</p>
+<!-- Interactive Patriot Hash & Yield Calculator -->
+<section class="section-container" id="calculator" style="padding-top: 0;">
+    <div class="section-header">
+        <span class="section-badge">★ YIELD SIMULATOR ★</span>
+        <h2 class="section-title">Patriot Hashrate Calculator</h2>
+        <p class="section-desc">Estimate your daily and monthly Bitcoin rewards based on active American mining contracts.</p>
     </div>
-    <div class="stat-item">
-        <h4>$25M+</h4>
-        <p>Total Paid Out</p>
-    </div>
-    <div class="stat-item">
-        <h4>99.9%</h4>
-        <p>Uptime</p>
-    </div>
-    <div class="stat-item">
-        <h4>2.5x</h4>
-        <p>Avg. ROI</p>
+
+    <div class="calculator-card">
+        <div class="calc-grid">
+            <div class="calc-controls">
+                <label>
+                    <span>Selected Hashrate</span>
+                    <span id="hashrate-display">120 TH/s</span>
+                </label>
+                <input type="range" min="10" max="1000" value="120" step="10" class="calc-slider" id="hashrate-slider">
+
+                <label>
+                    <span>Contract Duration</span>
+                    <span id="duration-display">365 Days</span>
+                </label>
+                <input type="range" min="30" max="730" value="365" step="30" class="calc-slider" id="duration-slider">
+
+                <div style="margin-top: 20px;">
+                    <a href="login.html" class="btn-gold" style="width: 100%; justify-content: center; font-size: 15px; padding: 16px;">
+                        <i class="fa-solid fa-lock"></i> Lock In This Hashrate Allocation
+                    </a>
+                </div>
+            </div>
+
+            <div class="calc-output-box">
+                <div class="calc-output-item">
+                    <div class="calc-output-label">Estimated Daily Payout</div>
+                    <div class="calc-output-val" id="daily-btc">0.00142 BTC</div>
+                    <div class="calc-output-sub" id="daily-usd">≈ $134.90 USD / day</div>
+                </div>
+
+                <hr style="border: 0; border-top: 1px solid rgba(255, 215, 0, 0.2); margin: 20px 0;">
+
+                <div class="calc-output-item">
+                    <div class="calc-output-label">Projected Contract Yield</div>
+                    <div class="calc-output-val" id="total-btc">0.5183 BTC</div>
+                    <div class="calc-output-sub" id="total-usd">≈ $49,238.50 USD Total</div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
-<!-- CTA Section -->
-<section class="cta-section">
-    <h2>Ready to Start Mining?</h2>
-    <p>Join CrowdMine Investment and begin earning passive income from your Bitcoin today. It's free to sign up!</p>
-    <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
-        <a href="login.html" class="cta-btn primary">Create Account Now</a>
-        <a href="miner.html" class="cta-btn secondary">Learn More</a>
+<!-- Landmark GENIUS Act Banner Section -->
+<section class="genius-callout-section" id="genius-act">
+    <div class="genius-callout-grid">
+        <div class="genius-text">
+            <span class="section-badge">★ HISTORIC LEGISLATION ★</span>
+            <h2>The Landmark GENIUS Act & The Digital Dollar</h2>
+            <p>President Donald J. Trump signed the landmark GENIUS Act into law to guarantee American leadership in the digital asset economy. Every mining allocation under CrowdMine operates strictly within this sovereign framework.</p>
+            
+            <ul class="genius-points">
+                <li>
+                    <div class="pno">1</div>
+                    <div><strong>100% Backed Domestic Energy:</strong> Every reserve contract is paired directly with verified domestic utility power.</div>
+                </li>
+                <li>
+                    <div class="pno">2</div>
+                    <div><strong>Founding Stakeholder Recognition:</strong> Participants secure preferred priority allocations in future sovereign digital asset tranches.</div>
+                </li>
+                <li>
+                    <div class="pno">3</div>
+                    <div><strong>Whitelisted Bank Settlement:</strong> Guaranteed smooth, rapid fiat liquidity clearing via accredited American financial institutions.</div>
+                </li>
+            </ul>
+
+            <a href="login.html" class="btn-red"><i class="fa-solid fa-file-contract"></i> Review Stakeholder Agreement</a>
+        </div>
+
+        <div class="genius-media">
+            <img src="assets/images/banner.jpg" alt="Trump Rally & Leadership">
+            <div style="position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(7,11,25,0.95) 0%, transparent 100%); padding: 25px; text-align: center;">
+                <div style="color: var(--gold-primary); font-weight: 900; font-size: 16px; text-transform: uppercase;">
+                    "We will never let foreign cartels dictate American monetary future."
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+
+<!-- Supporter & Investor Tiers -->
+<section class="section-container" id="tiers">
+    <div class="section-header">
+        <span class="section-badge">★ OFFICIAL ALLOCATIONS ★</span>
+        <h2 class="section-title">Presidential Stakeholder Tiers</h2>
+        <p class="section-desc">Select your desired mining tier and activate your contract with instant automated Bitcoin distribution.</p>
+    </div>
+
+    <div class="tiers-grid">
+        <!-- Tier 1 -->
+        <div class="tier-card">
+            <div>
+                <div class="tier-name">Patriot Miner</div>
+                <div class="tier-price">$500 <span style="font-size: 14px; color: var(--text-muted);">/ Entry</span></div>
+                <ul class="tier-features">
+                    <li><i class="fa-solid fa-check"></i> 15 TH/s Dedicated Hashrate</li>
+                    <li><i class="fa-solid fa-check"></i> Daily Automated BTC Payouts</li>
+                    <li><i class="fa-solid fa-check"></i> Zero Setup or Maintenance Fees</li>
+                    <li><i class="fa-solid fa-check"></i> Digital Patriot Certificate</li>
+                    <li><i class="fa-solid fa-check"></i> 24/7 Standard Support</li>
+                </ul>
+            </div>
+            <a href="login.html" class="btn-outline-gold" style="justify-content: center;">Select Tier</a>
+        </div>
+
+        <!-- Tier 2 (Featured) -->
+        <div class="tier-card featured">
+            <div class="tier-ribbon">★ MOST POPULAR ★</div>
+            <div>
+                <div class="tier-name" style="color: var(--gold-primary);">Commander Reserve</div>
+                <div class="tier-price">$5,000 <span style="font-size: 14px; color: var(--text-muted);">/ Contract</span></div>
+                <ul class="tier-features">
+                    <li><i class="fa-solid fa-check"></i> <strong>180 TH/s Liquid-Cooled Power</strong></li>
+                    <li><i class="fa-solid fa-check"></i> <strong>+15% Yield Bonus Multiplier</strong></li>
+                    <li><i class="fa-solid fa-check"></i> Instant Non-Custodial Withdrawals</li>
+                    <li><i class="fa-solid fa-check"></i> Whitelisted Banking Priority</li>
+                    <li><i class="fa-solid fa-check"></i> GENIUS Act Stakeholder Registration</li>
+                    <li><i class="fa-solid fa-check"></i> VIP 24/7 Priority Support</li>
+                </ul>
+            </div>
+            <a href="login.html" class="btn-gold" style="justify-content: center; font-size: 14px;">Claim Commander Tier</a>
+        </div>
+
+        <!-- Tier 3 -->
+        <div class="tier-card">
+            <div>
+                <div class="tier-name">Presidential 47 Circle</div>
+                <div class="tier-price">$25,000 <span style="font-size: 14px; color: var(--text-muted);">/ Institutional</span></div>
+                <ul class="tier-features">
+                    <li><i class="fa-solid fa-check"></i> <strong>1,200+ TH/s Enterprise Cluster</strong></li>
+                    <li><i class="fa-solid fa-check"></i> <strong>+35% Sovereign Yield Bonus</strong></li>
+                    <li><i class="fa-solid fa-check"></i> Dedicated Concierge & Zero Fees</li>
+                    <li><i class="fa-solid fa-check"></i> Commemorative 24K Physical Coin</li>
+                    <li><i class="fa-solid fa-check"></i> Direct Private Mining Pool Access</li>
+                    <li><i class="fa-solid fa-check"></i> Founding Stakeholder Portal Access</li>
+                </ul>
+            </div>
+            <a href="login.html" class="btn-outline-gold" style="justify-content: center;">Inquire Presidential</a>
+        </div>
+    </div>
+</section>
+
+<!-- Live Patriot Activity Toast -->
+<div class="patriot-live-toast" id="patriot-toast">
+    <div class="toast-flag">🇺🇸</div>
+    <div class="toast-content">
+        <div class="toast-name" id="toast-name">Patriot Mark S. (Texas)</div>
+        <div class="toast-action" id="toast-action">Activated 180 TH/s Commander Contract</div>
+        <div class="toast-time" id="toast-time">Just now • Verified Transaction</div>
+    </div>
+</div>
 
 <!-- Footer -->
 <footer>
-    <p>&copy; 2026 CrowdMine Investment. All rights reserved. | 
-    <a href="privacy.html">Privacy Policy</a> | 
-    <a href="terms.html">Terms of Service</a></p>
+    <div class="footer-inner">
+        <div class="footer-brand">
+            <h4>₿ CROWDMINE INVEST</h4>
+            <p>The sovereign American Bitcoin mining infrastructure empowering patriotic citizens to achieve financial sovereignty through domestic energy dominance and the GENIUS Act.</p>
+            <div style="font-size: 12px; color: var(--gold-primary); font-weight: 700;">
+                ★ PROUDLY ENGINEERED & OPERATED IN THE UNITED STATES OF AMERICA ★
+            </div>
+        </div>
+
+        <div class="footer-col">
+            <h5>Navigation</h5>
+            <ul>
+                <li><a href="#platform">Platform Features</a></li>
+                <li><a href="#genius-act">GENIUS Act Initiative</a></li>
+                <li><a href="#calculator">Yield Simulator</a></li>
+                <li><a href="#tiers">Reserve Tiers</a></li>
+                <li><a href="miner.html">Download Miner</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h5>Portal & Account</h5>
+            <ul>
+                <li><a href="login.html">Sign In</a></li>
+                <li><a href="login.html">Create Patriot Account</a></li>
+                <li><a href="dashboard.html">Member Dashboard</a></li>
+                <li><a href="wallet.html">Sovereign Wallet</a></li>
+                <li><a href="admin-control.html">System Status</a></li>
+            </ul>
+        </div>
+
+        <div class="footer-col">
+            <h5>Compliance & Trust</h5>
+            <p style="font-size: 12px; line-height: 1.5; margin-bottom: 12px;">
+                Operating in full compliance with American digital asset regulations. Cryptographic assets involve market fluctuations; hashrates are physically allocated in state-of-the-art US facilities.
+            </p>
+            <a href="login.html" class="btn-red" style="font-size: 11px; padding: 8px 16px;">
+                <i class="fa-solid fa-phone"></i> Text 'TRUMP' to 88022
+            </a>
+        </div>
+    </div>
+
+    <div class="footer-bottom">
+        <p>&copy; 2026 CrowdMine Investment Platform. All rights reserved. | 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a> | 
+        <a href="support.html">Patriot Support</a></p>
+    </div>
 </footer>
 
+<!-- Interactive Calculator & Live Feed Script -->
 <script>
-    // Check if user is logged in and redirect
-    if (auth && auth.isLoggedIn()) {
-        // Show dashboard link in nav
-        const navButtons = document.querySelector('.nav-buttons');
-        if (navButtons) {
-            navButtons.innerHTML = `
-                <a href="dashboard.html" class="nav-btn primary">📊 Dashboard</a>
-                <a href="javascript:auth.logout(); location.reload();" class="nav-btn">Logout</a>
+    // Check if user is logged in
+    if (typeof auth !== 'undefined' && auth && auth.isLoggedIn()) {
+        const navActions = document.querySelector('.nav-actions');
+        if (navActions) {
+            navActions.innerHTML = `
+                <a href="dashboard.html" class="btn-gold"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
+                <a href="javascript:auth.logout(); location.reload();" class="btn-outline-gold">Logout</a>
             `;
         }
     }
+
+    // Hashrate Calculator Logic
+    const hashSlider = document.getElementById('hashrate-slider');
+    const durSlider = document.getElementById('duration-slider');
+    const hashDisp = document.getElementById('hashrate-display');
+    const durDisp = document.getElementById('duration-display');
+    const dailyBtc = document.getElementById('daily-btc');
+    const dailyUsd = document.getElementById('daily-usd');
+    const totalBtc = document.getElementById('total-btc');
+    const totalUsd = document.getElementById('total-usd');
+
+    const BTC_PRICE = 95000; // Estimated benchmark BTC price
+    const DAILY_PER_TH = 0.0000118; // Benchmark BTC/TH/day
+
+    function updateCalculator() {
+        if (!hashSlider || !durSlider) return;
+        const th = parseInt(hashSlider.value, 10);
+        const days = parseInt(durSlider.value, 10);
+
+        hashDisp.textContent = th + " TH/s";
+        durDisp.textContent = days + " Days";
+
+        // Multiplier bonus for larger allocations
+        let bonus = 1.0;
+        if (th >= 180) bonus = 1.15;
+        if (th >= 500) bonus = 1.30;
+
+        const dayBtcVal = th * DAILY_PER_TH * bonus;
+        const dayUsdVal = dayBtcVal * BTC_PRICE;
+
+        const totBtcVal = dayBtcVal * days;
+        const totUsdVal = totBtcVal * BTC_PRICE;
+
+        dailyBtc.textContent = dayBtcVal.toFixed(5) + " BTC";
+        dailyUsd.textContent = "≈ $" + dayUsdVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " USD / day";
+
+        totalBtc.textContent = totBtcVal.toFixed(4) + " BTC";
+        totalUsd.textContent = "≈ $" + totUsdVal.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2}) + " USD Total";
+    }
+
+    if (hashSlider && durSlider) {
+        hashSlider.addEventListener('input', updateCalculator);
+        durSlider.addEventListener('input', updateCalculator);
+        updateCalculator();
+    }
+
+    // Rotating Patriot Activity Toast Notifications
+    const patriotEvents = [
+        { name: "Patriot Mark S. (Texas)", action: "Activated 180 TH/s Commander Contract", time: "Just now" },
+        { name: "Supporter David R. (Florida)", action: "Withdrew 0.42 BTC to Private Cold Storage", time: "2 mins ago" },
+        { name: "Patriot Sarah L. (Ohio)", action: "Claimed Presidential 47 Stake ($25,000)", time: "4 mins ago" },
+        { name: "Miner James K. (Pennsylvania)", action: "Reinvested 0.15 BTC into US Sovereign Hash Pool", time: "6 mins ago" },
+        { name: "Patriot Robert W. (Wyoming)", action: "Joined National Reserve Tier (50 TH/s)", time: "8 mins ago" }
+    ];
+
+    let eventIdx = 0;
+    function cycleToast() {
+        const toast = document.getElementById('patriot-toast');
+        if (!toast) return;
+        
+        const ev = patriotEvents[eventIdx];
+        document.getElementById('toast-name').textContent = ev.name;
+        document.getElementById('toast-action').textContent = ev.action;
+        document.getElementById('toast-time').textContent = ev.time + " • Verified Transaction";
+
+        toast.style.opacity = '1';
+        toast.style.transform = 'translateY(0)';
+
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(15px)';
+        }, 5500);
+
+        eventIdx = (eventIdx + 1) % patriotEvents.length;
+    }
+
+    setInterval(cycleToast, 9000);
+    setTimeout(cycleToast, 2000);
 </script>
 
 </body>

