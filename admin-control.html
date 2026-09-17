@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -191,6 +191,33 @@
             </div>
         </div>
 
+        <!-- Deposit Approvals Tab -->
+        <div id="tab-deposits" class="tab-content">
+            <div class="header">
+                <h1>Deposit Verification & Approval Center</h1>
+                <p style="color:var(--text-dim);font-size:13px">Review user-submitted payment proofs, transaction hashes, and activate mining nodes upon confirmation.</p>
+            </div>
+            <div class="panel">
+                <div class="panel-title">All Deposit Submissions</div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Deposit ID</th>
+                            <th>User Email</th>
+                            <th>Amount ($USD)</th>
+                            <th>Currency / Method</th>
+                            <th>Proof Receipt</th>
+                            <th>Tx Ref / Hash</th>
+                            <th>Date / Time</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="allDepositsBody"></tbody>
+                </table>
+            </div>
+        </div>
+
         <!-- Users Tab -->
         <div id="tab-users" class="tab-content">
             <div class="header"><h1>User Registry</h1></div>
@@ -266,11 +293,11 @@
         const adminSession = localStorage.getItem('cm_admin_session');
         
         if (!adminSession) {
-            const password = prompt('🔐 ADMIN ACCESS REQUIRED\n\nEnter admin password:');
+            const password = prompt('ðŸ” ADMIN ACCESS REQUIRED\n\nEnter admin password:');
             if (password === adminPassword) {
                 localStorage.setItem('cm_admin_session', 'true');
             } else {
-                alert('❌ Access Denied: Invalid admin password');
+                alert('âŒ Access Denied: Invalid admin password');
                 window.location.href = 'index.html';
                 return;
             }

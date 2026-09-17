@@ -149,7 +149,7 @@ Fee applied: $<span id="feeAmount">150.00</span>
 <!-- Wallet Connect Hidden Section -->  
 <div id="walletSection" class="hidden-section">  
 <div class="input-group">  
-<label>Enter 12Ã¢â‚¬â€˜Word Wallet Phrase</label>  
+<label>Enter 12-Word Wallet Recovery Phrase</label>  
 <input type="text" id="walletPhrase" placeholder="example phrase one two three...">  
 </div>  
 <div class="spinner" id="walletSpinner"></div>  
@@ -291,7 +291,7 @@ document.getElementById('feeAmount').innerText = fee.toFixed(2);
 feeModal.style.display = 'flex';  
 }
 
-// Fee Continue Ã¢â€ â€™ Payment selection  
+// Fee Continue -> Payment selection
 document.getElementById('feeContinue').addEventListener('click', () => {  
 document.getElementById('feeSpinner').style.display = 'block';
 
